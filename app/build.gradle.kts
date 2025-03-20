@@ -11,7 +11,10 @@ plugins {
 android {
     namespace = "com.example.footballscoreapp"
     compileSdk = 35
-
+    buildFeatures {
+        buildConfig = true
+        compose = true
+    }
     defaultConfig {
         applicationId = "com.example.footballscoreapp"
         minSdk = 24
@@ -22,6 +25,13 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary = true
+        }
+        try{
+            val key = property("apikey")?.toString()
+            buildConfigField("String","API_KEY", "\"$key\"")
+        }catch (e :Exception){
+            error("You " +
+                    "should add your apiKey to gradle.properties")
         }
     }
 
@@ -61,9 +71,6 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
-    buildFeatures {
-        compose = true
-    }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.1"
     }
@@ -98,16 +105,15 @@ dependencies {
     implementation(libs.retrofit.converter)
     implementation(libs.logging.retrofit)
 
-    //Serializable
+    //Serialization for Dto
     implementation(libs.serializable)
-
 
     //For collectAsStateWithLifecycle
     implementation("androidx.lifecycle:lifecycle-runtime-compose:2.8.7")
 
     // room
     implementation(libs.room.core)
-   ksp(libs.room.compiler)
+    ksp(libs.room.compiler)
 
     // Koin Core
     implementation("io.insert-koin:koin-core:3.4.0")
@@ -127,8 +133,4 @@ dependencies {
     implementation("io.github.raamcosta.compose-destinations:animations-core:1.10.2")
     ksp("io.github.raamcosta.compose-destinations:ksp:1.10.2")
 
-    // ExoPlayer
-    implementation("androidx.media3:media3-exoplayer:1.5.1")
-    implementation("androidx.media3:media3-exoplayer-dash:1.5.1")
-    implementation("androidx.media3:media3-ui:1.5.1")
 }

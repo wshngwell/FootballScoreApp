@@ -1,18 +1,17 @@
 package com.example.footballscoreapp.domain.entities
 
+import java.util.Date
+
 data class MatchEntity(
 
-    val matchId: Int,
+    val matchId: String,
     val leagueInfo: LeagueEntity,
     val status: MatchStatusEntity,
-    val arenaName: String,
+    val homeTeamImageUrl: String,
+    val awayTeamImageUrl: String,
     val homeTeamName: String,
-    val homeTeamId: Int,
+    val homeTeamId: String,
     val awayTeamName: String,
-    val awayTeamId: Int,
-    val countryName: String,
-    val startTime: String,
-    val matchStatisticsEntity: MatchStatisticsEntity?,
-    val lineUp: List<FootballPlayerEntity>?
-
+    val awayTeamId: String,
+    val startTime: Date,
 )

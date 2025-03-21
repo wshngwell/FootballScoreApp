@@ -26,12 +26,14 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
-        try{
+        try {
             val key = property("apikey")?.toString()
-            buildConfigField("String","API_KEY", "\"$key\"")
-        }catch (e :Exception){
-            error("You " +
-                    "should add your apiKey to gradle.properties")
+            buildConfigField("String", "API_KEY", "\"$key\"")
+        } catch (e: Exception) {
+            error(
+                "You " +
+                        "should add your apiKey to gradle.properties"
+            )
         }
     }
 
@@ -104,9 +106,6 @@ dependencies {
     implementation(libs.retrofit.core)
     implementation(libs.retrofit.converter)
     implementation(libs.logging.retrofit)
-
-    //Serialization for Dto
-    implementation(libs.serializable)
 
     //For collectAsStateWithLifecycle
     implementation("androidx.lifecycle:lifecycle-runtime-compose:2.8.7")

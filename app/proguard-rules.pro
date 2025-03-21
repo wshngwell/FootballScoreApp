@@ -1,10 +1,5 @@
--keep class com.example.footballscoreapp.data.remote.dto.MatchByDateItemDto { *; }
--keep class com.example.footballscoreapp.data.remote.dto.MatchesByDateAnswerDto { *; }
--keep class com.example.footballscoreapp.data.remote.dto.MatchesByDateAnswerItemDto { *; }
+-keep class com.example.footballscoreapp.data.remote.dto.** { *; }
 
--keep class com.google.gson.reflect.TypeToken
--keep class * extends com.google.gson.reflect.TypeToken
--keep public class * implements java.lang.reflect.Type
 
 -dontwarn org.bouncycastle.jsse.BCSSLParameters
 -dontwarn org.bouncycastle.jsse.BCSSLSocket

@@ -1,10 +1,12 @@
 package com.example.footballscoreapp.domain.entities
 
-sealed class LoadingException : Throwable() {
+sealed class LoadingException(ex: Throwable) : Throwable(ex) {
 
-    data object NetworkError : LoadingException()
+    override val cause: Throwable = ex
 
-    data object HttpError : LoadingException()
+    class NetworkError(ex: Throwable) : LoadingException(ex)
 
-    data object OtherError : LoadingException()
+    class HttpError(ex: Throwable) : LoadingException(ex)
+
+    class OtherError(ex: Throwable) : LoadingException(ex)
 }

@@ -1,4 +1,4 @@
-package com.example.footballscoreapp.presentation
+package com.example.footballscoreapp.domain
 
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.channels.Channel

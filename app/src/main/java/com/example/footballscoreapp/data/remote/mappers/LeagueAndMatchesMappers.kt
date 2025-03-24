@@ -50,5 +50,6 @@ private fun String.toMatchStatusEntity() =
         "upcoming" -> MatchStatusEntity.NOT_STARTED
         "live" -> MatchStatusEntity.STARTED
         "postponed" -> MatchStatusEntity.POSTPONED
-        else -> MatchStatusEntity.FINISHED
+        "finished" -> MatchStatusEntity.FINISHED
+        else -> MatchStatusEntity.ERROR
     }

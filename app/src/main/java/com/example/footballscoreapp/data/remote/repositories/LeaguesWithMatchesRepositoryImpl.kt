@@ -28,7 +28,7 @@ class LeaguesWithMatchesRepositoryImpl(
                 val matchesEntities =
                     apiService.getMatchesByDate(formattedDate).flatMap { matches ->
                         myLog("С сервера пришло " + matches.matches.size.toString())
-                        matches.matches.take(50)
+                        matches.matches
                             .mapNotNull {
                                 myLog(it.startTime.toString())
                                 it.mapToMatchEntity()

@@ -93,7 +93,6 @@ dependencies {
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
-    implementation(libs.androidx.material3)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -131,5 +130,12 @@ dependencies {
     //compose destinations library
     implementation("io.github.raamcosta.compose-destinations:animations-core:1.10.2")
     ksp("io.github.raamcosta.compose-destinations:ksp:1.10.2")
+
+    //Coil
+    implementation("io.coil-kt.coil3:coil-compose:3.0.0")
+    implementation("io.coil-kt.coil3:coil-network-okhttp:3.0.0")
+
+    //material3
+    implementation("androidx.compose.material3:material3:1.3.0")
 
 }

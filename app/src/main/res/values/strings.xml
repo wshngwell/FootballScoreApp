@@ -8,4 +8,9 @@
     <string name="today">Сегодня</string>
     <string name="tomorrow">Завтра</string>
     <string name="yesterday">Вчера</string>
+    <string name="favourite_match">favourite match</string>
+    <string name="match_not_started">матч не начался</string>
+    <string name="match_is_going">матч идет</string>
+    <string name="match_finished">матч окончен</string>
+    <string name="match_postponed">матч перенесен</string>
 </resources>

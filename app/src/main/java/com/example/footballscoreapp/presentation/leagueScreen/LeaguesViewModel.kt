@@ -3,8 +3,8 @@ package com.example.footballscoreapp.presentation.leagueScreen
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.footballscoreapp.domain.SingleFlowEvent
-import com.example.footballscoreapp.domain.entities.LeagueEntity
 import com.example.footballscoreapp.domain.entities.LoadingException
+import com.example.footballscoreapp.domain.entities.MatchEntity
 import com.example.footballscoreapp.domain.entities.TResult
 import com.example.footballscoreapp.domain.usecases.GetMatchesUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -34,7 +34,7 @@ class LeaguesViewModel(
     data class DayState(
         val isLoading: Boolean = false,
         val matchCount: Int = 0,
-        val leagueList: List<LeagueEntity> = listOf(),
+        val leaguesWithMatchesUIModelList: List<LeaguesWithMatchesUIModel> = listOf(),
         val error: LoadingException? = null
     )
 
@@ -42,45 +42,37 @@ class LeaguesViewModel(
     val state = _state.asStateFlow()
 
     sealed interface Intent {
-        data class OnLeagueClicked(val leagueEntity: LeagueEntity) : Intent
         data class ChangeCurrentDay(val leagueDay: LeagueDay) : Intent
         data object LoadLeagues : Intent
-
+        data class OnMatchClicked(val matchEntity: MatchEntity) : Intent
     }
 
     sealed interface Event {
-        data class OnNavigateToMatchesScreen(val leagueEntity: LeagueEntity) : Event
+        data class OnNavigateToDetailedMatchesScreen(val matchEntity: MatchEntity) : Event
     }
 
     private val _event = SingleFlowEvent<Event>(viewModelScope)
     val event = _event.flow
 
-
     fun sendIntent(intent: Intent) {
         when (intent) {
-            is Intent.OnLeagueClicked -> _event.emit(Event.OnNavigateToMatchesScreen(intent.leagueEntity))
             is Intent.ChangeCurrentDay -> {
-                if (intent.leagueDay == state.value.currentLeagueDay) return
-                else _state.update { it.copy(currentLeagueDay = intent.leagueDay) }
+                _state.update { it.copy(currentLeagueDay = intent.leagueDay) }
             }
 
             is Intent.LoadLeagues -> {
-                _state.update { it.copy(isRefreshing = true) }
-                viewModelScope.launch {
-                    state.value.leagueDayLists.forEach {
-                        viewModelScope.launch {
-                            loadLeagues(it)
-                        }
-                    }
-                    _state.update { it.copy(isRefreshing = false) }
-                }
-
-
+                launchLoadLeagues()
             }
+
+            is Intent.OnMatchClicked -> _event.emit(Event.OnNavigateToDetailedMatchesScreen(intent.matchEntity))
         }
     }
 
     init {
+        launchLoadLeagues()
+    }
+
+    private fun launchLoadLeagues() {
         state.value.leagueDayLists.forEach {
             viewModelScope.launch {
                 loadLeagues(it)
@@ -127,15 +119,20 @@ class LeaguesViewModel(
 
             is TResult.Success -> {
                 val matchesCount = tResult.data.map { it.matchId }.count()
-                val leaguesList = tResult.data
-                    .distinctBy { it.leagueInfo.leagueId }
-                    .map { matches -> matches.leagueInfo }
+                val map = tResult.data.groupBy { it.leagueInfo }
+                val leaguesList = map.keys
+                    .map {
+                        LeaguesWithMatchesUIModel(
+                            league = it,
+                            matches = map[it]!!,
+                        )
+                    }
                 _state.update {
                     when (leagueDay) {
                         LeagueDay.TODAY -> it.copy(
                             today = it.today.copy(
                                 matchCount = matchesCount,
-                                leagueList = leaguesList,
+                                leaguesWithMatchesUIModelList = leaguesList,
                                 error = null
                             )
                         )
@@ -144,7 +141,7 @@ class LeaguesViewModel(
                             it.copy(
                                 tomorrow = it.tomorrow.copy(
                                     matchCount = matchesCount,
-                                    leagueList = leaguesList,
+                                    leaguesWithMatchesUIModelList = leaguesList,
                                     error = null
                                 )
                             )
@@ -154,7 +151,7 @@ class LeaguesViewModel(
                             it.copy(
                                 yesterday = it.yesterday.copy(
                                     matchCount = matchesCount,
-                                    leagueList = leaguesList,
+                                    leaguesWithMatchesUIModelList = leaguesList,
                                     error = null
                                 )
                             )

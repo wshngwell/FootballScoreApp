@@ -11,7 +11,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
-import com.example.footballscoreapp.presentation.NavGraphs
+import com.example.footballscoreapp.presentation.leagueScreen.NavGraphs
 import com.example.footballscoreapp.ui.theme.FootballScoreAppTheme
 import com.ramcosta.composedestinations.DestinationsNavHost
 import com.ramcosta.composedestinations.animations.defaults.RootNavGraphDefaultAnimations
@@ -31,7 +31,6 @@ class MainActivity : ComponentActivity() {
                                 exitTransition = { slideOutHorizontally { -it } },
                                 popExitTransition = { slideOutHorizontally { it } },
                                 popEnterTransition = { slideInHorizontally { -it } }
-
                             )
                         )
                         DestinationsNavHost(

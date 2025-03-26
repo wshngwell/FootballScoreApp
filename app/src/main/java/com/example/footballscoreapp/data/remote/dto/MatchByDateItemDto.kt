@@ -29,4 +29,8 @@ data class MatchByDateItemDto(
     val startTime: String? = null,
     @SerializedName("status")
     val status: String? = null,
+    @SerializedName("away_team_score")
+    val awayTeamGoals: String? = null,
+    @SerializedName("home_team_score")
+    val homeTeamGoals: String? = null
 )

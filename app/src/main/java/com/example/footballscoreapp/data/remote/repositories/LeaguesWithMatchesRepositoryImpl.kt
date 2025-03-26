@@ -30,7 +30,6 @@ class LeaguesWithMatchesRepositoryImpl(
                         myLog("С сервера пришло " + matches.matches.size.toString())
                         matches.matches
                             .mapNotNull {
-                                myLog(it.startTime.toString())
                                 it.mapToMatchEntity()
                             }
                     }

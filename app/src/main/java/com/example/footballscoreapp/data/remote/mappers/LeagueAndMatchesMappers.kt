@@ -23,11 +23,13 @@ fun MatchByDateItemDto.mapToMatchEntity() = runCatching {
             name = awayTeamName!!,
             id = awayTeamId!!,
             imageUrl = awayTeamHashImage!!.convertHashToUrl(),
+            goals = awayTeamGoals.convertToGoal(status.toMatchStatusEntity())
         ),
         homeTeamMatchInfo = TeamMatchInfo(
             name = homeTeamName!!,
             id = homeTeamId!!,
             imageUrl = homeTeamHashImage!!.convertHashToUrl(),
+            goals = homeTeamGoals.convertToGoal(status.toMatchStatusEntity())
         ),
         startTime = startTime!!.toDate()
     )
@@ -36,8 +38,14 @@ fun MatchByDateItemDto.mapToMatchEntity() = runCatching {
     null
 }
 
-private fun String.convertHashToUrl() = "https://images.sportdevs.com/$this.png"
+private fun String?.convertToGoal(statusEntity: MatchStatusEntity) = when (statusEntity) {
+    MatchStatusEntity.NOT_STARTED, MatchStatusEntity.POSTPONED -> null
+    MatchStatusEntity.STARTED, MatchStatusEntity.FINISHED -> {
+        this!!.toInt()
+    }
+}
 
+private fun String.convertHashToUrl() = "https://images.sportdevs.com/$this.png"
 
 private fun String.toDate(): Date {
     val format = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX", Locale.getDefault())
@@ -51,5 +59,5 @@ private fun String.toMatchStatusEntity() =
         "live" -> MatchStatusEntity.STARTED
         "postponed" -> MatchStatusEntity.POSTPONED
         "finished" -> MatchStatusEntity.FINISHED
-        else -> MatchStatusEntity.ERROR
+        else -> throw RuntimeException("такого статуса нет")
     }

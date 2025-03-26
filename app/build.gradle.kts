@@ -26,15 +26,19 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
-        try {
-            val key = property("apikey")?.toString()
-            buildConfigField("String", "API_KEY", "\"$key\"")
-        } catch (e: Exception) {
-            error(
-                "You " +
-                        "should add your apiKey to gradle.properties"
-            )
-        }
+        val secretsFile = rootProject.file("local.properties")
+        val properties = Properties()
+        properties.load(secretsFile.inputStream())
+
+        // Return an empty string in case of property being null
+        val apiKey = properties.getProperty("apikey") ?: ""
+
+        // For accessing the property using BuildConfig
+        buildConfigField(
+            type = "String",
+            name = "API_KEY",
+            value = apiKey
+        )
     }
 
     signingConfigs {

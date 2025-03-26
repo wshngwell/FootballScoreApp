@@ -4,7 +4,6 @@ enum class MatchStatusEntity {
     NOT_STARTED,
     STARTED,
     FINISHED,
-    POSTPONED,
-    ERROR
+    POSTPONED
 }
 

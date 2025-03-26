@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.TabRow
@@ -19,6 +20,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -29,20 +31,21 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.footballscoreapp.R
-import com.example.footballscoreapp.presentation.GsonUtil.toJson
 import com.example.footballscoreapp.presentation.MyProgressbar
-import com.example.footballscoreapp.presentation.destinations.MatchesScreenDestination
 import com.example.footballscoreapp.presentation.leagueScreen.LeaguesViewModel.Event
 import com.example.footballscoreapp.presentation.leagueScreen.LeaguesViewModel.Intent
 import com.example.footballscoreapp.presentation.leagueScreen.LeaguesViewModel.State
 import com.example.footballscoreapp.presentation.parseLoadingExceptionToStringResource
-import com.example.footballscoreapp.ui.theme.firstColorOfLeagueCard
+import com.example.footballscoreapp.ui.theme.firstColorOfLeagueCardBackGround
 import com.example.footballscoreapp.ui.theme.myBackGround
 import com.example.footballscoreapp.ui.theme.onLeagueColorContent
-import com.example.footballscoreapp.ui.theme.secondColorOfLeagueCard
+import com.example.footballscoreapp.ui.theme.screenStartOrEndPadding
+import com.example.footballscoreapp.ui.theme.screenTopPadding
+import com.example.footballscoreapp.ui.theme.secondColorOfLeagueCardBackGround
+import com.example.footballscoreapp.ui.theme.textPadding
+import com.example.footballscoreapp.utils.myLog
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.RootNavGraph
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
@@ -70,8 +73,8 @@ fun LeaguesScreen(
     LaunchedEffect(Unit) {
         event.filterIsInstance<Event>().collect {
             when (it) {
-                is Event.OnNavigateToMatchesScreen -> {
-                    navigator.navigate(MatchesScreenDestination(leagueEntityGson = it.leagueEntity.toJson()))
+                is Event.OnNavigateToDetailedMatchesScreen -> {
+                    //navigateToDetailedMatchScreen
                 }
             }
         }
@@ -82,7 +85,6 @@ fun LeaguesScreen(
     )
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Preview
 @Composable
 private fun UI(
@@ -101,7 +103,11 @@ private fun UI(
         modifier = Modifier
             .fillMaxSize()
             .background(myBackGround)
-            .padding(start = 5.dp, top = 20.dp, end = 5.dp)
+            .padding(
+                start = screenStartOrEndPadding,
+                top = screenTopPadding,
+                end = screenStartOrEndPadding
+            )
     ) {
         TabRow(
             modifier = Modifier.fillMaxWidth(),
@@ -124,84 +130,107 @@ private fun UI(
                         .weight(1f)
                         .clickable {
                             scrollCoroutineScope.launch {
-                                pagerState.scrollToPage(
-                                    page = day.ordinal,
+                                pagerState.animateScrollToPage(
+                                    page = day.ordinal
                                 )
                             }
                         }
                         .background(
                             color = if (pagerState.currentPage == day.ordinal)
-                                firstColorOfLeagueCard else secondColorOfLeagueCard
+                                firstColorOfLeagueCardBackGround else secondColorOfLeagueCardBackGround
                         )
-                        .padding(10.dp),
+                        .padding(textPadding),
                     color = onLeagueColorContent,
                     textAlign = TextAlign.Center
                 )
             }
         }
         HorizontalPager(state = pagerState) { page ->
+            myLog("RECOMPOSITION")
             val leagueDayState = when (state.leagueDayLists[page]) {
                 LeagueDay.TODAY -> state.today
                 LeagueDay.TOMORROW -> state.tomorrow
                 LeagueDay.YESTERDAY -> state.yesterday
             }
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(myBackGround)
-                    .graphicsLayer {
-                        val pageOffset = (
-                                pagerState.currentPage - page
-                                ).toFloat() + pagerState.currentPageOffsetFraction
-                        alpha = 1f - pageOffset.absoluteValue.coerceIn(0f, 1f)
-                    },
-
-                ) {
-                if (leagueDayState.isLoading) {
-                    MyProgressbar(
-                        modifier = Modifier.align(Alignment.Center)
-                    )
-                } else {
-                    PullToRefreshBox(
-                        isRefreshing = state.isRefreshing,
-                        onRefresh = { intent(Intent.LoadLeagues) }
-                    ) {
-                        LazyColumn {
-                            if (leagueDayState.error != null) {
-                                item {
-                                    Box(
-                                        modifier = Modifier
-                                            .fillParentMaxSize()
-                                    ) {
-                                        Text(
-                                            modifier = Modifier.align(Alignment.Center),
-                                            text = stringResource(leagueDayState.error.parseLoadingExceptionToStringResource()),
-                                            color = onLeagueColorContent,
-                                        )
-                                    }
-
-                                }
-                            } else {
-                                item {
-                                    AllLeaguesInfoCard(
-                                        gamesCount = leagueDayState.matchCount
-                                    )
-                                }
-                                items(leagueDayState.leagueList, key = { it.leagueId }) {
-                                    LeagueCard(
-                                        leagueEntity = it,
-                                        onLeagueCardClicked = {
-                                            intent(Intent.OnLeagueClicked(it))
-                                        }
-                                    )
-                                }
-                            }
-
-                        }
-                    }
-                }
-            }
+            PagerCard(
+                leagueDayState = leagueDayState,
+                isRefreshing = state.isRefreshing,
+                pagerState = pagerState,
+                page = page,
+                intent = intent
+            )
 
         }
     }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun PagerCard(
+    leagueDayState: LeaguesViewModel.DayState = LeaguesViewModel.DayState(),
+    isRefreshing: Boolean = false,
+    pagerState: PagerState,
+    page: Int = 0,
+    intent: (Intent) -> Unit = {}
+) {
+    SideEffect {
+        myLog("RECOMPOSItion")
+    }
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(myBackGround)
+            .graphicsLayer {
+                val pageOffset = (
+                        pagerState.currentPage - page
+                        ).toFloat() + pagerState.currentPageOffsetFraction
+                alpha = 1f - pageOffset.absoluteValue.coerceIn(0f, 1f)
+            },
+
+        ) {
+        if (leagueDayState.isLoading) {
+            MyProgressbar(
+                modifier = Modifier.align(Alignment.Center)
+            )
+        } else {
+            PullToRefreshBox(
+                isRefreshing = isRefreshing,
+                onRefresh = { intent(Intent.LoadLeagues) }
+            ) {
+                LazyColumn {
+                    if (leagueDayState.error != null) {
+                        item {
+                            Box(
+                                modifier = Modifier
+                                    .fillParentMaxSize()
+                            ) {
+                                Text(
+                                    modifier = Modifier.align(Alignment.Center),
+                                    text = stringResource(leagueDayState.error.parseLoadingExceptionToStringResource()),
+                                    color = onLeagueColorContent,
+                                )
+                            }
+
+                        }
+                    } else {
+                        item {
+                            AllLeaguesInfoCard(
+                                gamesCount = leagueDayState.matchCount
+                            )
+                        }
+
+                        items(
+                            leagueDayState.leaguesWithMatchesUIModelList,
+                            key = { it.league.leagueId }) {
+                            LeagueCard(
+                                leagueEntity = it,
+                            )
+                        }
+                    }
+
+                }
+            }
+        }
+    }
+
 }

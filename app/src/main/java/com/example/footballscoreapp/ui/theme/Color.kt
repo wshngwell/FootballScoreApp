@@ -15,10 +15,20 @@ val secondColorOfMatchCardBackground = Color(0xFF6C1ABB)
 val matchColorCardBackGround = Brush.linearGradient(
     colors = listOf(secondColorOfMatchCardBackground, firstColorOfMatchCardBackground),
 )
+
+val scrollBarColor = Color(0xFF990F3F).copy(alpha = 0.5f)
 val myBackGround = Color(0xFF2E3144)
 val allGamesInfoBackGround = Color(0xFF3F51B5)
 
 val onLeagueColorContent = Color.White
+
+val onDefaultMatchColorContent = Color.White
+val onMatchLiveCardColorContent = Color.Red
+val onMatchNotLiveCardColorContent = Color.White
+
+val bottomBarBackGroundColor = Color(0xFF990F3F).copy(alpha = 0.3f)
+val selectedBottomBarColor = Color.White
+val unselectedBottomBarColor = Color.White.copy(alpha = 0.5f)
 
 val myProgressBarColor =
     Brush.linearGradient(listOf(firstColorOfLeagueCardBackGround, Color.Red))

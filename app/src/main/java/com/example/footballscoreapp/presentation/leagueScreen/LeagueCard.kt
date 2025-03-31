@@ -19,13 +19,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import com.example.footballscoreapp.R
 import com.example.footballscoreapp.domain.entities.MatchEntity
 import com.example.footballscoreapp.presentation.mathcesUi.MatchCard
 import com.example.footballscoreapp.presentation.myLeaguesWithMatchesUIModelMock
 import com.example.footballscoreapp.ui.theme.imagePadding
+import com.example.footballscoreapp.ui.theme.imageSize
 import com.example.footballscoreapp.ui.theme.leagueCardColorBackGround
 import com.example.footballscoreapp.ui.theme.onLeagueColorContent
 import com.example.footballscoreapp.ui.theme.paddingCard
@@ -41,7 +41,7 @@ fun LeagueCard(
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(paddingCard)
+            .padding(top = paddingCard, bottom = paddingCard)
     ) {
         Column {
             Row(
@@ -53,7 +53,7 @@ fun LeagueCard(
             ) {
                 AsyncImage(
                     modifier = Modifier
-                        .size(50.dp)
+                        .size(imageSize)
                         .padding(start = imagePadding, end = imagePadding),
                     model = leagueEntity.league.leagueImageUrl,
                     contentDescription = stringResource(R.string.league)
@@ -72,7 +72,7 @@ fun LeagueCard(
                         MatchCard(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .padding(paddingCard),
+                                .padding(top = paddingCard, bottom = paddingCard),
                             matchEntity = it,
                             onMatchCardClicked = onMatchItemClicked
                         )

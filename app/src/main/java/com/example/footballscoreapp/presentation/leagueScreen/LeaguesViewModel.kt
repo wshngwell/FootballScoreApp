@@ -119,20 +119,22 @@ class LeaguesViewModel(
 
             is TResult.Success -> {
                 val matchesCount = tResult.data.map { it.matchId }.count()
-                val map = tResult.data.groupBy { it.leagueInfo }
-                val leaguesList = map.keys
-                    .map {
-                        LeaguesWithMatchesUIModel(
-                            league = it,
-                            matches = map[it]!!,
-                        )
-                    }
+                val map = tResult.data
+                    .groupBy { it.leagueInfo }
+
+                val distinctLeaguesWithMatches = map.keys.distinctBy { it.leagueId }
+                val leagueListWithMatches = distinctLeaguesWithMatches.map {
+                    LeaguesWithMatchesUIModel(
+                        league = it,
+                        matches = map[it]!!,
+                    )
+                }
                 _state.update {
                     when (leagueDay) {
                         LeagueDay.TODAY -> it.copy(
                             today = it.today.copy(
                                 matchCount = matchesCount,
-                                leaguesWithMatchesUIModelList = leaguesList,
+                                leaguesWithMatchesUIModelList = leagueListWithMatches,
                                 error = null
                             )
                         )
@@ -141,7 +143,7 @@ class LeaguesViewModel(
                             it.copy(
                                 tomorrow = it.tomorrow.copy(
                                     matchCount = matchesCount,
-                                    leaguesWithMatchesUIModelList = leaguesList,
+                                    leaguesWithMatchesUIModelList = leagueListWithMatches,
                                     error = null
                                 )
                             )
@@ -151,7 +153,7 @@ class LeaguesViewModel(
                             it.copy(
                                 yesterday = it.yesterday.copy(
                                     matchCount = matchesCount,
-                                    leaguesWithMatchesUIModelList = leaguesList,
+                                    leaguesWithMatchesUIModelList = leagueListWithMatches,
                                     error = null
                                 )
                             )

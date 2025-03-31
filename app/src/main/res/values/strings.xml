@@ -13,4 +13,7 @@
     <string name="match_is_going">матч идет</string>
     <string name="match_finished">матч окончен</string>
     <string name="match_postponed">матч перенесен</string>
+    <string name="all_matches">Все матчи</string>
+    <string name="live_matches">Live</string>
+    <string name="favourite_matches">Избранные</string>
 </resources>

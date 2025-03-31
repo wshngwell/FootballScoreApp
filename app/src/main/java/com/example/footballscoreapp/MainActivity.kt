@@ -4,14 +4,19 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.animation.slideInHorizontally
-import androidx.compose.animation.slideOutHorizontally
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
-import com.example.footballscoreapp.presentation.leagueScreen.NavGraphs
+import androidx.navigation.compose.rememberNavController
+import com.example.footballscoreapp.presentation.NavGraphs
+import com.example.footballscoreapp.presentation.mainScreen.BottomBar
 import com.example.footballscoreapp.ui.theme.FootballScoreAppTheme
 import com.ramcosta.composedestinations.DestinationsNavHost
 import com.ramcosta.composedestinations.animations.defaults.RootNavGraphDefaultAnimations
@@ -23,17 +28,31 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             FootballScoreAppTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { paddingValues ->
+                val navController = rememberNavController()
+                Scaffold(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .statusBarsPadding()
+                        .systemBarsPadding(),
+                    bottomBar = {
+                        BottomBar(
+                            navController = navController,
+                        )
+                    }
+                ) { paddingValues ->
+
                     Column(modifier = Modifier.padding(paddingValues)) {
                         val navHostEngine = rememberNavHostEngine(
                             rootDefaultAnimations = RootNavGraphDefaultAnimations(
-                                enterTransition = { slideInHorizontally { it } },
-                                exitTransition = { slideOutHorizontally { -it } },
-                                popExitTransition = { slideOutHorizontally { it } },
-                                popEnterTransition = { slideInHorizontally { -it } }
+                                enterTransition = { fadeIn(animationSpec = tween(500)) },
+                                exitTransition = { fadeOut(animationSpec = tween(500)) },
+                                popEnterTransition = { fadeIn(animationSpec = tween(500)) },
+                                popExitTransition = { fadeOut(animationSpec = tween(500)) }
                             )
                         )
+
                         DestinationsNavHost(
+                            navController = navController,
                             navGraph = NavGraphs.root,
                             engine = navHostEngine
                         )

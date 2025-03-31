@@ -6,6 +6,7 @@ import com.example.footballscoreapp.data.remote.repositories.LeaguesWithMatchesR
 import com.example.footballscoreapp.domain.repositories.ILeaguesWithMatchesRepository
 import com.example.footballscoreapp.domain.usecases.GetMatchesUseCase
 import com.example.footballscoreapp.presentation.leagueScreen.LeaguesViewModel
+import com.example.footballscoreapp.presentation.liveMatchesScreen.LiveMatchesViewModel
 import org.koin.android.ext.koin.androidApplication
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -31,5 +32,11 @@ val appModule = module {
         LeaguesViewModel(
             getMatchesUseCase = get<GetMatchesUseCase>(),
         )
+    }
+    viewModel<LiveMatchesViewModel> {
+        LiveMatchesViewModel(
+            getMatchesUseCase = get<GetMatchesUseCase>(),
+        )
+
     }
 }

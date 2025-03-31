@@ -25,7 +25,7 @@ fun AllLeaguesInfoCard(
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(paddingCard)
+            .padding(top = paddingCard, bottom = paddingCard)
     ) {
         Row(
             modifier = Modifier

@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
@@ -20,17 +21,21 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.drawWithContent
+import androidx.compose.ui.geometry.CornerRadius
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.footballscoreapp.R
 import com.example.footballscoreapp.presentation.MyProgressbar
@@ -41,11 +46,10 @@ import com.example.footballscoreapp.presentation.parseLoadingExceptionToStringRe
 import com.example.footballscoreapp.ui.theme.firstColorOfLeagueCardBackGround
 import com.example.footballscoreapp.ui.theme.myBackGround
 import com.example.footballscoreapp.ui.theme.onLeagueColorContent
-import com.example.footballscoreapp.ui.theme.screenStartOrEndPadding
 import com.example.footballscoreapp.ui.theme.screenTopPadding
+import com.example.footballscoreapp.ui.theme.scrollBarColor
 import com.example.footballscoreapp.ui.theme.secondColorOfLeagueCardBackGround
 import com.example.footballscoreapp.ui.theme.textPadding
-import com.example.footballscoreapp.utils.myLog
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.RootNavGraph
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
@@ -75,6 +79,7 @@ fun LeaguesScreen(
             when (it) {
                 is Event.OnNavigateToDetailedMatchesScreen -> {
                     //navigateToDetailedMatchScreen
+
                 }
             }
         }
@@ -104,13 +109,12 @@ private fun UI(
             .fillMaxSize()
             .background(myBackGround)
             .padding(
-                start = screenStartOrEndPadding,
                 top = screenTopPadding,
-                end = screenStartOrEndPadding
             )
     ) {
         TabRow(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .fillMaxWidth(),
             selectedTabIndex = pagerState.currentPage,
             indicator = { tabPositions ->
                 TabRowDefaults.SecondaryIndicator(
@@ -146,7 +150,7 @@ private fun UI(
             }
         }
         HorizontalPager(state = pagerState) { page ->
-            myLog("RECOMPOSITION")
+
             val leagueDayState = when (state.leagueDayLists[page]) {
                 LeagueDay.TODAY -> state.today
                 LeagueDay.TOMORROW -> state.tomorrow
@@ -173,9 +177,7 @@ private fun PagerCard(
     page: Int = 0,
     intent: (Intent) -> Unit = {}
 ) {
-    SideEffect {
-        myLog("RECOMPOSItion")
-    }
+
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -197,7 +199,29 @@ private fun PagerCard(
                 isRefreshing = isRefreshing,
                 onRefresh = { intent(Intent.LoadLeagues) }
             ) {
-                LazyColumn {
+                val listState = rememberLazyListState()
+                LazyColumn(
+                    modifier = Modifier
+                        .drawWithContent {
+                            drawContent()
+                            val elementHeight =
+                                this.size.height / listState.layoutInfo.totalItemsCount
+                            val scrollbarOffsetY = listState.firstVisibleItemIndex * elementHeight
+                            val scrollbarHeight =
+                                listState.layoutInfo.visibleItemsInfo.size * elementHeight
+
+                            drawRoundRect(
+                                color = scrollBarColor,
+                                topLeft = Offset(
+                                    this.size.width - 5.dp.toPx(),
+                                    scrollbarOffsetY
+                                ),
+                                cornerRadius = CornerRadius(3f, 3f),
+                                size = Size(5.dp.toPx(), scrollbarHeight),
+                            )
+                        },
+                    state = listState
+                ) {
                     if (leagueDayState.error != null) {
                         item {
                             Box(

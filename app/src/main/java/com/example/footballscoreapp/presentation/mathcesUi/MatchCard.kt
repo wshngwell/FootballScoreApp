@@ -24,13 +24,19 @@ import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import com.example.footballscoreapp.R
 import com.example.footballscoreapp.domain.entities.MatchEntity
+import com.example.footballscoreapp.domain.entities.MatchStatusEntity
 import com.example.footballscoreapp.presentation.myMatchEntityMock
 import com.example.footballscoreapp.presentation.parseDateToString
+import com.example.footballscoreapp.ui.theme.goalsFontSize
+import com.example.footballscoreapp.ui.theme.goalsStartAndEndPadding
 import com.example.footballscoreapp.ui.theme.imagePadding
 import com.example.footballscoreapp.ui.theme.imageSize
 import com.example.footballscoreapp.ui.theme.matchColorCardBackGround
 import com.example.footballscoreapp.ui.theme.matchTimeInfoPadding
-import com.example.footballscoreapp.ui.theme.onLeagueColorContent
+import com.example.footballscoreapp.ui.theme.onDefaultMatchColorContent
+import com.example.footballscoreapp.ui.theme.onMatchLiveCardColorContent
+import com.example.footballscoreapp.ui.theme.onMatchNotLiveCardColorContent
+import com.example.footballscoreapp.ui.theme.screenStartOrEndPadding
 
 @Preview
 @Composable
@@ -39,6 +45,10 @@ fun MatchCard(
     matchEntity: MatchEntity = myMatchEntityMock,
     onMatchCardClicked: (MatchEntity) -> Unit = {}
 ) {
+    val color = if (matchEntity.status == MatchStatusEntity.STARTED) {
+        onMatchLiveCardColorContent
+    } else onMatchNotLiveCardColorContent
+
     Card(
         modifier = modifier
             .clickable { onMatchCardClicked(matchEntity) },
@@ -58,19 +68,23 @@ fun MatchCard(
                     imageVector = Icons.Outlined.Star,
                     contentDescription = stringResource(R.string.favourite_match)
                 )
+
                 Column {
+
                     TeamMainInfo(
                         modifier = Modifier.padding(5.dp),
                         imageUrl = matchEntity.homeTeamMatchInfo.imageUrl,
                         teamName = matchEntity.homeTeamMatchInfo.name,
-                        teamGoals = matchEntity.homeTeamMatchInfo.goals
+                        teamGoals = matchEntity.homeTeamMatchInfo.goals,
+                        color = color
                     )
 
                     TeamMainInfo(
                         modifier = Modifier.padding(5.dp),
                         imageUrl = matchEntity.awayTeamMatchInfo.imageUrl,
                         teamName = matchEntity.awayTeamMatchInfo.name,
-                        teamGoals = matchEntity.awayTeamMatchInfo.goals
+                        teamGoals = matchEntity.awayTeamMatchInfo.goals,
+                        color = color
                     )
                 }
             }
@@ -79,21 +93,21 @@ fun MatchCard(
                     .fillMaxWidth()
                     .padding(start = matchTimeInfoPadding, end = matchTimeInfoPadding),
             ) {
+
                 Spacer(modifier = Modifier.size(40.dp))
                 Text(
-                    color = onLeagueColorContent,
+                    color = color,
                     text = matchEntity.startTime.parseDateToString()
                 )
                 Spacer(modifier = Modifier.size(20.dp))
                 Text(
                     textAlign = TextAlign.Center,
-                    color = onLeagueColorContent,
+                    color = color,
                     text = stringResource(matchEntity.status.parseMatchStatusInfoToString())
                 )
             }
 
         }
-
 
     }
 }
@@ -137,7 +151,8 @@ private fun TeamMainInfo(
     modifier: Modifier = Modifier,
     imageUrl: String = "",
     teamName: String = "",
-    teamGoals: Int? = 0
+    teamGoals: Int? = 0,
+    color: Color = Color.White
 ) {
     Row(
         modifier = modifier,
@@ -145,21 +160,25 @@ private fun TeamMainInfo(
     ) {
         AsyncImage(
             modifier = Modifier
-                .size(40.dp)
-                .padding(end = 10.dp),
+                .size(imageSize)
+                .padding(end = screenStartOrEndPadding),
             model = imageUrl,
             contentDescription = stringResource(R.string.league)
         )
 
         Text(
             modifier = Modifier.weight(1f),
-            color = onLeagueColorContent,
+            color = onDefaultMatchColorContent,
             text = teamName
         )
         if (teamGoals != null) {
             Text(
-                modifier = Modifier.padding(start = 20.dp, end = 20.dp),
-                color = onLeagueColorContent,
+                modifier = Modifier.padding(
+                    start = goalsStartAndEndPadding,
+                    end = goalsStartAndEndPadding
+                ),
+                color = color,
+                fontSize = goalsFontSize,
                 text = teamGoals.toString()
             )
         }

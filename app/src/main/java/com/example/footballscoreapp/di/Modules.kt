@@ -4,6 +4,7 @@ import com.example.footballscoreapp.data.remote.ApiFactory
 import com.example.footballscoreapp.data.remote.ApiService
 import com.example.footballscoreapp.data.remote.repositories.LeaguesWithMatchesRepositoryImpl
 import com.example.footballscoreapp.domain.repositories.ILeaguesWithMatchesRepository
+import com.example.footballscoreapp.domain.usecases.GetLiveMatchesUseCase
 import com.example.footballscoreapp.domain.usecases.GetMatchesUseCase
 import com.example.footballscoreapp.presentation.leagueScreen.LeaguesViewModel
 import com.example.footballscoreapp.presentation.liveMatchesScreen.LiveMatchesViewModel
@@ -28,6 +29,11 @@ val appModule = module {
             iLeaguesWithMatchesRepository = get<ILeaguesWithMatchesRepository>()
         )
     }
+    factory<GetLiveMatchesUseCase> {
+        GetLiveMatchesUseCase(
+            getMatchesUseCase = get<GetMatchesUseCase>()
+        )
+    }
     viewModel<LeaguesViewModel> {
         LeaguesViewModel(
             getMatchesUseCase = get<GetMatchesUseCase>(),
@@ -35,8 +41,7 @@ val appModule = module {
     }
     viewModel<LiveMatchesViewModel> {
         LiveMatchesViewModel(
-            getMatchesUseCase = get<GetMatchesUseCase>(),
+            getLiveMatchesUseCase = get<GetLiveMatchesUseCase>()
         )
-
     }
 }

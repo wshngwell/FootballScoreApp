@@ -13,8 +13,13 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
@@ -49,15 +54,20 @@ fun BottomBar(
             .padding(bottomNavigationPadding)
     ) {
         BottomBarsElementEnum.entries.forEach {
-            val isSelected = currentDestination == it.destination
-            val contentColor = if (isSelected) {
-                selectedBottomBarColor
-            } else {
-                unselectedBottomBarColor
+            val isSelected by remember(currentDestination) {
+                mutableStateOf(currentDestination == it.destination)
+            }
+            val contentColor by remember(currentDestination) {
+                mutableStateOf(
+                    if (isSelected) {
+                        selectedBottomBarColor
+                    } else {
+                        unselectedBottomBarColor
+                    }
+                )
             }
             Box(
                 modifier = Modifier
-
                     .fillMaxHeight()
                     .align(Alignment.CenterVertically)
                     .weight(1f)
@@ -73,23 +83,19 @@ fun BottomBar(
                 contentAlignment = Alignment.Center
             ) {
                 Column(
-
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    if (currentDestination == it.destination) {
-                        Image(
-                            modifier = Modifier
-                                .size(bottomBarIconSize),
-                            painter = painterResource(it.selectedIconFromResources),
-                            contentDescription = stringResource(it.textResources)
+                    Image(
+                        modifier = Modifier
+                            .size(bottomBarIconSize),
+                        painter = painterResource(it.iconFromResources),
+                        contentDescription = stringResource(it.textResources),
+                        colorFilter = ColorFilter.tint(
+                            color = if (currentDestination == it.destination) {
+                                Color.White
+                            } else Color.Black
                         )
-                    } else {
-                        Image(
-                            modifier = Modifier.size(bottomBarIconSize),
-                            painter = painterResource(it.unselectedIconFromResources),
-                            contentDescription = stringResource(it.textResources)
-                        )
-                    }
+                    )
                     Text(
                         stringResource(it.textResources),
                         fontSize = bottomNavigationFontSize,

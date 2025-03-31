@@ -5,9 +5,8 @@ import androidx.lifecycle.viewModelScope
 import com.example.footballscoreapp.domain.SingleFlowEvent
 import com.example.footballscoreapp.domain.entities.LoadingException
 import com.example.footballscoreapp.domain.entities.MatchEntity
-import com.example.footballscoreapp.domain.entities.MatchStatusEntity
 import com.example.footballscoreapp.domain.entities.TResult
-import com.example.footballscoreapp.domain.usecases.GetMatchesUseCase
+import com.example.footballscoreapp.domain.usecases.GetLiveMatchesUseCase
 import com.example.footballscoreapp.presentation.leagueScreen.LeaguesWithMatchesUIModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -16,7 +15,7 @@ import kotlinx.coroutines.launch
 import java.util.Calendar
 
 class LiveMatchesViewModel(
-    private val getMatchesUseCase: GetMatchesUseCase,
+    private val getLiveMatchesUseCase: GetLiveMatchesUseCase
 ) : ViewModel() {
 
     data class State(
@@ -66,21 +65,18 @@ class LiveMatchesViewModel(
     private suspend fun loadLiveMatches() {
         val date = Calendar.getInstance().time
         _state.update { it.copy(isLoading = true) }
-        val tResult = getMatchesUseCase(date)
+        val tResult = getLiveMatchesUseCase(date)
         when (tResult) {
             is TResult.Error -> {
                 _state.update { it.copy(error = tResult.exception) }
             }
 
             is TResult.Success -> {
-                val matchCount =
-                    tResult.data.filter { it.status == MatchStatusEntity.STARTED }.count()
-                val map = tResult.data.filter { it.status == MatchStatusEntity.STARTED }
-                    .groupBy {
-                        it.leagueInfo
-                    }
-                val distinctLeaguesWithMatches = map.keys.distinctBy { it.leagueId }
-                val leagueListWithMatches = distinctLeaguesWithMatches.map {
+                val matchCount = tResult.data.count()
+                val map = tResult.data.groupBy {
+                    it.leagueInfo
+                }
+                val leagueListWithMatches = map.keys.map {
                     LeaguesWithMatchesUIModel(
                         league = it,
                         matches = map[it]!!,

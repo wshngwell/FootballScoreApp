@@ -7,47 +7,34 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.TabRow
 import androidx.compose.material3.TabRowDefaults
 import androidx.compose.material3.TabRowDefaults.tabIndicatorOffset
 import androidx.compose.material3.Text
-import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.drawWithContent
-import androidx.compose.ui.geometry.CornerRadius
-import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.footballscoreapp.R
-import com.example.footballscoreapp.presentation.MyProgressbar
+import com.example.footballscoreapp.presentation.ListOfLeagueWithMatches
 import com.example.footballscoreapp.presentation.leagueScreen.LeaguesViewModel.Event
 import com.example.footballscoreapp.presentation.leagueScreen.LeaguesViewModel.Intent
 import com.example.footballscoreapp.presentation.leagueScreen.LeaguesViewModel.State
-import com.example.footballscoreapp.presentation.parseLoadingExceptionToStringResource
 import com.example.footballscoreapp.ui.theme.firstColorOfLeagueCardBackGround
 import com.example.footballscoreapp.ui.theme.myBackGround
 import com.example.footballscoreapp.ui.theme.onLeagueColorContent
 import com.example.footballscoreapp.ui.theme.screenTopPadding
-import com.example.footballscoreapp.ui.theme.scrollBarColor
 import com.example.footballscoreapp.ui.theme.secondColorOfLeagueCardBackGround
 import com.example.footballscoreapp.ui.theme.textPadding
 import com.ramcosta.composedestinations.annotation.Destination
@@ -158,7 +145,6 @@ private fun UI(
             }
             PagerCard(
                 leagueDayState = leagueDayState,
-                isRefreshing = state.isRefreshing,
                 pagerState = pagerState,
                 page = page,
                 intent = intent
@@ -168,11 +154,9 @@ private fun UI(
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun PagerCard(
     leagueDayState: LeaguesViewModel.DayState = LeaguesViewModel.DayState(),
-    isRefreshing: Boolean = false,
     pagerState: PagerState,
     page: Int = 0,
     intent: (Intent) -> Unit = {}
@@ -190,71 +174,14 @@ private fun PagerCard(
             },
 
         ) {
-        if (leagueDayState.isLoading) {
-            MyProgressbar(
-                modifier = Modifier.align(Alignment.Center)
-            )
-        } else {
-            PullToRefreshBox(
-                isRefreshing = isRefreshing,
-                onRefresh = { intent(Intent.LoadLeagues) }
-            ) {
-                val listState = rememberLazyListState()
-                LazyColumn(
-                    modifier = Modifier
-                        .drawWithContent {
-                            drawContent()
-                            val elementHeight =
-                                this.size.height / listState.layoutInfo.totalItemsCount
-                            val scrollbarOffsetY = listState.firstVisibleItemIndex * elementHeight
-                            val scrollbarHeight =
-                                listState.layoutInfo.visibleItemsInfo.size * elementHeight
-
-                            drawRoundRect(
-                                color = scrollBarColor,
-                                topLeft = Offset(
-                                    this.size.width - 5.dp.toPx(),
-                                    scrollbarOffsetY
-                                ),
-                                cornerRadius = CornerRadius(3f, 3f),
-                                size = Size(5.dp.toPx(), scrollbarHeight),
-                            )
-                        },
-                    state = listState
-                ) {
-                    if (leagueDayState.error != null) {
-                        item {
-                            Box(
-                                modifier = Modifier
-                                    .fillParentMaxSize()
-                            ) {
-                                Text(
-                                    modifier = Modifier.align(Alignment.Center),
-                                    text = stringResource(leagueDayState.error.parseLoadingExceptionToStringResource()),
-                                    color = onLeagueColorContent,
-                                )
-                            }
-
-                        }
-                    } else {
-                        item {
-                            AllLeaguesInfoCard(
-                                gamesCount = leagueDayState.matchCount
-                            )
-                        }
-
-                        items(
-                            leagueDayState.leaguesWithMatchesUIModelList,
-                            key = { it.league.leagueId }) {
-                            LeagueCard(
-                                leagueEntity = it,
-                            )
-                        }
-                    }
-
-                }
-            }
-        }
+        ListOfLeagueWithMatches(
+            isLoading = leagueDayState.isLoading,
+            loadMatches = { intent(Intent.LoadLeagues) },
+            onMatchClicked = { intent(Intent.OnMatchClicked(it)) },
+            error = leagueDayState.error,
+            matchCount = leagueDayState.matchCount,
+            leaguesWithMatchesUIModelList = leagueDayState.leaguesWithMatchesUIModelList
+        )
     }
 
 }

@@ -28,7 +28,6 @@ class LeaguesViewModel(
             LeagueDay.TOMORROW
         ),
         val currentLeagueDay: LeagueDay = LeagueDay.TODAY,
-        val isRefreshing: Boolean = false
     )
 
     data class DayState(
@@ -121,9 +120,7 @@ class LeaguesViewModel(
                 val matchesCount = tResult.data.map { it.matchId }.count()
                 val map = tResult.data
                     .groupBy { it.leagueInfo }
-
-                val distinctLeaguesWithMatches = map.keys.distinctBy { it.leagueId }
-                val leagueListWithMatches = distinctLeaguesWithMatches.map {
+                val leagueListWithMatches = map.keys.map {
                     LeaguesWithMatchesUIModel(
                         league = it,
                         matches = map[it]!!,

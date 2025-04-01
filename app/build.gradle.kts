@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.ksp)
+    id("androidx.room")
     id("kotlin-parcelize")
 }
 
@@ -69,6 +70,9 @@ android {
             isMinifyEnabled = false
             isShrinkResources = false
         }
+    }
+    room {
+        schemaDirectory("$projectDir/schemas")
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8

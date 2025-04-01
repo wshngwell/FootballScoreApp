@@ -8,5 +8,5 @@ data class MatchEntity(
     val status: MatchStatusEntity,
     val awayTeamMatchInfo: TeamMatchInfo,
     val homeTeamMatchInfo: TeamMatchInfo,
-    val startTime: Date,
+    val startTime: Date
 )

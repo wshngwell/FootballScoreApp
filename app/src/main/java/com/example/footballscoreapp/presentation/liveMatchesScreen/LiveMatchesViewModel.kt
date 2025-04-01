@@ -6,7 +6,7 @@ import com.example.footballscoreapp.domain.SingleFlowEvent
 import com.example.footballscoreapp.domain.entities.LoadingException
 import com.example.footballscoreapp.domain.entities.MatchEntity
 import com.example.footballscoreapp.domain.entities.TResult
-import com.example.footballscoreapp.domain.usecases.GetLiveMatchesUseCase
+import com.example.footballscoreapp.domain.usecases.liveMatchesUseCases.GetLiveMatchesUseCase
 import com.example.footballscoreapp.presentation.leagueScreen.LeaguesWithMatchesUIModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow

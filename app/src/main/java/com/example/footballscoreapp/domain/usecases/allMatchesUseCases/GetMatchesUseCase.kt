@@ -1,4 +1,4 @@
-package com.example.footballscoreapp.domain.usecases
+package com.example.footballscoreapp.domain.usecases.allMatchesUseCases
 
 import com.example.footballscoreapp.domain.repositories.ILeaguesWithMatchesRepository
 import kotlinx.coroutines.Dispatchers

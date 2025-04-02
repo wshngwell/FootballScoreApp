@@ -11,10 +11,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Card
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -34,10 +30,11 @@ import com.example.footballscoreapp.ui.theme.paddingLeagueCardInfoRow
 @Preview
 @Composable
 fun LeagueCard(
-    leagueEntity: LeaguesWithMatchesUIModel = myLeaguesWithMatchesUIModelMock,
-    onMatchItemClicked: (MatchEntity) -> Unit = {}
+    leagueWithMatchUIModel: LeaguesWithMatchesUIModel = myLeaguesWithMatchesUIModelMock,
+    onMatchItemClicked: (MatchEntity) -> Unit = {},
+    onAddOrDeleteMatchFromFavouriteClicked: (MatchEntity) -> Unit = {},
+    onExpanded: () -> Unit = {}
 ) {
-    var isShow by rememberSaveable { mutableStateOf(false) }
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -48,33 +45,42 @@ fun LeagueCard(
                 modifier = Modifier
                     .background(leagueCardColorBackGround)
                     .padding(paddingLeagueCardInfoRow)
-                    .clickable { isShow = isShow.not() },
+                    .clickable {
+                        onExpanded()
+                    },
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 AsyncImage(
                     modifier = Modifier
                         .size(imageSize)
                         .padding(start = imagePadding, end = imagePadding),
-                    model = leagueEntity.league.leagueImageUrl,
+                    model = leagueWithMatchUIModel.league.leagueImageUrl,
                     contentDescription = stringResource(R.string.league)
                 )
 
                 Text(
                     modifier = Modifier.weight(1f),
                     color = onLeagueColorContent,
-                    text = leagueEntity.league.leagueName
+                    text = leagueWithMatchUIModel.league.leagueName
                 )
             }
 
-            AnimatedVisibility(isShow) {
+            AnimatedVisibility(
+                visible = leagueWithMatchUIModel.isExpanded,
+            ) {
                 Column {
-                    leagueEntity.matches.forEach {
+                    leagueWithMatchUIModel.matches.forEach {
                         MatchCard(
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(top = paddingCard, bottom = paddingCard),
                             matchEntity = it,
-                            onMatchCardClicked = onMatchItemClicked
+                            onMatchCardClicked = onMatchItemClicked,
+                            onAddOrDeleteMatchFromFavouriteClicked = {
+                                onAddOrDeleteMatchFromFavouriteClicked(
+                                    it
+                                )
+                            }
                         )
 
                     }
@@ -84,4 +90,5 @@ fun LeagueCard(
 
 
     }
+
 }

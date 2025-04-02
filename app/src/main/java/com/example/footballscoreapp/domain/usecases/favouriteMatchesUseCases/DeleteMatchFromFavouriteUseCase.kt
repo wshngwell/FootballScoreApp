@@ -7,7 +7,7 @@ import kotlinx.coroutines.withContext
 class DeleteMatchFromFavouriteUseCase(
     private val iFavouriteMatchesRepository: IFavouriteMatchesRepository
 ) {
-    suspend operator fun invoke(matchId: Int) = withContext(Dispatchers.IO) {
-        iFavouriteMatchesRepository.deleteMatchesFromFavourite(matchId)
+    suspend operator fun invoke(listOfMatchIds: List<String>) = withContext(Dispatchers.IO) {
+        iFavouriteMatchesRepository.deleteMatchesFromFavourite(listOfMatchIds)
     }
 }

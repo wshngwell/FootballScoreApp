@@ -31,7 +31,8 @@ fun MatchByDateItemDto.mapToMatchEntity() = runCatching {
             imageUrl = homeTeamHashImage!!.convertHashToUrl(),
             goals = homeTeamGoals.convertToGoal(status.toMatchStatusEntity())
         ),
-        startTime = startTime!!.toDate()
+        startTime = startTime!!.toDate(),
+        isFavourite = false
     )
 }.getOrElse {
     myLog(it.printStackTrace().toString())

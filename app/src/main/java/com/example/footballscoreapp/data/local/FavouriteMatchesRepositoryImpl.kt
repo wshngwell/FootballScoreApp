@@ -28,16 +28,25 @@ class FavouriteMatchesRepositoryImpl(
             .distinctUntilChanged()
             .shareIn(
                 scope = scope,
-                started = SharingStarted.WhileSubscribed(stopTimeoutMillis = 10_000)
+                started = SharingStarted.WhileSubscribed(
+                    stopTimeoutMillis = 10_000,
+                    replayExpirationMillis = 0
+                ),
+                replay = 1
             )
 
-
-    override suspend fun addMatchToFavourite(matchEntity: MatchEntity) =
+    override suspend fun addMatchToFavourite(listOfMatchEntities: List<MatchEntity>) =
         withContext(Dispatchers.IO) {
-            matchesDao.addMatchToDb(matchEntity.toMatchDbModel())
+            val listOfMatchDbModels = listOfMatchEntities.map {
+                it.toMatchDbModel()
+            }
+            matchesDao.addMatchToDb(listOfMatchDbModels)
         }
 
-    override suspend fun deleteMatchesFromFavourite(matchId: Int) = withContext(Dispatchers.IO) {
-        matchesDao.deleteMatchFromDb(matchId)
-    }
+
+    override suspend fun deleteMatchesFromFavourite(listOfMatchId: List<String>) =
+        withContext(Dispatchers.IO) {
+            matchesDao.deleteMatchFromDb(listOfMatchId)
+        }
+
 }

@@ -7,7 +7,7 @@ interface IFavouriteMatchesRepository {
 
     val favouriteMatches: SharedFlow<List<MatchEntity>>
 
-    suspend fun addMatchToFavourite(matchEntity: MatchEntity)
+    suspend fun addMatchToFavourite(listOfMatchEntities: List<MatchEntity>)
 
-    suspend fun deleteMatchesFromFavourite(matchId: Int)
+    suspend fun deleteMatchesFromFavourite(listOfMatchId: List<String>)
 }

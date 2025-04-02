@@ -24,7 +24,8 @@ val myMatchEntityMock = MatchEntity(
         id = "2",
         goals = 2
     ),
-    status = MatchStatusEntity.STARTED
+    status = MatchStatusEntity.STARTED,
+    isFavourite = false
 )
 val myLeaguesWithMatchesUIModelMock = LeaguesWithMatchesUIModel(
     league = myLeagueEntityMock,

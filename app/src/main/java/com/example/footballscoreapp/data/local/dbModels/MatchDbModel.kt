@@ -17,5 +17,5 @@ data class MatchDbModel(
     val awayTeamMatchInfo: TeamMatchInfoDbModel,
     @Embedded(prefix = "home")
     val homeTeamMatchInfo: TeamMatchInfoDbModel,
-    val startTime: String,
+    val startTime: Long,
 )

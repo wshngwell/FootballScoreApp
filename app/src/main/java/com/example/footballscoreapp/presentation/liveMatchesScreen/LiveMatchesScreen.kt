@@ -65,6 +65,16 @@ private fun UI(
         onMatchClicked = { intent(Intent.OnMatchClicked(it)) },
         error = state.error,
         matchCount = state.matchCount,
-        leaguesWithMatchesUIModelList = state.leaguesWithMatchesUIModelList
+        leaguesWithMatchesUIModelList = state.leaguesWithMatchesUIModelListWithFavourite,
+        onAddOrDeleteMatchFromFavouriteClicked = {
+            intent(
+                Intent.OnAddOrDeleteMatchFromFavouriteClicked(
+                    it
+                )
+            )
+        },
+        onExpanded = {
+            intent(Intent.OnExpandedLeague(it))
+        }
     )
 }

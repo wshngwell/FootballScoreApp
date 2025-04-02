@@ -1,6 +1,7 @@
 package com.example.footballscoreapp.data.local
 
 import android.app.Application
+import androidx.room.AutoMigration
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
@@ -8,8 +9,14 @@ import com.example.footballscoreapp.data.local.dbModels.MatchDbModel
 
 @Database(
     entities = [MatchDbModel::class],
-    version = 1,
-    exportSchema = true
+    version = 2,
+    exportSchema = true,
+    autoMigrations = [
+        AutoMigration(
+            from = 1,
+            to = 2
+        )
+    ]
 )
 abstract class FootballDataBase : RoomDatabase() {
 

@@ -8,7 +8,8 @@ import kotlinx.coroutines.withContext
 class AddMatchToFavouriteUseCase(
     private val iFavouriteMatchesRepository: IFavouriteMatchesRepository
 ) {
-    suspend operator fun invoke(matchEntity: MatchEntity) = withContext(Dispatchers.IO) {
-        iFavouriteMatchesRepository.addMatchToFavourite(matchEntity)
-    }
+    suspend operator fun invoke(listOfMatchEntities: List<MatchEntity>) =
+        withContext(Dispatchers.IO) {
+            iFavouriteMatchesRepository.addMatchToFavourite(listOfMatchEntities)
+        }
 }

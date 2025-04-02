@@ -5,8 +5,6 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.ksp)
-    id("androidx.room")
-    id("kotlin-parcelize")
 }
 
 android {
@@ -40,6 +38,9 @@ android {
             name = "API_KEY",
             value = apiKey
         )
+        ksp {
+            arg("room.schemaLocation", "$projectDir/schemas")
+        }
     }
 
     signingConfigs {
@@ -70,9 +71,6 @@ android {
             isMinifyEnabled = false
             isShrinkResources = false
         }
-    }
-    room {
-        schemaDirectory("$projectDir/schemas")
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
@@ -118,8 +116,11 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-runtime-compose:2.8.7")
 
     // room
-    implementation(libs.room.core)
-    ksp(libs.room.compiler)
+    val roomVersion = "2.6.1"
+    implementation("androidx.room:room-runtime:$roomVersion")
+    annotationProcessor("androidx.room:room-compiler:$roomVersion")
+    ksp("androidx.room:room-compiler:$roomVersion")
+    implementation("androidx.room:room-ktx:$roomVersion")
 
     // Koin Core
     implementation("io.insert-koin:koin-core:3.4.0")

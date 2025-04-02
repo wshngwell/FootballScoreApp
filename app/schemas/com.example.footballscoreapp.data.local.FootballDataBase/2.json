@@ -1,0 +1,112 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 2,
+    "identityHash": "1a0c3836e5bdf5b12a395470d37c676a",
+    "entities": [
+      {
+        "tableName": "MatchDbModel",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`matchId` TEXT NOT NULL, `status` TEXT NOT NULL, `startTime` INTEGER NOT NULL, `leagueId` TEXT NOT NULL, `leagueName` TEXT NOT NULL, `leagueImageUrl` TEXT NOT NULL, `awayimageUrl` TEXT NOT NULL, `awayname` TEXT NOT NULL, `awayid` TEXT NOT NULL, `awaygoals` INTEGER, `homeimageUrl` TEXT NOT NULL, `homename` TEXT NOT NULL, `homeid` TEXT NOT NULL, `homegoals` INTEGER, PRIMARY KEY(`matchId`))",
+        "fields": [
+          {
+            "fieldPath": "matchId",
+            "columnName": "matchId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "status",
+            "columnName": "status",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "startTime",
+            "columnName": "startTime",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "leagueInfo.leagueId",
+            "columnName": "leagueId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "leagueInfo.leagueName",
+            "columnName": "leagueName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "leagueInfo.leagueImageUrl",
+            "columnName": "leagueImageUrl",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "awayTeamMatchInfo.imageUrl",
+            "columnName": "awayimageUrl",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "awayTeamMatchInfo.name",
+            "columnName": "awayname",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "awayTeamMatchInfo.id",
+            "columnName": "awayid",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "awayTeamMatchInfo.goals",
+            "columnName": "awaygoals",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "homeTeamMatchInfo.imageUrl",
+            "columnName": "homeimageUrl",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "homeTeamMatchInfo.name",
+            "columnName": "homename",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "homeTeamMatchInfo.id",
+            "columnName": "homeid",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "homeTeamMatchInfo.goals",
+            "columnName": "homegoals",
+            "affinity": "INTEGER",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "matchId"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '1a0c3836e5bdf5b12a395470d37c676a')"
+    ]
+  }
+}

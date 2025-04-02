@@ -45,7 +45,6 @@ fun BottomBar(
     ) {
     val currentDestination: Destination = navController.appCurrentDestinationAsState().value
         ?: NavGraphs.root.startAppDestination
-
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -72,12 +71,16 @@ fun BottomBar(
                     .align(Alignment.CenterVertically)
                     .weight(1f)
                     .clickable {
-                        navController.navigate(it.destination) {
-                            launchSingleTop = true
-                            restoreState = true
-                            popUpTo(navController.graph.findStartDestination().id) {
-                                saveState = true
-                            }
+                        if (currentDestination.route != it.destination.route) {
+                            navController.navigate(
+                                it.destination,
+                                navOptionsBuilder = {
+                                    launchSingleTop = true
+                                    popUpTo(navController.graph.findStartDestination().id) {
+                                        inclusive = false
+                                    }
+                                }
+                            )
                         }
                     },
                 contentAlignment = Alignment.Center

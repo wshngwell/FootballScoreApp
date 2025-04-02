@@ -8,9 +8,7 @@ import com.example.footballscoreapp.domain.entities.LeagueEntity
 import com.example.footballscoreapp.domain.entities.MatchEntity
 import com.example.footballscoreapp.domain.entities.MatchStatusEntity
 import com.example.footballscoreapp.domain.entities.TeamMatchInfo
-import java.text.SimpleDateFormat
 import java.util.Date
-import java.util.Locale
 
 
 fun MatchDbModel.toMatchEntity() = MatchEntity(
@@ -33,7 +31,8 @@ fun MatchDbModel.toMatchEntity() = MatchEntity(
         imageUrl = homeTeamMatchInfo.imageUrl,
         goals = homeTeamMatchInfo.goals
     ),
-    startTime = startTime.toDate()
+    startTime = Date(startTime),
+    isFavourite = true
 )
 
 fun MatchEntity.toMatchDbModel() = MatchDbModel(
@@ -56,20 +55,8 @@ fun MatchEntity.toMatchDbModel() = MatchDbModel(
         imageUrl = homeTeamMatchInfo.imageUrl,
         goals = homeTeamMatchInfo.goals
     ),
-    startTime = startTime.parseDateToString()
+    startTime = startTime.time
 )
-
-
-fun Date.parseDateToString(): String {
-    val outputFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
-    return outputFormat.format(this)
-}
-
-private fun String.toDate(): Date {
-    val format = SimpleDateFormat("HH:mm", Locale.getDefault())
-    return format.parse(this)
-}
-
 
 fun MatchStatusDbModel.toMatchStatusEntity() = when (this) {
     MatchStatusDbModel.NOT_STARTED -> MatchStatusEntity.NOT_STARTED

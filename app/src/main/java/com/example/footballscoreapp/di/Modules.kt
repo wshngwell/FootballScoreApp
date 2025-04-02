@@ -13,6 +13,7 @@ import com.example.footballscoreapp.domain.usecases.favouriteMatchesUseCases.Add
 import com.example.footballscoreapp.domain.usecases.favouriteMatchesUseCases.DeleteMatchFromFavouriteUseCase
 import com.example.footballscoreapp.domain.usecases.favouriteMatchesUseCases.GetFavouriteMatchesUseCase
 import com.example.footballscoreapp.domain.usecases.liveMatchesUseCases.GetLiveMatchesUseCase
+import com.example.footballscoreapp.presentation.favouriteMatchesScreen.FavouriteMatchesViewModel
 import com.example.footballscoreapp.presentation.leagueScreen.LeaguesViewModel
 import com.example.footballscoreapp.presentation.liveMatchesScreen.LiveMatchesViewModel
 import org.koin.android.ext.koin.androidApplication
@@ -40,7 +41,8 @@ val appModule = module {
 
     factory<GetMatchesUseCase> {
         GetMatchesUseCase(
-            iLeaguesWithMatchesRepository = get<ILeaguesWithMatchesRepository>()
+            iLeaguesWithMatchesRepository = get<ILeaguesWithMatchesRepository>(),
+            iFavouriteMatchesRepository = get<IFavouriteMatchesRepository>()
         )
     }
     factory<GetLiveMatchesUseCase> {
@@ -66,11 +68,25 @@ val appModule = module {
     viewModel<LeaguesViewModel> {
         LeaguesViewModel(
             getMatchesUseCase = get<GetMatchesUseCase>(),
+            getFavouriteMatchesUseCase = get<GetFavouriteMatchesUseCase>(),
+            addMatchToFavouriteUseCase = get<AddMatchToFavouriteUseCase>(),
+            deleteMatchFromFavouriteUseCase = get<DeleteMatchFromFavouriteUseCase>()
         )
     }
     viewModel<LiveMatchesViewModel> {
         LiveMatchesViewModel(
-            getLiveMatchesUseCase = get<GetLiveMatchesUseCase>()
+            getLiveMatchesUseCase = get<GetLiveMatchesUseCase>(),
+            getFavouriteMatchesUseCase = get<GetFavouriteMatchesUseCase>(),
+            addMatchToFavouriteUseCase = get<AddMatchToFavouriteUseCase>(),
+            deleteMatchFromFavouriteUseCase = get<DeleteMatchFromFavouriteUseCase>()
         )
     }
+    viewModel<FavouriteMatchesViewModel> {
+        FavouriteMatchesViewModel(
+            getFavouriteMatchesUseCase = get<GetFavouriteMatchesUseCase>(),
+            addMatchToFavouriteUseCase = get<AddMatchToFavouriteUseCase>(),
+            deleteMatchFromFavouriteUseCase = get<DeleteMatchFromFavouriteUseCase>()
+        )
+    }
+
 }

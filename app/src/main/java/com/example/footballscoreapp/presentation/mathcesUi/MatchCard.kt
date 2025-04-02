@@ -9,6 +9,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Call
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.FavoriteBorder
+import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material.icons.outlined.Star
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
@@ -43,6 +47,7 @@ import com.example.footballscoreapp.ui.theme.screenStartOrEndPadding
 fun MatchCard(
     modifier: Modifier = Modifier,
     matchEntity: MatchEntity = myMatchEntityMock,
+    onAddOrDeleteMatchFromFavouriteClicked: () -> Unit = {},
     onMatchCardClicked: (MatchEntity) -> Unit = {}
 ) {
     val color = if (matchEntity.status == MatchStatusEntity.STARTED) {
@@ -64,8 +69,9 @@ fun MatchCard(
                     modifier = Modifier
                         .size(imageSize)
                         .padding(start = imagePadding, end = imagePadding)
+                        .clickable { onAddOrDeleteMatchFromFavouriteClicked() }
                         .align(Alignment.CenterVertically),
-                    imageVector = Icons.Outlined.Star,
+                    imageVector = if (matchEntity.isFavourite) Icons.Filled.Favorite else Icons.Outlined.FavoriteBorder,
                     contentDescription = stringResource(R.string.favourite_match)
                 )
 

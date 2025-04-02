@@ -180,7 +180,15 @@ private fun PagerCard(
             onMatchClicked = { intent(Intent.OnMatchClicked(it)) },
             error = leagueDayState.error,
             matchCount = leagueDayState.matchCount,
-            leaguesWithMatchesUIModelList = leagueDayState.leaguesWithMatchesUIModelList
+            leaguesWithMatchesUIModelList = leagueDayState.leaguesWithMatchesUIModelListWithFavourite,
+            onAddOrDeleteMatchFromFavouriteClicked = {
+                intent(
+                    Intent.OnAddOrDeleteMatchFromFavouriteClicked(
+                        it
+                    )
+                )
+            },
+            onExpanded = { intent(Intent.OnExpandedLeague(it)) }
         )
     }
 

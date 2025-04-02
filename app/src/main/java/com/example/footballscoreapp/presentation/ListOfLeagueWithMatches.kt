@@ -27,9 +27,11 @@ fun ListOfLeagueWithMatches(
     isLoading: Boolean = false,
     loadMatches: () -> Unit = {},
     onMatchClicked: (MatchEntity) -> Unit = {},
+    onAddOrDeleteMatchFromFavouriteClicked: (MatchEntity) -> Unit = {},
     error: LoadingException? = null,
     matchCount: Int = 0,
-    leaguesWithMatchesUIModelList: List<LeaguesWithMatchesUIModel> = listOf()
+    leaguesWithMatchesUIModelList: List<LeaguesWithMatchesUIModel> = listOf(),
+    onExpanded: (LeaguesWithMatchesUIModel) -> Unit
 ) {
     Box(
         modifier = modifier
@@ -75,10 +77,12 @@ fun ListOfLeagueWithMatches(
                             leaguesWithMatchesUIModelList,
                             key = { it.toString() }) {
                             LeagueCard(
-                                leagueEntity = it,
+                                leagueWithMatchUIModel = it,
                                 onMatchItemClicked = {
                                     onMatchClicked(it)
-                                }
+                                },
+                                onAddOrDeleteMatchFromFavouriteClicked = onAddOrDeleteMatchFromFavouriteClicked,
+                                onExpanded = { onExpanded(it) }
                             )
                         }
                     }

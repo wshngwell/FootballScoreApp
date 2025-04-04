@@ -17,7 +17,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import coil3.compose.AsyncImage
 import com.example.footballscoreapp.R
-import com.example.footballscoreapp.domain.entities.MatchEntity
+import com.example.footballscoreapp.domain.entities.matches.MatchEntity
 import com.example.footballscoreapp.presentation.mathcesUi.MatchCard
 import com.example.footballscoreapp.presentation.myLeaguesWithMatchesUIModelMock
 import com.example.footballscoreapp.ui.theme.imagePadding

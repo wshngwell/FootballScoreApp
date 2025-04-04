@@ -1,7 +1,7 @@
 package com.example.footballscoreapp.presentation.leagueScreen
 
-import com.example.footballscoreapp.domain.entities.LeagueEntity
-import com.example.footballscoreapp.domain.entities.MatchEntity
+import com.example.footballscoreapp.domain.entities.matches.LeagueEntity
+import com.example.footballscoreapp.domain.entities.matches.MatchEntity
 
 data class LeaguesWithMatchesUIModel(
     val league: LeagueEntity,

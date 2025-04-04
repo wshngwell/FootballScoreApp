@@ -4,5 +4,7 @@ enum class MatchStatusDbModel {
     NOT_STARTED,
     STARTED,
     FINISHED,
-    POSTPONED
+    POSTPONED,
+    CANCELLED,
+    INTERRUPTED
 }

@@ -4,8 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.footballscoreapp.domain.SingleFlowEvent
 import com.example.footballscoreapp.domain.entities.LoadingException
-import com.example.footballscoreapp.domain.entities.MatchEntity
 import com.example.footballscoreapp.domain.entities.TResult
+import com.example.footballscoreapp.domain.entities.matches.MatchEntity
 import com.example.footballscoreapp.domain.usecases.allMatchesUseCases.GetMatchesUseCase
 import com.example.footballscoreapp.domain.usecases.favouriteMatchesUseCases.AddMatchToFavouriteUseCase
 import com.example.footballscoreapp.domain.usecases.favouriteMatchesUseCases.DeleteMatchFromFavouriteUseCase
@@ -102,26 +102,41 @@ class LeaguesViewModel(
             is Intent.OnMatchClicked -> _event.emit(Event.OnNavigateToDetailedMatchesScreen(intent.matchEntity))
             is Intent.OnExpandedLeague -> {
                 _state.update {
-                    it.copy(
-                        today = it.today.copy(
-                            leaguesWithMatchesUIModelList = updateLeaguesWithMatchesUIModelList(
-                                dayState = it.today,
-                                leagueWithMatchUiModel = intent.leagueWithMatchUiModel
+                    when (state.value.currentLeagueDay) {
+                        LeagueDay.YESTERDAY -> {
+                            it.copy(
+                                yesterday = it.yesterday.copy(
+                                    leaguesWithMatchesUIModelList = updateLeaguesWithMatchesUIModelList(
+                                        dayState = it.yesterday,
+                                        leagueWithMatchUiModel = intent.leagueWithMatchUiModel
+                                    )
+                                )
                             )
-                        ),
-                        yesterday = it.yesterday.copy(
-                            leaguesWithMatchesUIModelList = updateLeaguesWithMatchesUIModelList(
-                                dayState = it.yesterday,
-                                leagueWithMatchUiModel = intent.leagueWithMatchUiModel
+                        }
+
+                        LeagueDay.TODAY -> {
+                            it.copy(
+                                today = it.today.copy(
+                                    leaguesWithMatchesUIModelList = updateLeaguesWithMatchesUIModelList(
+                                        dayState = it.today,
+                                        leagueWithMatchUiModel = intent.leagueWithMatchUiModel
+                                    )
+                                )
                             )
-                        ),
-                        tomorrow = it.tomorrow.copy(
-                            leaguesWithMatchesUIModelList = updateLeaguesWithMatchesUIModelList(
-                                dayState = it.tomorrow,
-                                leagueWithMatchUiModel = intent.leagueWithMatchUiModel
+                        }
+
+                        LeagueDay.TOMORROW -> {
+                            it.copy(
+                                tomorrow = it.tomorrow.copy(
+                                    leaguesWithMatchesUIModelList = updateLeaguesWithMatchesUIModelList(
+                                        dayState = it.tomorrow,
+                                        leagueWithMatchUiModel = intent.leagueWithMatchUiModel
+                                    )
+                                )
                             )
-                        )
-                    )
+                        }
+                    }
+
                 }
 
             }

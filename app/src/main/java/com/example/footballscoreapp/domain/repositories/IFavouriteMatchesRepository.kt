@@ -1,6 +1,6 @@
 package com.example.footballscoreapp.domain.repositories
 
-import com.example.footballscoreapp.domain.entities.MatchEntity
+import com.example.footballscoreapp.domain.entities.matches.MatchEntity
 import kotlinx.coroutines.flow.SharedFlow
 
 interface IFavouriteMatchesRepository {

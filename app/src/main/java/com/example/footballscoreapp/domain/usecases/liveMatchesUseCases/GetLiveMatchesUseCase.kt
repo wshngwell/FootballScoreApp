@@ -1,7 +1,7 @@
 package com.example.footballscoreapp.domain.usecases.liveMatchesUseCases
 
-import com.example.footballscoreapp.domain.entities.MatchStatusEntity
 import com.example.footballscoreapp.domain.entities.TResult
+import com.example.footballscoreapp.domain.entities.matches.MatchStatusEntity
 import com.example.footballscoreapp.domain.usecases.allMatchesUseCases.GetMatchesUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext

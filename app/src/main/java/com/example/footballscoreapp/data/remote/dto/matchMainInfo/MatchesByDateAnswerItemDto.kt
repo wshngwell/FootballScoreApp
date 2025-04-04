@@ -1,4 +1,4 @@
-package com.example.footballscoreapp.data.remote.dto
+package com.example.footballscoreapp.data.remote.dto.matchMainInfo
 
 
 import com.google.gson.annotations.SerializedName

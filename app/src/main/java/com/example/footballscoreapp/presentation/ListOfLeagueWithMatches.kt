@@ -13,7 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import com.example.footballscoreapp.domain.entities.LoadingException
-import com.example.footballscoreapp.domain.entities.MatchEntity
+import com.example.footballscoreapp.domain.entities.matches.MatchEntity
 import com.example.footballscoreapp.presentation.leagueScreen.AllLeaguesInfoCard
 import com.example.footballscoreapp.presentation.leagueScreen.LeagueCard
 import com.example.footballscoreapp.presentation.leagueScreen.LeaguesWithMatchesUIModel

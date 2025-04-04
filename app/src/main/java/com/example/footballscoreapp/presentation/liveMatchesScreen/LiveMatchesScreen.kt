@@ -11,6 +11,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.footballscoreapp.presentation.ListOfLeagueWithMatches
+import com.example.footballscoreapp.presentation.destinations.DetailsMatchScreenDestination
+import com.example.footballscoreapp.presentation.detailedMatchScreen.getMatchEntityJson
 import com.example.footballscoreapp.presentation.liveMatchesScreen.LiveMatchesViewModel.Event
 import com.example.footballscoreapp.presentation.liveMatchesScreen.LiveMatchesViewModel.Intent
 import com.example.footballscoreapp.presentation.liveMatchesScreen.LiveMatchesViewModel.State
@@ -18,6 +20,7 @@ import com.example.footballscoreapp.ui.theme.myBackGround
 import com.example.footballscoreapp.ui.theme.screenTopPadding
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.RootNavGraph
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.filterIsInstance
 import org.koin.androidx.compose.koinViewModel
@@ -25,7 +28,9 @@ import org.koin.androidx.compose.koinViewModel
 @RootNavGraph
 @Destination
 @Composable
-fun LiveMatchesScreen() {
+fun LiveMatchesScreen(
+    navigator: DestinationsNavigator
+) {
     val viewModel = koinViewModel<LiveMatchesViewModel>()
     val state by viewModel.state.collectAsStateWithLifecycle()
     val intent: (Intent) -> Unit by remember {
@@ -38,7 +43,7 @@ fun LiveMatchesScreen() {
         event.filterIsInstance<Event>().collect {
             when (it) {
                 is Event.OnNavigateToDetailedMatchesScreen -> {
-                    //navigateToDetailedMatchScreen
+                    navigator.navigate(DetailsMatchScreenDestination(getMatchEntityJson(it.matchEntity)))
                 }
             }
         }

@@ -5,14 +5,19 @@ import com.example.footballscoreapp.data.local.FootballDataBase
 import com.example.footballscoreapp.data.local.MatchesDao
 import com.example.footballscoreapp.data.remote.ApiFactory
 import com.example.footballscoreapp.data.remote.ApiService
+import com.example.footballscoreapp.data.remote.repositories.DetailsMatchRepositoryImpl
 import com.example.footballscoreapp.data.remote.repositories.LeaguesWithMatchesRepositoryImpl
+import com.example.footballscoreapp.domain.entities.matches.MatchEntity
+import com.example.footballscoreapp.domain.repositories.IDetailsMatchRepository
 import com.example.footballscoreapp.domain.repositories.IFavouriteMatchesRepository
 import com.example.footballscoreapp.domain.repositories.ILeaguesWithMatchesRepository
 import com.example.footballscoreapp.domain.usecases.allMatchesUseCases.GetMatchesUseCase
+import com.example.footballscoreapp.domain.usecases.detailMatchInfoUseCases.GetDetailedMatchInfoUseCase
 import com.example.footballscoreapp.domain.usecases.favouriteMatchesUseCases.AddMatchToFavouriteUseCase
 import com.example.footballscoreapp.domain.usecases.favouriteMatchesUseCases.DeleteMatchFromFavouriteUseCase
 import com.example.footballscoreapp.domain.usecases.favouriteMatchesUseCases.GetFavouriteMatchesUseCase
 import com.example.footballscoreapp.domain.usecases.liveMatchesUseCases.GetLiveMatchesUseCase
+import com.example.footballscoreapp.presentation.detailedMatchScreen.DetailsMatchViewModel
 import com.example.footballscoreapp.presentation.favouriteMatchesScreen.FavouriteMatchesViewModel
 import com.example.footballscoreapp.presentation.leagueScreen.LeaguesViewModel
 import com.example.footballscoreapp.presentation.liveMatchesScreen.LiveMatchesViewModel
@@ -36,6 +41,16 @@ val appModule = module {
     single<ILeaguesWithMatchesRepository> {
         LeaguesWithMatchesRepositoryImpl(
             apiService = get<ApiService>()
+        )
+    }
+    single<IDetailsMatchRepository> {
+        DetailsMatchRepositoryImpl(
+            apiService = get<ApiService>()
+        )
+    }
+    factory<GetDetailedMatchInfoUseCase> {
+        GetDetailedMatchInfoUseCase(
+            iDetailsMatchRepository = get<IDetailsMatchRepository>()
         )
     }
 
@@ -86,6 +101,12 @@ val appModule = module {
             getFavouriteMatchesUseCase = get<GetFavouriteMatchesUseCase>(),
             addMatchToFavouriteUseCase = get<AddMatchToFavouriteUseCase>(),
             deleteMatchFromFavouriteUseCase = get<DeleteMatchFromFavouriteUseCase>()
+        )
+    }
+    viewModel<DetailsMatchViewModel> { (matchEntity: MatchEntity) ->
+        DetailsMatchViewModel(
+            getDetailedMatchInfoUseCase = get<GetDetailedMatchInfoUseCase>(),
+            matchEntity = matchEntity
         )
     }
 

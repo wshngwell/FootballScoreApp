@@ -4,8 +4,8 @@ import com.example.footballscoreapp.data.remote.ApiService
 import com.example.footballscoreapp.data.remote.mappers.mapToMatchEntity
 import com.example.footballscoreapp.data.remote.parseToLoadingException
 import com.example.footballscoreapp.domain.entities.LoadingException
-import com.example.footballscoreapp.domain.entities.MatchEntity
 import com.example.footballscoreapp.domain.entities.TResult
+import com.example.footballscoreapp.domain.entities.matches.MatchEntity
 import com.example.footballscoreapp.domain.repositories.ILeaguesWithMatchesRepository
 import com.example.footballscoreapp.utils.myLog
 import kotlinx.coroutines.Dispatchers

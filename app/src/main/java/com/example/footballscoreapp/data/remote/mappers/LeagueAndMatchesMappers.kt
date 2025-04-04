@@ -1,10 +1,10 @@
 package com.example.footballscoreapp.data.remote.mappers
 
-import com.example.footballscoreapp.data.remote.dto.MatchByDateItemDto
-import com.example.footballscoreapp.domain.entities.LeagueEntity
-import com.example.footballscoreapp.domain.entities.MatchEntity
-import com.example.footballscoreapp.domain.entities.MatchStatusEntity
-import com.example.footballscoreapp.domain.entities.TeamMatchInfo
+import com.example.footballscoreapp.data.remote.dto.matchMainInfo.MatchByDateItemDto
+import com.example.footballscoreapp.domain.entities.matches.LeagueEntity
+import com.example.footballscoreapp.domain.entities.matches.MatchEntity
+import com.example.footballscoreapp.domain.entities.matches.MatchStatusEntity
+import com.example.footballscoreapp.domain.entities.matches.TeamMatchInfo
 import com.example.footballscoreapp.utils.myLog
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -40,7 +40,9 @@ fun MatchByDateItemDto.mapToMatchEntity() = runCatching {
 }
 
 private fun String?.convertToGoal(statusEntity: MatchStatusEntity) = when (statusEntity) {
-    MatchStatusEntity.NOT_STARTED, MatchStatusEntity.POSTPONED -> null
+    MatchStatusEntity.NOT_STARTED, MatchStatusEntity.POSTPONED, MatchStatusEntity.CANCELLED,
+    MatchStatusEntity.INTERRUPTED -> null
+
     MatchStatusEntity.STARTED, MatchStatusEntity.FINISHED -> {
         this!!.toInt()
     }
@@ -60,5 +62,7 @@ private fun String.toMatchStatusEntity() =
         "live" -> MatchStatusEntity.STARTED
         "postponed" -> MatchStatusEntity.POSTPONED
         "finished" -> MatchStatusEntity.FINISHED
+        "canceled" -> MatchStatusEntity.CANCELLED
+        "interrupted" -> MatchStatusEntity.INTERRUPTED
         else -> throw RuntimeException("такого статуса нет")
     }

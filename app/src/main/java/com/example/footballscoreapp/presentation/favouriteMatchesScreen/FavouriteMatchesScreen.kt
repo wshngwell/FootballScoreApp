@@ -1,5 +1,6 @@
 package com.example.footballscoreapp.presentation.favouriteMatchesScreen
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -14,13 +15,17 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.example.footballscoreapp.presentation.destinations.DetailsMatchScreenDestination
+import com.example.footballscoreapp.presentation.detailedMatchScreen.getMatchEntityJson
 import com.example.footballscoreapp.presentation.favouriteMatchesScreen.FavouriteMatchesViewModel.Event
 import com.example.footballscoreapp.presentation.favouriteMatchesScreen.FavouriteMatchesViewModel.Intent
 import com.example.footballscoreapp.presentation.favouriteMatchesScreen.FavouriteMatchesViewModel.State
 import com.example.footballscoreapp.presentation.mathcesUi.MatchCard
+import com.example.footballscoreapp.ui.theme.myBackGround
 import com.example.footballscoreapp.ui.theme.paddingCard
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.RootNavGraph
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.filterIsInstance
 import org.koin.androidx.compose.koinViewModel
@@ -28,7 +33,9 @@ import org.koin.androidx.compose.koinViewModel
 @RootNavGraph
 @Destination
 @Composable
-fun FavouriteMatchesScreen() {
+fun FavouriteMatchesScreen(
+    navigator: DestinationsNavigator
+) {
     val viewModel = koinViewModel<FavouriteMatchesViewModel>()
     val state by viewModel.state.collectAsStateWithLifecycle()
     val intent: (Intent) -> Unit by remember {
@@ -41,8 +48,7 @@ fun FavouriteMatchesScreen() {
         event.filterIsInstance<Event>().collect {
             when (it) {
                 is Event.OnNavigateToDetailedMatchesScreen -> {
-                    //navigateToDetailedMatchScreen
-
+                    navigator.navigate(DetailsMatchScreenDestination(getMatchEntityJson(it.matchEntity)))
                 }
             }
         }
@@ -62,6 +68,7 @@ private fun UI(
     Box(
         modifier = Modifier
             .fillMaxSize()
+            .background(myBackGround)
 
     ) {
         LazyColumn {

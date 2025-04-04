@@ -1,4 +1,4 @@
-package com.example.footballscoreapp.domain.entities
+package com.example.footballscoreapp.domain.entities.matches
 
 data class TeamMatchInfo(
     val imageUrl: String,

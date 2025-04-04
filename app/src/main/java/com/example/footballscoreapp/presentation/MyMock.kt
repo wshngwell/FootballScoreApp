@@ -1,9 +1,12 @@
 package com.example.footballscoreapp.presentation
 
-import com.example.footballscoreapp.domain.entities.LeagueEntity
-import com.example.footballscoreapp.domain.entities.MatchEntity
-import com.example.footballscoreapp.domain.entities.MatchStatusEntity
-import com.example.footballscoreapp.domain.entities.TeamMatchInfo
+import com.example.footballscoreapp.domain.entities.detailMatchInfo.MatchDetailInfoEntity
+import com.example.footballscoreapp.domain.entities.detailMatchInfo.additionalMatchInfo.CoachEntity
+import com.example.footballscoreapp.domain.entities.detailMatchInfo.additionalMatchInfo.MatchAdditionalInfoEntity
+import com.example.footballscoreapp.domain.entities.matches.LeagueEntity
+import com.example.footballscoreapp.domain.entities.matches.MatchEntity
+import com.example.footballscoreapp.domain.entities.matches.MatchStatusEntity
+import com.example.footballscoreapp.domain.entities.matches.TeamMatchInfo
 import com.example.footballscoreapp.presentation.leagueScreen.LeaguesWithMatchesUIModel
 import java.util.Calendar
 
@@ -30,4 +33,24 @@ val myMatchEntityMock = MatchEntity(
 val myLeaguesWithMatchesUIModelMock = LeaguesWithMatchesUIModel(
     league = myLeagueEntityMock,
     matches = listOf(myMatchEntityMock)
+)
+
+val mockDetailInfoEntity = MatchDetailInfoEntity(
+    matchAdditionalInfoEntity = MatchAdditionalInfoEntity(
+        arenaName = "",
+        homeCoach = CoachEntity(
+            coachHashImage = "",
+            coachId = "",
+            coachName = ""
+        ),
+        awayCoach = CoachEntity(
+            coachHashImage = "",
+            coachId = "",
+            coachName = ""
+        ),
+        lineupsId = "",
+        refereeName = "",
+    ),
+    lineUpEntity = null,
+    teamStatisticsEntity = null
 )

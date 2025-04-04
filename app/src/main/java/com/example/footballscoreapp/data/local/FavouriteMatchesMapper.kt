@@ -4,10 +4,10 @@ import com.example.footballscoreapp.data.local.dbModels.LeagueDbModel
 import com.example.footballscoreapp.data.local.dbModels.MatchDbModel
 import com.example.footballscoreapp.data.local.dbModels.MatchStatusDbModel
 import com.example.footballscoreapp.data.local.dbModels.TeamMatchInfoDbModel
-import com.example.footballscoreapp.domain.entities.LeagueEntity
-import com.example.footballscoreapp.domain.entities.MatchEntity
-import com.example.footballscoreapp.domain.entities.MatchStatusEntity
-import com.example.footballscoreapp.domain.entities.TeamMatchInfo
+import com.example.footballscoreapp.domain.entities.matches.LeagueEntity
+import com.example.footballscoreapp.domain.entities.matches.MatchEntity
+import com.example.footballscoreapp.domain.entities.matches.MatchStatusEntity
+import com.example.footballscoreapp.domain.entities.matches.TeamMatchInfo
 import java.util.Date
 
 
@@ -63,6 +63,8 @@ fun MatchStatusDbModel.toMatchStatusEntity() = when (this) {
     MatchStatusDbModel.STARTED -> MatchStatusEntity.STARTED
     MatchStatusDbModel.FINISHED -> MatchStatusEntity.FINISHED
     MatchStatusDbModel.POSTPONED -> MatchStatusEntity.POSTPONED
+    MatchStatusDbModel.CANCELLED -> MatchStatusEntity.CANCELLED
+    MatchStatusDbModel.INTERRUPTED -> MatchStatusEntity.INTERRUPTED
 }
 
 fun MatchStatusEntity.toMatchStatusDbModel() = when (this) {
@@ -70,4 +72,6 @@ fun MatchStatusEntity.toMatchStatusDbModel() = when (this) {
     MatchStatusEntity.STARTED -> MatchStatusDbModel.STARTED
     MatchStatusEntity.FINISHED -> MatchStatusDbModel.FINISHED
     MatchStatusEntity.POSTPONED -> MatchStatusDbModel.POSTPONED
+    MatchStatusEntity.CANCELLED -> MatchStatusDbModel.CANCELLED
+    MatchStatusEntity.INTERRUPTED -> MatchStatusDbModel.INTERRUPTED
 }

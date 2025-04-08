@@ -28,8 +28,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.footballscoreapp.R
 import com.example.footballscoreapp.presentation.ListOfLeagueWithMatches
-import com.example.footballscoreapp.presentation.destinations.DetailsMatchScreenDestination
-import com.example.footballscoreapp.presentation.detailedMatchScreen.getMatchEntityJson
+import com.example.footballscoreapp.presentation.detailedMatchScreen.getDetailsMatchScreenDestination
 import com.example.footballscoreapp.presentation.leagueScreen.LeaguesViewModel.Event
 import com.example.footballscoreapp.presentation.leagueScreen.LeaguesViewModel.Intent
 import com.example.footballscoreapp.presentation.leagueScreen.LeaguesViewModel.State
@@ -67,7 +66,7 @@ fun LeaguesScreen(
         event.filterIsInstance<Event>().collect {
             when (it) {
                 is Event.OnNavigateToDetailedMatchesScreen -> {
-                    navigator.navigate(DetailsMatchScreenDestination(getMatchEntityJson(it.matchEntity)))
+                    navigator.navigate(getDetailsMatchScreenDestination(it.matchEntity))
                 }
             }
         }

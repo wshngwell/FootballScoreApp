@@ -16,12 +16,12 @@ fun MatchAdditionalInfoDto.toMatchAdditionalInfoEntity() = runCatching {
     MatchAdditionalInfoEntity(
         arenaName = arenaName,
         homeCoach = CoachEntity(
-            coachHashImage = coachesDto?.homeCoachHashImage.convertHashToUrl(),
+            coachImageUrl = coachesDto?.homeCoachHashImage.convertHashToUrl(),
             coachName = coachesDto?.homeCoachName!!,
             coachId = coachesDto.homeCoachId!!
         ),
         awayCoach = CoachEntity(
-            coachHashImage = coachesDto.awayCoachHashImage.convertHashToUrl(),
+            coachImageUrl = coachesDto.awayCoachHashImage.convertHashToUrl(),
             coachName = coachesDto.awayCoachName!!,
             coachId = coachesDto.awayCoachId!!
         ),
@@ -44,7 +44,7 @@ fun LineUpDto.toLineUpEntity() = runCatching {
                     position = it.position!!,
                     playerNumber = it.jerseyNumber!!.toInt(),
                     playerName = it.playerName!!,
-                    isSubstituted = it.substitute!!,
+                    substitute = it.substitute!!,
                     playerImageUrl = it.playerHashImage.convertHashToUrl(),
                 )
             }
@@ -58,7 +58,7 @@ fun LineUpDto.toLineUpEntity() = runCatching {
                     position = it.position!!,
                     playerNumber = it.jerseyNumber!!.toInt(),
                     playerName = it.playerName!!,
-                    isSubstituted = it.substitute!!,
+                    substitute = it.substitute!!,
                     playerImageUrl = it.playerHashImage.convertHashToUrl(),
                 )
             }
@@ -80,9 +80,11 @@ fun MatchStatisticsDto.toTeamStatisticsEntity() = runCatching {
 }
 
 fun MatchStatisticDtoAnswer.toListOfTeamStatisticsEntity() = runCatching {
-    matchStatisticsDtos!!.mapNotNull {
-        it.toTeamStatisticsEntity()
-    }
+    matchStatisticsDtos!!
+        .filter { it.period == "ALL" }
+        .mapNotNull {
+            it.toTeamStatisticsEntity()
+        }
 }.getOrElse {
     null
 }

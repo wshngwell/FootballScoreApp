@@ -15,8 +15,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.example.footballscoreapp.presentation.destinations.DetailsMatchScreenDestination
-import com.example.footballscoreapp.presentation.detailedMatchScreen.getMatchEntityJson
+import com.example.footballscoreapp.presentation.detailedMatchScreen.getDetailsMatchScreenDestination
 import com.example.footballscoreapp.presentation.favouriteMatchesScreen.FavouriteMatchesViewModel.Event
 import com.example.footballscoreapp.presentation.favouriteMatchesScreen.FavouriteMatchesViewModel.Intent
 import com.example.footballscoreapp.presentation.favouriteMatchesScreen.FavouriteMatchesViewModel.State
@@ -48,7 +47,7 @@ fun FavouriteMatchesScreen(
         event.filterIsInstance<Event>().collect {
             when (it) {
                 is Event.OnNavigateToDetailedMatchesScreen -> {
-                    navigator.navigate(DetailsMatchScreenDestination(getMatchEntityJson(it.matchEntity)))
+                    navigator.navigate(getDetailsMatchScreenDestination(it.matchEntity))
                 }
             }
         }

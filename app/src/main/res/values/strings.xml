@@ -18,4 +18,11 @@
     <string name="favourite_matches">Избранные</string>
     <string name="match_cancelled">Матч отменен</string>
     <string name="match_interrupted">матч прерван</string>
+    <string name="stadium">Стадион: %1$s</string>
+    <string name="coach">Тренер %1$s</string>
+    <string name="substiture">Запасной состав</string>
+    <string name="mainLineUp">Основной состав</string>
+    <string name="noLineUp">Состава на матч нет</string>
+    <string name="noStatistic">Статистики нет</string>
+    <string name="statistic">Статистика</string>
 </resources>

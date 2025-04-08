@@ -27,7 +27,7 @@ import com.example.footballscoreapp.R
 import com.example.footballscoreapp.domain.entities.matches.MatchEntity
 import com.example.footballscoreapp.domain.entities.matches.MatchStatusEntity
 import com.example.footballscoreapp.presentation.myMatchEntityMock
-import com.example.footballscoreapp.presentation.parseDateToString
+import com.example.footballscoreapp.presentation.parseDateToStringHoursAndMinutes
 import com.example.footballscoreapp.ui.theme.goalsFontSize
 import com.example.footballscoreapp.ui.theme.goalsStartAndEndPadding
 import com.example.footballscoreapp.ui.theme.imagePadding
@@ -100,7 +100,7 @@ fun MatchCard(
                 Spacer(modifier = Modifier.size(40.dp))
                 Text(
                     color = color,
-                    text = matchEntity.startTime.parseDateToString()
+                    text = matchEntity.startTime.parseDateToStringHoursAndMinutes()
                 )
                 Spacer(modifier = Modifier.size(20.dp))
                 Text(
@@ -125,6 +125,7 @@ private fun Preview() {
     ) {
         MatchCard(modifier = Modifier.background(Color.Yellow))
         Text("базовый")
+
 
         MatchCard(
             modifier = Modifier

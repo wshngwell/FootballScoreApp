@@ -75,7 +75,7 @@ fun ListOfLeagueWithMatches(
 
                         items(
                             leaguesWithMatchesUIModelList,
-                            key = { it.toString() }) {
+                            key = { it.copy(isExpanded = false).toString() }) {
                             LeagueCard(
                                 leagueWithMatchUIModel = it,
                                 onMatchItemClicked = {

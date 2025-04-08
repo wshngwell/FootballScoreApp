@@ -17,3 +17,6 @@ val Typography = Typography(
 )
 val bottomNavigationFontSize = 14.sp
 val goalsFontSize = 18.sp
+val lineUpCategorySize = 20.sp
+val statisticItemSize = 18.sp
+val goalsFontSizeInDetails = 24.sp

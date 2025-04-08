@@ -5,6 +5,6 @@ data class FootballPlayerEntity(
     val position: String,
     val playerName: String,
     val playerNumber: Int,
-    val isSubstituted: Boolean,
+    val substitute: Boolean,
     val playerImageUrl: String,
 )

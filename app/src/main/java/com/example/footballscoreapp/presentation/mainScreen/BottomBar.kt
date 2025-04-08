@@ -41,8 +41,7 @@ import com.ramcosta.composedestinations.navigation.navigate
 @Composable
 fun BottomBar(
     navController: NavController,
-
-    ) {
+) {
     val currentDestination: Destination = navController.appCurrentDestinationAsState().value
         ?: NavGraphs.root.startAppDestination
     Row(

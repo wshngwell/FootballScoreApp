@@ -9,43 +9,52 @@ import com.example.footballscoreapp.domain.entities.LoadingException
 import com.example.footballscoreapp.domain.entities.TResult
 import com.example.footballscoreapp.domain.entities.detailMatchInfo.MatchDetailInfoEntity
 import com.example.footballscoreapp.domain.repositories.IDetailsMatchRepository
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
 import kotlinx.coroutines.withContext
 
 class DetailsMatchRepositoryImpl(
     private val apiService: ApiService
 ) : IDetailsMatchRepository {
 
+    private val scope = CoroutineScope(Dispatchers.IO)
+
     override suspend fun loadMatchDetailedInfo(matchId: String): TResult<MatchDetailInfoEntity, LoadingException> =
         withContext(Dispatchers.IO) {
             return@withContext runCatching {
                 val formattedMatchId = "eq.${matchId}"
 
-                val additionalMatchInfoFromNet = apiService.getMatchAdditionalInfo(formattedMatchId)
-                val additionalMatchInfo = if (additionalMatchInfoFromNet.firstOrNull() == null) {
-                    null
-                } else {
-                    additionalMatchInfoFromNet.first().toMatchAdditionalInfoEntity()
+                val mapOfAdditionalInfoAndLineUp = scope.async {
+                    val additionalMatchInfoFromNet =
+                        apiService.getMatchAdditionalInfo(formattedMatchId)
+                    val additionalMatchInfo = additionalMatchInfoFromNet.firstNotNullOfOrNull {
+                        it.toMatchAdditionalInfoEntity()
+                    }
+
+                    val lineUps = additionalMatchInfo?.lineupsId?.let {
+                        apiService.getLineUp("eq.${it}").first()
+                            .toLineUpEntity()
+                    }
+                    mapOf(additionalMatchInfo to lineUps)
                 }
 
-                val lineUps = additionalMatchInfo?.lineupsId?.let {
-                    apiService.getLineUp("eq.${it}").first()
-                        .toLineUpEntity()
+                val matchStatistics = scope.async {
+                    val matchStatisticsFromNet = apiService.getMatchStatistics(formattedMatchId)
+                    val matchStatistics = matchStatisticsFromNet.firstNotNullOfOrNull {
+                        it.toListOfTeamStatisticsEntity()
+                    }
+                    matchStatistics
                 }
 
-                val matchStatisticsFromNet = apiService.getMatchStatistics(formattedMatchId)
-                val matchStatistics = if (matchStatisticsFromNet.firstOrNull() == null) {
-                    null
-                } else {
-                    matchStatisticsFromNet.first()
-                        .toListOfTeamStatisticsEntity()
-                }
+                val additionalInfoWithLineUpResult = mapOfAdditionalInfoAndLineUp.await()
+                val matchStatisticsResult = matchStatistics.await()
 
                 TResult.Success<MatchDetailInfoEntity, LoadingException>(
                     data = MatchDetailInfoEntity(
-                        matchAdditionalInfoEntity = additionalMatchInfo,
-                        teamStatisticsEntity = matchStatistics,
-                        lineUpEntity = lineUps
+                        matchAdditionalInfoEntity = additionalInfoWithLineUpResult.keys.firstOrNull(),
+                        teamStatisticsEntity = matchStatisticsResult,
+                        lineUpEntity = additionalInfoWithLineUpResult[additionalInfoWithLineUpResult.keys.firstOrNull()],
                     )
                 )
 

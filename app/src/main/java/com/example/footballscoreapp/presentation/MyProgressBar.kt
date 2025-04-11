@@ -11,17 +11,20 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.example.footballscoreapp.ui.theme.myProgressBarColor
+import com.example.footballscoreapp.ui.theme.defaultProgressBarBrush
 
 @Preview
 @Composable
 fun MyProgressbar(
     modifier: Modifier = Modifier,
-    size: Dp = 50.dp
+    brush: Brush = defaultProgressBarBrush,
+    size: Dp = 50.dp,
+    widthOfBorder: Dp = 7.dp
 ) {
     val transition = rememberInfiniteTransition(label = "")
     val rotation by transition.animateFloat(
@@ -43,10 +46,8 @@ fun MyProgressbar(
             startAngle = 0f,
             useCenter = false,
             sweepAngle = 300f,
-            brush = myProgressBarColor,
-            style = Stroke(
-                width = 7f
-            ),
+            brush = defaultProgressBarBrush,
+            style = Stroke(widthOfBorder.value),
         )
     }
 

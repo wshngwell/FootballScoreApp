@@ -25,4 +25,8 @@
     <string name="noLineUp">Состава на матч нет</string>
     <string name="noStatistic">Статистики нет</string>
     <string name="statistic">Статистика</string>
+    <string name="slash">/</string>
+    <string name="play_pause">Play/Pause</string>
+    <string name="full_screen_button">Full Screen Button</string>
+    <string name="match_highlights">Обзор матча</string>
 </resources>

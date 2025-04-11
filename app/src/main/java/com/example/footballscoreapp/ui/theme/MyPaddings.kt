@@ -12,3 +12,5 @@ val textPadding = 10.dp
 val matchTimeInfoPadding = 10.dp
 val bottomNavigationPadding = 5.dp
 val goalsStartAndEndPadding = 20.dp
+val videoCurrentTimeAndFullTimeStartPadding = paddingLeagueCardInfoRow
+val videoControlButtonsTopPadding = matchTimeInfoPadding

@@ -106,7 +106,8 @@ val appModule = module {
     viewModel<DetailsMatchViewModel> { (matchEntity: MatchEntity) ->
         DetailsMatchViewModel(
             getDetailedMatchInfoUseCase = get<GetDetailedMatchInfoUseCase>(),
-            matchEntity = matchEntity
+            matchEntity = matchEntity,
+            application = androidApplication()
         )
     }
 

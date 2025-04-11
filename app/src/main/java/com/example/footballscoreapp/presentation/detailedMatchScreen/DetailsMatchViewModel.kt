@@ -1,7 +1,12 @@
 package com.example.footballscoreapp.presentation.detailedMatchScreen
 
+import android.app.Application
+import android.net.Uri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.media3.common.MediaItem
+import androidx.media3.common.Player
+import androidx.media3.exoplayer.ExoPlayer
 import com.example.footballscoreapp.domain.SingleFlowEvent
 import com.example.footballscoreapp.domain.entities.LoadingException
 import com.example.footballscoreapp.domain.entities.TResult
@@ -9,28 +14,51 @@ import com.example.footballscoreapp.domain.entities.detailMatchInfo.MatchDetailI
 import com.example.footballscoreapp.domain.entities.detailMatchInfo.lineup.FootballPlayerEntity
 import com.example.footballscoreapp.domain.entities.matches.MatchEntity
 import com.example.footballscoreapp.domain.usecases.detailMatchInfoUseCases.GetDetailedMatchInfoUseCase
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 
 class DetailsMatchViewModel(
+    application: Application,
     private val getDetailedMatchInfoUseCase: GetDetailedMatchInfoUseCase,
     matchEntity: MatchEntity
 ) : ViewModel() {
+
+    private val randomUrl =
+        "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
 
     data class State(
         val matchEntity: MatchEntity,
         val detailInfoEntity: MatchDetailInfoEntity? = null,
         val isLoading: Boolean = false,
-        val error: LoadingException? = null
+        val error: LoadingException? = null,
+
+        val player: ExoPlayer,
+        val isPlaying: Boolean = false,
+        val currentPositionOfSlider: Long = 0L,
+        val isSliderDragging: Boolean = false,
+        val buffered: Boolean = false,
+        val videoDuration: Long = 1L,
+        val shouldControlsButtonsBeVisible: Boolean = true
     )
 
-    private val _state = MutableStateFlow(State(matchEntity = matchEntity))
+    private val _state = MutableStateFlow(
+        State(
+            player = ExoPlayer.Builder(application).build(),
+            matchEntity = matchEntity
+        )
+    )
     val state = _state.asStateFlow()
 
     sealed interface Intent {
-        data class OnPlayerClicked(val footballPlayerEntity: FootballPlayerEntity) : Intent
+        data object PlayingStateChange : Intent
+        data class ChangeIsSliderDragging(val value: Boolean) : Intent
+        data object UpdateShouldControlsButtonsBeVisible : Intent
+        data class UpdateCurrentPositionOfSlider(val value: Long) : Intent
+        data class OnSoccerPlayerClicked(val footballPlayerEntity: FootballPlayerEntity) : Intent
     }
 
     sealed interface Event {
@@ -40,6 +68,41 @@ class DetailsMatchViewModel(
 
     private val _event = SingleFlowEvent<Event>(viewModelScope)
     val event = _event.flow
+
+    init {
+        state.value.player.let {
+            it.setMediaItem(MediaItem.fromUri(Uri.parse(randomUrl)))
+            it.prepare()
+        }
+    }
+
+    init {
+        viewModelScope.launch {
+            while (isActive) {
+                if (!state.value.isSliderDragging) {
+                    _state.update {
+                        it.copy(currentPositionOfSlider = state.value.player.currentPosition)
+                    }
+                }
+                delay(200)
+            }
+        }
+        state.value.player.addListener(object : Player.Listener {
+            override fun onEvents(
+                player: Player,
+                events: Player.Events
+            ) {
+                super.onEvents(player, events)
+                _state.update {
+                    it.copy(
+                        videoDuration = player.duration.coerceAtLeast(1L),
+                        buffered = player.playbackState == Player.STATE_BUFFERING,
+                        isPlaying = player.isPlaying
+                    )
+                }
+            }
+        })
+    }
 
     init {
         viewModelScope.launch {
@@ -77,6 +140,34 @@ class DetailsMatchViewModel(
     }
 
     fun sendIntent(intent: Intent) {
+        when (intent) {
+            is Intent.OnSoccerPlayerClicked -> {
+                //emit event
+            }
 
+            is Intent.ChangeIsSliderDragging -> {
+                if (!intent.value) state.value.player.seekTo(state.value.currentPositionOfSlider)
+                _state.update { it.copy(isSliderDragging = intent.value) }
+            }
+
+            Intent.PlayingStateChange -> {
+                state.value.run { if (isPlaying) player.pause() else player.play() }
+            }
+
+            is Intent.UpdateCurrentPositionOfSlider -> _state.update {
+                it.copy(currentPositionOfSlider = intent.value)
+            }
+
+            is Intent.UpdateShouldControlsButtonsBeVisible -> _state.update {
+                it.copy(
+                    shouldControlsButtonsBeVisible = !state.value.shouldControlsButtonsBeVisible
+                )
+            }
+        }
+    }
+
+    override fun onCleared() {
+        state.value.player.release()
+        super.onCleared()
     }
 }

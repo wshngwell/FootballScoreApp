@@ -44,70 +44,81 @@ fun BottomBar(
 ) {
     val currentDestination: Destination = navController.appCurrentDestinationAsState().value
         ?: NavGraphs.root.startAppDestination
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(bottomNavigationBarHeight)
-            .background(bottomBarBackGroundColor)
-            .padding(bottomNavigationPadding)
-    ) {
-        BottomBarsElementEnum.entries.forEach {
-            val isSelected by remember(currentDestination) {
-                mutableStateOf(currentDestination == it.destination)
-            }
-            val contentColor by remember(currentDestination) {
-                mutableStateOf(
-                    if (isSelected) {
-                        selectedBottomBarColor
-                    } else {
-                        unselectedBottomBarColor
-                    }
-                )
-            }
-            Box(
-                modifier = Modifier
-                    .fillMaxHeight()
-                    .align(Alignment.CenterVertically)
-                    .weight(1f)
-                    .clickable {
-                        if (currentDestination.route != it.destination.route) {
-                            navController.navigate(
-                                it.destination,
-                                navOptionsBuilder = {
-                                    launchSingleTop = true
-                                    popUpTo(navController.graph.findStartDestination().id) {
-                                        inclusive = false
-                                    }
-                                }
-                            )
+
+    val shouldBottomBarBeVisible by remember(currentDestination.route) {
+        BottomBarsElementEnum.entries.any {
+            it.destination.route == currentDestination.route
+        }.let {
+            mutableStateOf(it)
+        }
+    }
+    if (shouldBottomBarBeVisible) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(bottomNavigationBarHeight)
+                .background(bottomBarBackGroundColor)
+                .padding(bottomNavigationPadding)
+        ) {
+            BottomBarsElementEnum.entries.forEach {
+                val isSelected by remember(currentDestination) {
+                    mutableStateOf(currentDestination == it.destination)
+                }
+                val contentColor by remember(currentDestination) {
+                    mutableStateOf(
+                        if (isSelected) {
+                            selectedBottomBarColor
+                        } else {
+                            unselectedBottomBarColor
                         }
-                    },
-                contentAlignment = Alignment.Center
-            ) {
-                Column(
-                    horizontalAlignment = Alignment.CenterHorizontally
+                    )
+                }
+                Box(
+                    modifier = Modifier
+                        .fillMaxHeight()
+                        .align(Alignment.CenterVertically)
+                        .weight(1f)
+                        .clickable {
+                            if (currentDestination.route != it.destination.route) {
+                                navController.navigate(
+                                    it.destination,
+                                    navOptionsBuilder = {
+                                        launchSingleTop = true
+                                        popUpTo(navController.graph.findStartDestination().id) {
+                                            inclusive = false
+                                        }
+                                    }
+                                )
+                            }
+                        },
+                    contentAlignment = Alignment.Center
                 ) {
-                    Image(
-                        modifier = Modifier
-                            .size(bottomBarIconSize),
-                        painter = painterResource(it.iconFromResources),
-                        contentDescription = stringResource(it.textResources),
-                        colorFilter = ColorFilter.tint(
-                            color = if (currentDestination == it.destination) {
-                                Color.White
-                            } else Color.Black
+                    Column(
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        Image(
+                            modifier = Modifier
+                                .size(bottomBarIconSize),
+                            painter = painterResource(it.iconFromResources),
+                            contentDescription = stringResource(it.textResources),
+                            colorFilter = ColorFilter.tint(
+                                color = if (currentDestination == it.destination) {
+                                    Color.White
+                                } else Color.Black
+                            )
                         )
-                    )
-                    Text(
-                        stringResource(it.textResources),
-                        fontSize = bottomNavigationFontSize,
-                        color = contentColor
-                    )
+                        Text(
+                            stringResource(it.textResources),
+                            fontSize = bottomNavigationFontSize,
+                            color = contentColor
+                        )
+                    }
+
                 }
 
             }
-
         }
     }
+
 
 }

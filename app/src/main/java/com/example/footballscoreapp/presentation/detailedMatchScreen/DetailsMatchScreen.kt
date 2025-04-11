@@ -1,5 +1,6 @@
 package com.example.footballscoreapp.presentation.detailedMatchScreen
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -13,12 +14,16 @@ import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.media3.exoplayer.ExoPlayer
 import com.example.footballscoreapp.R
 import com.example.footballscoreapp.domain.entities.matches.MatchEntity
 import com.example.footballscoreapp.presentation.GsonUtil.fromJson
@@ -30,6 +35,7 @@ import com.example.footballscoreapp.presentation.detailedMatchScreen.DetailsMatc
 import com.example.footballscoreapp.presentation.detailedMatchScreen.DetailsMatchViewModel.State
 import com.example.footballscoreapp.presentation.myMatchEntityMock
 import com.example.footballscoreapp.presentation.parseLoadingExceptionToStringResource
+import com.example.footballscoreapp.ui.theme.categoriesInDetailsColor
 import com.example.footballscoreapp.ui.theme.lineUpCategorySize
 import com.example.footballscoreapp.ui.theme.noLineUpTextColor
 import com.example.footballscoreapp.ui.theme.onLeagueColorContent
@@ -83,13 +89,18 @@ fun DetailsMatchScreen(
 @Preview
 @Composable
 private fun UI(
-    state: State = State(matchEntity = myMatchEntityMock),
+    state: State = State(
+        player = ExoPlayer.Builder(LocalContext.current).build(),
+        matchEntity = myMatchEntityMock
+    ),
     intent: (Intent) -> Unit = {}
 ) {
     SideEffect {
         myLog(state.detailInfoEntity.toString())
     }
-
+    var isVideoFullSreen by rememberSaveable {
+        mutableStateOf(false)
+    }
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -105,52 +116,105 @@ private fun UI(
                 color = onLeagueColorContent,
             )
         } else {
-            val scrollState = rememberScrollState()
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-            ) {
-                MatchAdditionalInfoCard(
-                    matchEntity = state.matchEntity,
-                    matchDetailInfoEntity = state.detailInfoEntity
-                )
+            if (!isVideoFullSreen) {
+                val scrollState = rememberScrollState()
                 Column(
-                    modifier = Modifier.verticalScroll(scrollState)
+                    modifier = Modifier
+                        .fillMaxWidth()
                 ) {
-                    if (state.detailInfoEntity?.lineUpEntity == null) {
+                    MatchAdditionalInfoCard(
+                        matchEntity = state.matchEntity,
+                        matchDetailInfoEntity = state.detailInfoEntity
+                    )
+                    Column(
+                        modifier = Modifier.verticalScroll(scrollState)
+                    ) {
                         Text(
-                            modifier = Modifier.fillMaxWidth(),
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .background(categoriesInDetailsColor),
                             color = noLineUpTextColor,
                             textAlign = TextAlign.Center,
                             fontSize = lineUpCategorySize,
-                            text = stringResource(R.string.noLineUp)
+                            text = stringResource(R.string.match_highlights)
                         )
-                    } else {
-                        TeamsLineUps(
-                            matchAdditionalInfo = state.detailInfoEntity.matchAdditionalInfoEntity,
-                            lineUpEntity = state.detailInfoEntity.lineUpEntity
+                        FootballMediaPlayerCard(
+                            updateShouldControlsButtonsBeVisible = {
+                                intent(Intent.UpdateShouldControlsButtonsBeVisible)
+                            },
+                            shouldControlsButtonsBeVisible = state.shouldControlsButtonsBeVisible,
+                            isPlaying = state.isPlaying,
+                            isBuffered = state.buffered,
+                            changeIsSliderDragging = {
+                                intent(Intent.ChangeIsSliderDragging(it))
+                            },
+                            currentPositionOfSlider = state.currentPositionOfSlider,
+                            playingStateChange = { intent(Intent.PlayingStateChange) },
+                            updateCurrentPositionOfSlider = {
+                                intent(Intent.UpdateCurrentPositionOfSlider(it))
+                            },
+                            videoDuration = state.videoDuration,
+                            mediaPlayer = state.player,
+                            updateIsVideoFullScreen = {
+                                isVideoFullSreen = isVideoFullSreen.not()
+                            }
                         )
+                        if (state.detailInfoEntity?.lineUpEntity == null) {
+                            Text(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .background(categoriesInDetailsColor),
+                                color = noLineUpTextColor,
+                                textAlign = TextAlign.Center,
+                                fontSize = lineUpCategorySize,
+                                text = stringResource(R.string.noLineUp)
+                            )
+                        } else {
+                            TeamsLineUps(
+                                matchAdditionalInfo = state.detailInfoEntity.matchAdditionalInfoEntity,
+                                lineUpEntity = state.detailInfoEntity.lineUpEntity
+                            )
+                        }
+                        if (state.detailInfoEntity?.teamStatisticsEntity == null) {
+                            Text(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .background(categoriesInDetailsColor),
+                                color = noLineUpTextColor,
+                                textAlign = TextAlign.Center,
+                                fontSize = lineUpCategorySize,
+                                text = stringResource(R.string.noStatistic)
+                            )
+                        } else {
+                            TeamsStatistics(
+                                teamStatisticsEntity = state.detailInfoEntity.teamStatisticsEntity
+                            )
+                        }
                     }
-                    if (state.detailInfoEntity?.teamStatisticsEntity == null) {
-                        Text(
-                            modifier = Modifier.fillMaxWidth(),
-                            color = noLineUpTextColor,
-                            textAlign = TextAlign.Center,
-                            fontSize = lineUpCategorySize,
-                            text = stringResource(R.string.noStatistic)
-                        )
-                    } else {
-                        TeamsStatistics(
-                            teamStatisticsEntity = state.detailInfoEntity.teamStatisticsEntity
-                        )
-                    }
-
-
                 }
-
+            } else {
+                FootballMediaPlayerCard(
+                    updateShouldControlsButtonsBeVisible = {
+                        intent(Intent.UpdateShouldControlsButtonsBeVisible)
+                    },
+                    shouldControlsButtonsBeVisible = state.shouldControlsButtonsBeVisible,
+                    isPlaying = state.isPlaying,
+                    isBuffered = state.buffered,
+                    changeIsSliderDragging = {
+                        intent(Intent.ChangeIsSliderDragging(it))
+                    },
+                    currentPositionOfSlider = state.currentPositionOfSlider,
+                    playingStateChange = { intent(Intent.PlayingStateChange) },
+                    updateCurrentPositionOfSlider = {
+                        intent(Intent.UpdateCurrentPositionOfSlider(it))
+                    },
+                    videoDuration = state.videoDuration,
+                    mediaPlayer = state.player,
+                    updateIsVideoFullScreen = {
+                        isVideoFullSreen = isVideoFullSreen.not()
+                    }
+                )
             }
-
-
         }
     }
 }

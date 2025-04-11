@@ -35,5 +35,13 @@ val bottomBarBackGroundColor = Color(0xFF990F3F).copy(alpha = 0.3f)
 val selectedBottomBarColor = Color.White
 val unselectedBottomBarColor = Color.White.copy(alpha = 0.5f)
 
-val myProgressBarColor =
+val defaultProgressBarBrush =
     Brush.linearGradient(listOf(firstColorOfLeagueCardBackGround, Color.Red))
+val videoBufferedProgressBarBrush =
+    Brush.linearGradient(listOf(noLineUpTextColor, Color.Red))
+val timeOfPlayerColor = Color.Red
+val inactiveTrackPlayerColor = allGamesInfoBackGround
+val activeTrackPlayerColor = noLineUpTextColor
+val thumbPlayerColor = Color.Yellow
+
+val videoControlsButtonsColor = noLineUpTextColor

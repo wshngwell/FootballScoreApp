@@ -55,6 +55,7 @@ val mockMatchAdditionalInfo: MatchAdditionalInfoEntity = MatchAdditionalInfoEnti
     refereeName = "Ivanov"
 )
 
+
 val mockDetailInfoEntity = MatchDetailInfoEntity(
     matchAdditionalInfoEntity = mockMatchAdditionalInfo,
     lineUpEntity = null,

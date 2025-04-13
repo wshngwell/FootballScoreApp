@@ -4,9 +4,8 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.animation.core.tween
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -44,10 +43,11 @@ class MainActivity : ComponentActivity() {
                     Column(modifier = Modifier.padding(paddingValues)) {
                         val navHostEngine = rememberNavHostEngine(
                             rootDefaultAnimations = RootNavGraphDefaultAnimations(
-                                enterTransition = { fadeIn(animationSpec = tween(500)) },
-                                exitTransition = { fadeOut(animationSpec = tween(500)) },
-                                popEnterTransition = { fadeIn(animationSpec = tween(500)) },
-                                popExitTransition = { fadeOut(animationSpec = tween(500)) }
+                                enterTransition = { slideInHorizontally { it } },
+                                exitTransition = { slideOutHorizontally { -it } },
+                                popExitTransition = { slideOutHorizontally { it } },
+                                popEnterTransition = { slideInHorizontally { -it } }
+
                             )
                         )
 

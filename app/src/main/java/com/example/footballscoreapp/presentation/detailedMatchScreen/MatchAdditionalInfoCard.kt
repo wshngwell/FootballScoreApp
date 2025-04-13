@@ -98,21 +98,21 @@ private fun MatchFullInfoCard(
             ) {
                 TeamImageWithName(
                     modifier = Modifier.weight(1f),
-                    imageUrl = matchEntity.homeTeamMatchInfo.imageUrl,
-                    teamName = matchEntity.homeTeamMatchInfo.name,
+                    imageUrl = matchEntity.homeTeamMatchInfoEntity.imageUrl,
+                    teamName = matchEntity.homeTeamMatchInfoEntity.name,
                 )
                 val homeGoals by remember {
                     derivedStateOf {
-                        if (matchEntity.homeTeamMatchInfo.goals == null) {
+                        if (matchEntity.homeTeamMatchInfoEntity.goals == null) {
                             "-"
-                        } else matchEntity.homeTeamMatchInfo.goals.toString()
+                        } else matchEntity.homeTeamMatchInfoEntity.goals.toString()
                     }
                 }
                 val awayGoals by remember {
                     derivedStateOf {
-                        if (matchEntity.awayTeamMatchInfo.goals == null) {
+                        if (matchEntity.awayTeamMatchInfoEntity.goals == null) {
                             "-"
-                        } else matchEntity.awayTeamMatchInfo.goals.toString()
+                        } else matchEntity.awayTeamMatchInfoEntity.goals.toString()
                     }
                 }
 
@@ -141,8 +141,8 @@ private fun MatchFullInfoCard(
                 )
                 TeamImageWithName(
                     modifier = Modifier.weight(1f),
-                    imageUrl = matchEntity.awayTeamMatchInfo.imageUrl,
-                    teamName = matchEntity.awayTeamMatchInfo.name,
+                    imageUrl = matchEntity.awayTeamMatchInfoEntity.imageUrl,
+                    teamName = matchEntity.awayTeamMatchInfoEntity.name,
                 )
             }
             matchDetailInfoEntity?.matchAdditionalInfoEntity?.arenaName?.let {

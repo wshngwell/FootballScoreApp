@@ -6,8 +6,8 @@ data class MatchEntity(
     val matchId: String,
     val leagueInfo: LeagueEntity,
     val status: MatchStatusEntity,
-    val awayTeamMatchInfo: TeamMatchInfo,
-    val homeTeamMatchInfo: TeamMatchInfo,
+    val awayTeamMatchInfoEntity: TeamMatchInfoEntity,
+    val homeTeamMatchInfoEntity: TeamMatchInfoEntity,
     val startTime: Date,
     val isFavourite: Boolean
 )

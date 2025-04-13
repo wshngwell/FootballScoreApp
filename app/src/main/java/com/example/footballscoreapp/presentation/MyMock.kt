@@ -7,7 +7,7 @@ import com.example.footballscoreapp.domain.entities.detailMatchInfo.matchStatist
 import com.example.footballscoreapp.domain.entities.matches.LeagueEntity
 import com.example.footballscoreapp.domain.entities.matches.MatchEntity
 import com.example.footballscoreapp.domain.entities.matches.MatchStatusEntity
-import com.example.footballscoreapp.domain.entities.matches.TeamMatchInfo
+import com.example.footballscoreapp.domain.entities.matches.TeamMatchInfoEntity
 import com.example.footballscoreapp.presentation.leagueScreen.LeaguesWithMatchesUIModel
 import java.util.Calendar
 
@@ -20,13 +20,13 @@ val myMatchEntityMock = MatchEntity(
     matchId = "234",
     leagueInfo = myLeagueEntityMock,
     startTime = Calendar.getInstance().time,
-    awayTeamMatchInfo = TeamMatchInfo(
+    awayTeamMatchInfoEntity = TeamMatchInfoEntity(
         imageUrl = "https://images.sportdevs.com/$3afda7f23cc22a5c0a34309debe0e826fec99499a02306983e9793c91e74c4da.png",
         name = "Fc Barcelonssdgsfdhgfffffffffffffffffffffffffffffffffffffffffffffff",
         id = "1",
         goals = 3
     ),
-    homeTeamMatchInfo = TeamMatchInfo(
+    homeTeamMatchInfoEntity = TeamMatchInfoEntity(
         imageUrl = "https://images.sportdevs.com/fefb927e249eb8807484d80f84a8b6a5df16bcf000855eab3bdbf2492ec3f4c6.png",
         name = "Fc Real Madffffffffffffffffffffffffffffffffffffffffffffffffrid",
         id = "2",

@@ -1,6 +1,6 @@
 package com.example.footballscoreapp.domain.entities.matches
 
-data class TeamMatchInfo(
+data class TeamMatchInfoEntity(
     val imageUrl: String,
     val name: String,
     val id: String,

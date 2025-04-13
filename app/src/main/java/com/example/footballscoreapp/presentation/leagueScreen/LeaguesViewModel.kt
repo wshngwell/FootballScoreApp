@@ -157,6 +157,7 @@ class LeaguesViewModel(
     init {
         viewModelScope.launch {
             getFavouriteMatchesUseCase().collect { favouriteMatchList ->
+                println(favouriteMatchList)
                 _state.update {
                     it.copy(
                         today = it.today.copy(favouriteMatchesList = favouriteMatchList),

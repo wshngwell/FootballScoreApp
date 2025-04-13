@@ -76,17 +76,17 @@ fun MatchCard(
 
                     TeamMainInfo(
                         modifier = Modifier.padding(5.dp),
-                        imageUrl = matchEntity.homeTeamMatchInfo.imageUrl,
-                        teamName = matchEntity.homeTeamMatchInfo.name,
-                        teamGoals = matchEntity.homeTeamMatchInfo.goals,
+                        imageUrl = matchEntity.homeTeamMatchInfoEntity.imageUrl,
+                        teamName = matchEntity.homeTeamMatchInfoEntity.name,
+                        teamGoals = matchEntity.homeTeamMatchInfoEntity.goals,
                         color = color
                     )
 
                     TeamMainInfo(
                         modifier = Modifier.padding(5.dp),
-                        imageUrl = matchEntity.awayTeamMatchInfo.imageUrl,
-                        teamName = matchEntity.awayTeamMatchInfo.name,
-                        teamGoals = matchEntity.awayTeamMatchInfo.goals,
+                        imageUrl = matchEntity.awayTeamMatchInfoEntity.imageUrl,
+                        teamName = matchEntity.awayTeamMatchInfoEntity.name,
+                        teamGoals = matchEntity.awayTeamMatchInfoEntity.goals,
                         color = color
                     )
                 }

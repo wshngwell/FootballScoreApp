@@ -73,7 +73,6 @@ fun FootballMediaPlayerCard(
     }
     Box(
         Modifier
-            .fillMaxSize()
             .clickable {
                 updateShouldControlsButtonsBeVisible()
             },

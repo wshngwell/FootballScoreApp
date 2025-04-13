@@ -23,6 +23,7 @@ import com.example.footballscoreapp.presentation.leagueScreen.LeaguesViewModel
 import com.example.footballscoreapp.presentation.liveMatchesScreen.LiveMatchesViewModel
 import org.koin.android.ext.koin.androidApplication
 import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.core.parameter.parametersOf
 import org.koin.dsl.module
 
 val appModule = module {
@@ -103,12 +104,15 @@ val appModule = module {
             deleteMatchFromFavouriteUseCase = get<DeleteMatchFromFavouriteUseCase>()
         )
     }
-    viewModel<DetailsMatchViewModel> { (matchEntity: MatchEntity) ->
+    viewModel<DetailsMatchViewModel> { (matchEntity: MatchEntity, isTested: Boolean) ->
         DetailsMatchViewModel(
             getDetailedMatchInfoUseCase = get<GetDetailedMatchInfoUseCase>(),
             matchEntity = matchEntity,
-            application = androidApplication()
+            application = androidApplication(),
+            isTested = isTested
         )
     }
 
 }
+fun paramsForDetailViewModel(matchEntity: MatchEntity, isTested: Boolean) =
+    parametersOf(matchEntity, isTested)

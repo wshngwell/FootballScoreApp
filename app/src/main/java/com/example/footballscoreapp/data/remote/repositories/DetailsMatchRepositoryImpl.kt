@@ -9,7 +9,6 @@ import com.example.footballscoreapp.domain.entities.LoadingException
 import com.example.footballscoreapp.domain.entities.TResult
 import com.example.footballscoreapp.domain.entities.detailMatchInfo.MatchDetailInfoEntity
 import com.example.footballscoreapp.domain.repositories.IDetailsMatchRepository
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.withContext
@@ -18,14 +17,13 @@ class DetailsMatchRepositoryImpl(
     private val apiService: ApiService
 ) : IDetailsMatchRepository {
 
-    private val scope = CoroutineScope(Dispatchers.IO)
 
     override suspend fun loadMatchDetailedInfo(matchId: String): TResult<MatchDetailInfoEntity, LoadingException> =
         withContext(Dispatchers.IO) {
             return@withContext runCatching {
                 val formattedMatchId = "eq.${matchId}"
 
-                val mapOfAdditionalInfoAndLineUp = scope.async {
+                val mapOfAdditionalInfoAndLineUp = async {
                     val additionalMatchInfoFromNet =
                         apiService.getMatchAdditionalInfo(formattedMatchId)
                     val additionalMatchInfo = additionalMatchInfoFromNet.firstNotNullOfOrNull {
@@ -36,10 +34,10 @@ class DetailsMatchRepositoryImpl(
                         apiService.getLineUp("eq.${it}").first()
                             .toLineUpEntity()
                     }
-                    mapOf(additionalMatchInfo to lineUps)
+                    additionalMatchInfo to lineUps
                 }
 
-                val matchStatistics = scope.async {
+                val matchStatistics = async {
                     val matchStatisticsFromNet = apiService.getMatchStatistics(formattedMatchId)
                     val matchStatistics = matchStatisticsFromNet.firstNotNullOfOrNull {
                         it.toListOfTeamStatisticsEntity()
@@ -52,9 +50,9 @@ class DetailsMatchRepositoryImpl(
 
                 TResult.Success<MatchDetailInfoEntity, LoadingException>(
                     data = MatchDetailInfoEntity(
-                        matchAdditionalInfoEntity = additionalInfoWithLineUpResult.keys.firstOrNull(),
+                        matchAdditionalInfoEntity = additionalInfoWithLineUpResult.first,
                         teamStatisticsEntity = matchStatisticsResult,
-                        lineUpEntity = additionalInfoWithLineUpResult[additionalInfoWithLineUpResult.keys.firstOrNull()],
+                        lineUpEntity = additionalInfoWithLineUpResult.second,
                     )
                 )
 

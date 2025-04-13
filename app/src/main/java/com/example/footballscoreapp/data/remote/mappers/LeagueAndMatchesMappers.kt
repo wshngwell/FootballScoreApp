@@ -4,7 +4,7 @@ import com.example.footballscoreapp.data.remote.dto.matchMainInfo.MatchByDateIte
 import com.example.footballscoreapp.domain.entities.matches.LeagueEntity
 import com.example.footballscoreapp.domain.entities.matches.MatchEntity
 import com.example.footballscoreapp.domain.entities.matches.MatchStatusEntity
-import com.example.footballscoreapp.domain.entities.matches.TeamMatchInfo
+import com.example.footballscoreapp.domain.entities.matches.TeamMatchInfoEntity
 import com.example.footballscoreapp.utils.myLog
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -19,13 +19,13 @@ fun MatchByDateItemDto.mapToMatchEntity() = runCatching {
             leagueImageUrl = leagueHashImage!!.convertHashToUrl()
         ),
         status = status!!.toMatchStatusEntity(),
-        awayTeamMatchInfo = TeamMatchInfo(
+        awayTeamMatchInfoEntity = TeamMatchInfoEntity(
             name = awayTeamName!!,
             id = awayTeamId!!,
             imageUrl = awayTeamHashImage!!.convertHashToUrl(),
             goals = awayTeamGoals.convertToGoal(status.toMatchStatusEntity())
         ),
-        homeTeamMatchInfo = TeamMatchInfo(
+        homeTeamMatchInfoEntity = TeamMatchInfoEntity(
             name = homeTeamName!!,
             id = homeTeamId!!,
             imageUrl = homeTeamHashImage!!.convertHashToUrl(),

@@ -24,7 +24,8 @@ import kotlinx.coroutines.launch
 class DetailsMatchViewModel(
     application: Application,
     private val getDetailedMatchInfoUseCase: GetDetailedMatchInfoUseCase,
-    matchEntity: MatchEntity
+    matchEntity: MatchEntity,
+    val isTested: Boolean
 ) : ViewModel() {
 
     private val randomUrl =
@@ -36,7 +37,6 @@ class DetailsMatchViewModel(
         val isLoading: Boolean = false,
         val error: LoadingException? = null,
 
-        val player: ExoPlayer,
         val isPlaying: Boolean = false,
         val currentPositionOfSlider: Long = 0L,
         val isSliderDragging: Boolean = false,
@@ -46,11 +46,16 @@ class DetailsMatchViewModel(
     )
 
     private val _state = MutableStateFlow(
-        State(
-            player = ExoPlayer.Builder(application).build(),
-            matchEntity = matchEntity
-        )
+        State(matchEntity = matchEntity)
     )
+
+    val player by lazy {
+        ExoPlayer.Builder(application).build().apply {
+            setMediaItem(MediaItem.fromUri(Uri.parse(randomUrl)))
+            prepare()
+        }
+    }
+
     val state = _state.asStateFlow()
 
     sealed interface Intent {
@@ -70,38 +75,34 @@ class DetailsMatchViewModel(
     val event = _event.flow
 
     init {
-        state.value.player.let {
-            it.setMediaItem(MediaItem.fromUri(Uri.parse(randomUrl)))
-            it.prepare()
-        }
-    }
-
-    init {
-        viewModelScope.launch {
-            while (isActive) {
-                if (!state.value.isSliderDragging) {
+        if (!isTested) {
+            viewModelScope.launch {
+                while (isActive) {
+                    if (!state.value.isSliderDragging) {
+                        _state.update {
+                            it.copy(currentPositionOfSlider = player.currentPosition)
+                        }
+                    }
+                    delay(200)
+                }
+            }
+            player.addListener(object : Player.Listener {
+                override fun onEvents(
+                    player: Player,
+                    events: Player.Events
+                ) {
+                    super.onEvents(player, events)
                     _state.update {
-                        it.copy(currentPositionOfSlider = state.value.player.currentPosition)
+                        it.copy(
+                            videoDuration = player.duration.coerceAtLeast(1L),
+                            buffered = player.playbackState == Player.STATE_BUFFERING,
+                            isPlaying = player.isPlaying
+                        )
                     }
                 }
-                delay(200)
-            }
+            })
         }
-        state.value.player.addListener(object : Player.Listener {
-            override fun onEvents(
-                player: Player,
-                events: Player.Events
-            ) {
-                super.onEvents(player, events)
-                _state.update {
-                    it.copy(
-                        videoDuration = player.duration.coerceAtLeast(1L),
-                        buffered = player.playbackState == Player.STATE_BUFFERING,
-                        isPlaying = player.isPlaying
-                    )
-                }
-            }
-        })
+
     }
 
     init {
@@ -146,7 +147,7 @@ class DetailsMatchViewModel(
             }
 
             is Intent.ChangeIsSliderDragging -> {
-                if (!intent.value) state.value.player.seekTo(state.value.currentPositionOfSlider)
+                if (!intent.value) player.seekTo(state.value.currentPositionOfSlider)
                 _state.update { it.copy(isSliderDragging = intent.value) }
             }
 
@@ -167,7 +168,7 @@ class DetailsMatchViewModel(
     }
 
     override fun onCleared() {
-        state.value.player.release()
+        player.release()
         super.onCleared()
     }
 }

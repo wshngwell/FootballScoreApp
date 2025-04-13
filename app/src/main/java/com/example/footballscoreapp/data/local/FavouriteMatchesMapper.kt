@@ -7,7 +7,7 @@ import com.example.footballscoreapp.data.local.dbModels.TeamMatchInfoDbModel
 import com.example.footballscoreapp.domain.entities.matches.LeagueEntity
 import com.example.footballscoreapp.domain.entities.matches.MatchEntity
 import com.example.footballscoreapp.domain.entities.matches.MatchStatusEntity
-import com.example.footballscoreapp.domain.entities.matches.TeamMatchInfo
+import com.example.footballscoreapp.domain.entities.matches.TeamMatchInfoEntity
 import java.util.Date
 
 
@@ -19,13 +19,13 @@ fun MatchDbModel.toMatchEntity() = MatchEntity(
         leagueImageUrl = leagueInfo.leagueImageUrl
     ),
     status = status.toMatchStatusEntity(),
-    awayTeamMatchInfo = TeamMatchInfo(
+    awayTeamMatchInfoEntity = TeamMatchInfoEntity(
         name = awayTeamMatchInfo.name,
         id = awayTeamMatchInfo.id,
         imageUrl = awayTeamMatchInfo.imageUrl,
         goals = awayTeamMatchInfo.goals
     ),
-    homeTeamMatchInfo = TeamMatchInfo(
+    homeTeamMatchInfoEntity = TeamMatchInfoEntity(
         name = homeTeamMatchInfo.name,
         id = homeTeamMatchInfo.id,
         imageUrl = homeTeamMatchInfo.imageUrl,
@@ -44,16 +44,16 @@ fun MatchEntity.toMatchDbModel() = MatchDbModel(
     ),
     status = status.toMatchStatusDbModel(),
     awayTeamMatchInfo = TeamMatchInfoDbModel(
-        name = awayTeamMatchInfo.name,
-        id = awayTeamMatchInfo.id,
-        imageUrl = awayTeamMatchInfo.imageUrl,
-        goals = awayTeamMatchInfo.goals
+        name = awayTeamMatchInfoEntity.name,
+        id = awayTeamMatchInfoEntity.id,
+        imageUrl = awayTeamMatchInfoEntity.imageUrl,
+        goals = awayTeamMatchInfoEntity.goals
     ),
     homeTeamMatchInfo = TeamMatchInfoDbModel(
-        name = homeTeamMatchInfo.name,
-        id = homeTeamMatchInfo.id,
-        imageUrl = homeTeamMatchInfo.imageUrl,
-        goals = homeTeamMatchInfo.goals
+        name = homeTeamMatchInfoEntity.name,
+        id = homeTeamMatchInfoEntity.id,
+        imageUrl = homeTeamMatchInfoEntity.imageUrl,
+        goals = homeTeamMatchInfoEntity.goals
     ),
     startTime = startTime.time
 )

@@ -1,6 +1,4 @@
 <resources>
-    <string name="app_name" translatable="false">FootballScoreApp</string>
-    <string name="http_error" translatable="false">Http Error</string>
     <string name="network_error">На устройстве нет интернета</string>
     <string name="other_error">Возникла другая ошибка</string>
     <string name="all_games">Все игры</string>
@@ -26,18 +24,17 @@
     <string name="noLineUp">Состава на матч нет</string>
     <string name="noStatistic">Статистики нет</string>
     <string name="statistic">Статистика</string>
-    <string name="slash" translatable="false">/</string>
     <string name="play_pause">Включить/Пауза</string>
     <string name="full_screen_button">полноэкранный режим</string>
     <string name="match_highlights">Обзор матча</string>
     <string name="theme_change_image">картинка изменения темы</string>
     <string name="change_theme_scheme">Изменить тему</string>
-    <string name="change_lang">Изменить язык</string>
     <string name="white_option">Светлая тема</string>
     <string name="black_option">Темная тема</string>
     <string name="system_option">Системная тема</string>
     <string name="close">Закрыть</string>
     <string name="english">Английский</string>
     <string name="russina">Русский</string>
+    <string name="change_lang">Изменить язык</string>
     <string name="system_lang">Язык как в системе</string>
 </resources>

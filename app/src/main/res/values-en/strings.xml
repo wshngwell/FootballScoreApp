@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="network_error">You have not got Internet access</string>
+    <string name="other_error">Other error is occured</string>
+    <string name="all_games">All games</string>
+    <string name="league">league</string>
+    <string name="today">Today</string>
+    <string name="tomorrow">Tomorrow</string>
+    <string name="yesterday">Yesterday</string>
+    <string name="favourite_match">favourite match</string>
+    <string name="match_not_started">match is not started</string>
+    <string name="match_is_going">match is live</string>
+    <string name="match_finished">Match ended</string>
+    <string name="match_postponed">match postponed</string>
+    <string name="all_matches">All matches</string>
+    <string name="live_matches">Live</string>
+    <string name="favourite_matches">Favourite</string>
+    <string name="settings">Settings</string>
+    <string name="match_cancelled">Match cancelled</string>
+    <string name="match_interrupted">Match interrupted</string>
+    <string name="stadium">Stadium: %1$</string>
+    <string name="coach">Coach %1$s</string>
+    <string name="substiture">Reserve</string>
+    <string name="mainLineUp">Starting line up</string>
+    <string name="noLineUp">No Line up</string>
+    <string name="noStatistic">No statistics</string>
+    <string name="statistic">Statistics</string>
+    <string name="play_pause">Play/Pause</string>
+    <string name="full_screen_button">Full Screen</string>
+    <string name="match_highlights">Match Highlights</string>
+    <string name="theme_change_image">Theme change image</string>
+    <string name="change_theme_scheme">Change theme</string>
+    <string name="white_option">Light theme</string>
+    <string name="black_option">Dark heme</string>
+    <string name="system_option">System theme</string>
+    <string name="close">Close</string>
+    <string name="english">English</string>
+    <string name="change_lang">Change Language</string>
+    <string name="russina">Russian</string>
+    <string name="system_lang">System language</string>
+</resources>

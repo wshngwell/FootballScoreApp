@@ -24,6 +24,7 @@ import com.ramcosta.composedestinations.rememberNavHostEngine
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        getLanguage()
         enableEdgeToEdge()
         setContent {
             FootballScoreAppTheme {

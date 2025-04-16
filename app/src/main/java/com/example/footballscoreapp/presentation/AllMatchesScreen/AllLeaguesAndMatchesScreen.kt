@@ -27,16 +27,16 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.footballscoreapp.R
-import com.example.footballscoreapp.presentation.ListOfLeagueWithMatches
-import com.example.footballscoreapp.presentation.detailedMatchScreen.getDetailsMatchScreenDestination
 import com.example.footballscoreapp.presentation.AllMatchesScreen.AllLeaguesWithMatchesViewModel.Event
 import com.example.footballscoreapp.presentation.AllMatchesScreen.AllLeaguesWithMatchesViewModel.Intent
 import com.example.footballscoreapp.presentation.AllMatchesScreen.AllLeaguesWithMatchesViewModel.State
-import com.example.footballscoreapp.ui.theme.firstColorOfLeagueCardBackGround
+import com.example.footballscoreapp.presentation.ListOfLeagueWithMatches
+import com.example.footballscoreapp.presentation.detailedMatchScreen.getDetailsMatchScreenDestination
 import com.example.footballscoreapp.ui.theme.myBackGround
-import com.example.footballscoreapp.ui.theme.onLeagueColorContent
+import com.example.footballscoreapp.ui.theme.onBackGroundColor
 import com.example.footballscoreapp.ui.theme.screenTopPadding
-import com.example.footballscoreapp.ui.theme.secondColorOfLeagueCardBackGround
+import com.example.footballscoreapp.ui.theme.tabRowColorNotSelected
+import com.example.footballscoreapp.ui.theme.tabRowColorSelected
 import com.example.footballscoreapp.ui.theme.textPadding
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.RootNavGraph
@@ -66,7 +66,7 @@ fun LeaguesScreen(
         event.filterIsInstance<Event>().collect {
             when (it) {
                 is Event.OnNavigateToDetailedMatchesScreen -> {
-                    navigator.navigate(getDetailsMatchScreenDestination(it.matchEntity)){
+                    navigator.navigate(getDetailsMatchScreenDestination(it.matchEntity)) {
                         launchSingleTop = true
                     }
                 }
@@ -130,10 +130,10 @@ private fun UI(
                         }
                         .background(
                             color = if (pagerState.currentPage == day.ordinal)
-                                firstColorOfLeagueCardBackGround else secondColorOfLeagueCardBackGround
+                                tabRowColorSelected else tabRowColorNotSelected
                         )
                         .padding(textPadding),
-                    color = onLeagueColorContent,
+                    color = onBackGroundColor,
                     textAlign = TextAlign.Center
                 )
             }

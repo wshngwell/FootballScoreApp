@@ -32,7 +32,7 @@ import com.example.footballscoreapp.ui.theme.detailTeamImage
 import com.example.footballscoreapp.ui.theme.goalsFontSizeInDetails
 import com.example.footballscoreapp.ui.theme.imagePadding
 import com.example.footballscoreapp.ui.theme.myMatchInAdditionalMatchInfoBackgroundColor
-import com.example.footballscoreapp.ui.theme.onLeagueColorContent
+import com.example.footballscoreapp.ui.theme.onBackGroundColor
 import com.example.footballscoreapp.ui.theme.onLiveScoreContent
 import com.example.footballscoreapp.ui.theme.paddingLeagueCardInfoRow
 import com.example.footballscoreapp.ui.theme.textPadding
@@ -86,7 +86,7 @@ private fun MatchFullInfoCard(
         ) {
             Text(
                 modifier = Modifier.fillMaxWidth(),
-                color = onLeagueColorContent,
+                color = onBackGroundColor,
                 textAlign = TextAlign.Center,
                 text = matchEntity.startTime.parseDateToStringFullDate()
             )
@@ -119,14 +119,14 @@ private fun MatchFullInfoCard(
                 Text(
                     modifier = Modifier.padding(end = textPadding),
                     color = if (matchEntity.status == MatchStatusEntity.STARTED)
-                        onLiveScoreContent else onLeagueColorContent,
+                        onLiveScoreContent else onBackGroundColor,
                     textAlign = TextAlign.Center,
                     fontSize = goalsFontSizeInDetails,
                     text = homeGoals
                 )
                 Text(
                     color = if (matchEntity.status == MatchStatusEntity.STARTED)
-                        onLiveScoreContent else onLeagueColorContent,
+                        onLiveScoreContent else onBackGroundColor,
                     textAlign = TextAlign.Center,
                     fontSize = goalsFontSizeInDetails,
                     text = ":"
@@ -134,7 +134,7 @@ private fun MatchFullInfoCard(
                 Text(
                     modifier = Modifier.padding(start = textPadding),
                     color = if (matchEntity.status == MatchStatusEntity.STARTED)
-                        onLiveScoreContent else onLeagueColorContent,
+                        onLiveScoreContent else onBackGroundColor,
                     textAlign = TextAlign.Center,
                     fontSize = goalsFontSizeInDetails,
                     text = awayGoals
@@ -149,7 +149,7 @@ private fun MatchFullInfoCard(
                 Text(
                     modifier = Modifier.fillMaxWidth(),
                     textAlign = TextAlign.Center,
-                    color = onLeagueColorContent,
+                    color = onBackGroundColor,
                     text = stringResource(R.string.stadium, it)
                 )
             }
@@ -180,7 +180,7 @@ private fun TeamImageWithName(
         )
         Text(
             modifier = Modifier.padding(10.dp),
-            color = onLeagueColorContent,
+            color = onBackGroundColor,
             textAlign = TextAlign.Center,
             text = teamName
         )

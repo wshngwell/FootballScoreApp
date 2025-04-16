@@ -15,7 +15,7 @@ import com.example.footballscoreapp.domain.entities.matches.LeagueEntity
 import com.example.footballscoreapp.presentation.myLeagueEntityMock
 import com.example.footballscoreapp.ui.theme.imagePadding
 import com.example.footballscoreapp.ui.theme.imageSize
-import com.example.footballscoreapp.ui.theme.onLeagueColorContent
+import com.example.footballscoreapp.ui.theme.onBackGroundColor
 
 @Preview
 @Composable
@@ -37,7 +37,7 @@ fun LeagueNameWithImageCard(
 
         Text(
             modifier = Modifier.weight(1f),
-            color = onLeagueColorContent,
+            color = onBackGroundColor,
             text = leagueEntity.leagueName
         )
     }

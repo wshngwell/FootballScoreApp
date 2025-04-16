@@ -15,6 +15,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.example.footballscoreapp.currentLang
 import com.example.footballscoreapp.currentTheme
 import com.example.footballscoreapp.getCurrentTheme
 
@@ -31,7 +32,10 @@ fun FootballScoreAppTheme(
 
     remember { getCurrentTheme(context, isDarkTheme) }
 
-    val colorScheme by remember(currentTheme.collectAsStateWithLifecycle().value.isSystemDark) {
+    val colorScheme by remember(
+        currentTheme.collectAsStateWithLifecycle().value.isSystemDark,
+        currentLang.collectAsStateWithLifecycle().value.locale
+    ) {
         mutableStateOf(
             darkColorScheme()
         )

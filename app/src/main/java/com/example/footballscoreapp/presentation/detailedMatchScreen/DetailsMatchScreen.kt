@@ -38,7 +38,7 @@ import com.example.footballscoreapp.presentation.parseLoadingExceptionToStringRe
 import com.example.footballscoreapp.ui.theme.categoriesInDetailsColor
 import com.example.footballscoreapp.ui.theme.lineUpCategorySize
 import com.example.footballscoreapp.ui.theme.noLineUpTextColor
-import com.example.footballscoreapp.ui.theme.onLeagueColorContent
+import com.example.footballscoreapp.ui.theme.onBackGroundColor
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.RootNavGraph
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
@@ -112,7 +112,7 @@ private fun UI(
             Text(
                 modifier = Modifier.align(Alignment.Center),
                 text = stringResource(state.error.parseLoadingExceptionToStringResource()),
-                color = onLeagueColorContent,
+                color = onBackGroundColor,
             )
         } else {
             DetailsScreenContent(

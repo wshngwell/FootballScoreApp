@@ -7,10 +7,10 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 
 
-enum class ThemeType {
-    LIGHT,
-    DARK,
-    SYSTEM
+enum class ThemeType(val textResources: Int) {
+    LIGHT(textResources = R.string.white_option),
+    DARK(textResources = R.string.black_option),
+    SYSTEM(textResources = R.string.system_option)
 }
 
 data class ThemeState(
@@ -20,7 +20,7 @@ data class ThemeState(
 
 
 private val _currentTheme = MutableStateFlow(ThemeState())
-val currentTheme get() = _currentTheme.asStateFlow()
+val currentTheme = _currentTheme.asStateFlow()
 
 private fun updateCurrentThemeMode(
     themeType: ThemeType,
@@ -84,14 +84,13 @@ fun getCurrentTheme(
             Context.MODE_PRIVATE
         )
 
-    val themeTypeName = sharedPref.getString(THEME_TYPE_KEY, ThemeType.LIGHT.name)
+    val themeTypeName = sharedPref.getString(THEME_TYPE_KEY, ThemeType.DARK.name)
 
-    val themeType = ThemeType.entries.find { it.name == themeTypeName } ?: ThemeType.LIGHT
+    val themeType = ThemeType.entries.find { it.name == themeTypeName } ?: ThemeType.DARK
 
     updateCurrentThemeMode(themeType = themeType, isDarkTheme)
 
 }
-
 
 private const val THEME_TYPE_SHARED_PREFERENCES = "THEME_TYPE_SHARED_PREFERENCES"
 private const val THEME_TYPE_KEY = "THEME_TYPE_KEY"

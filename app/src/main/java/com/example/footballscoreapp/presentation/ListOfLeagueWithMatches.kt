@@ -17,7 +17,7 @@ import com.example.footballscoreapp.domain.entities.matches.MatchEntity
 import com.example.footballscoreapp.presentation.AllMatchesScreen.AllLeaguesInfoCard
 import com.example.footballscoreapp.presentation.AllMatchesScreen.LeagueCard
 import com.example.footballscoreapp.presentation.AllMatchesScreen.LeaguesWithMatchesUIModel
-import com.example.footballscoreapp.ui.theme.onLeagueColorContent
+import com.example.footballscoreapp.ui.theme.onBackGroundColor
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -61,7 +61,7 @@ fun ListOfLeagueWithMatches(
                                 Text(
                                     modifier = Modifier.align(Alignment.Center),
                                     text = stringResource(error.parseLoadingExceptionToStringResource()),
-                                    color = onLeagueColorContent,
+                                    color = onBackGroundColor,
                                 )
                             }
 

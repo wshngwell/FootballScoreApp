@@ -1,4 +1,4 @@
-package com.example.footballscoreapp.presentation.leagueScreen
+package com.example.footballscoreapp.presentation.AllMatchesScreen
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background

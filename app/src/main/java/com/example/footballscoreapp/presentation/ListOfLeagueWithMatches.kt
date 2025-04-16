@@ -14,9 +14,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import com.example.footballscoreapp.domain.entities.LoadingException
 import com.example.footballscoreapp.domain.entities.matches.MatchEntity
-import com.example.footballscoreapp.presentation.leagueScreen.AllLeaguesInfoCard
-import com.example.footballscoreapp.presentation.leagueScreen.LeagueCard
-import com.example.footballscoreapp.presentation.leagueScreen.LeaguesWithMatchesUIModel
+import com.example.footballscoreapp.presentation.AllMatchesScreen.AllLeaguesInfoCard
+import com.example.footballscoreapp.presentation.AllMatchesScreen.LeagueCard
+import com.example.footballscoreapp.presentation.AllMatchesScreen.LeaguesWithMatchesUIModel
 import com.example.footballscoreapp.ui.theme.onLeagueColorContent
 
 

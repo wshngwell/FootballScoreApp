@@ -8,7 +8,7 @@ import com.example.footballscoreapp.domain.entities.matches.LeagueEntity
 import com.example.footballscoreapp.domain.entities.matches.MatchEntity
 import com.example.footballscoreapp.domain.entities.matches.MatchStatusEntity
 import com.example.footballscoreapp.domain.entities.matches.TeamMatchInfoEntity
-import com.example.footballscoreapp.presentation.leagueScreen.LeaguesWithMatchesUIModel
+import com.example.footballscoreapp.presentation.AllMatchesScreen.LeaguesWithMatchesUIModel
 import java.util.Calendar
 
 val myLeagueEntityMock = LeagueEntity(

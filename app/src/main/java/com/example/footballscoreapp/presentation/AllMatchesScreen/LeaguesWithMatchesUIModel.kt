@@ -1,4 +1,4 @@
-package com.example.footballscoreapp.presentation.leagueScreen
+package com.example.footballscoreapp.presentation.AllMatchesScreen
 
 import com.example.footballscoreapp.domain.entities.matches.LeagueEntity
 import com.example.footballscoreapp.domain.entities.matches.MatchEntity

@@ -19,4 +19,7 @@ val bottomNavigationFontSize = 14.sp
 val goalsFontSize = 18.sp
 val lineUpCategorySize = 20.sp
 val statisticItemSize = 18.sp
+val settingsCategoriesFontSize = 18.sp
+val themeCategoriesFontSize = 18.sp
+val settingsHeaderInDialogFontSize = 25.sp
 val goalsFontSizeInDetails = 24.sp

@@ -2,6 +2,7 @@ package com.example.footballscoreapp.ui.theme
 
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import com.example.footballscoreapp.currentTheme
 
 
 val firstColorOfLeagueCardBackGround = Color(0xFF441E69)
@@ -17,7 +18,13 @@ val matchColorCardBackGround = Brush.linearGradient(
 )
 
 val scrollBarColor = Color(0xFF990F3F).copy(alpha = 0.5f)
-val myBackGround = Color(0xFF2E3144)
+val myBackGround
+    get() = if (currentTheme.value.isSystemDark) {
+        Color(0xFF2E3144)
+    } else {
+        Color.White
+    }
+
 val myLeagueInAdditionalMatchInfoBackgroundColor = Color(0xFF3C4269)
 val myMatchInAdditionalMatchInfoBackgroundColor = Color(0xFF37417C)
 val allGamesInfoBackGround = Color(0xFF3F51B5)
@@ -32,6 +39,8 @@ val onMatchLiveCardColorContent = Color.Red
 val onMatchNotLiveCardColorContent = Color.White
 
 val bottomBarBackGroundColor = Color(0xFF990F3F).copy(alpha = 0.3f)
+
+
 val selectedBottomBarColor = Color.White
 val unselectedBottomBarColor = Color.White.copy(alpha = 0.5f)
 
@@ -45,3 +54,9 @@ val activeTrackPlayerColor = noLineUpTextColor
 val thumbPlayerColor = Color.Yellow
 
 val videoControlsButtonsColor = noLineUpTextColor
+val settingOptionCardColorBackground = matchColorCardBackGround
+
+val themesModeOptionsBackGround = leagueCardColorBackGround
+
+
+val themeChangerIconColor = Color.White

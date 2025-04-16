@@ -1,4 +1,4 @@
-package com.example.footballscoreapp.presentation.leagueScreen
+package com.example.footballscoreapp.presentation.AllMatchesScreen
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -16,7 +16,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import java.util.Calendar
 
-class LeaguesViewModel(
+class AllLeaguesWithMatchesViewModel(
     private val getMatchesUseCase: GetMatchesUseCase,
     private val getFavouriteMatchesUseCase: GetFavouriteMatchesUseCase,
     private val addMatchToFavouriteUseCase: AddMatchToFavouriteUseCase,

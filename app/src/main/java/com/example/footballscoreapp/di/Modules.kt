@@ -17,9 +17,9 @@ import com.example.footballscoreapp.domain.usecases.favouriteMatchesUseCases.Add
 import com.example.footballscoreapp.domain.usecases.favouriteMatchesUseCases.DeleteMatchFromFavouriteUseCase
 import com.example.footballscoreapp.domain.usecases.favouriteMatchesUseCases.GetFavouriteMatchesUseCase
 import com.example.footballscoreapp.domain.usecases.liveMatchesUseCases.GetLiveMatchesUseCase
+import com.example.footballscoreapp.presentation.AllMatchesScreen.AllLeaguesWithMatchesViewModel
 import com.example.footballscoreapp.presentation.detailedMatchScreen.DetailsMatchViewModel
 import com.example.footballscoreapp.presentation.favouriteMatchesScreen.FavouriteMatchesViewModel
-import com.example.footballscoreapp.presentation.leagueScreen.LeaguesViewModel
 import com.example.footballscoreapp.presentation.liveMatchesScreen.LiveMatchesViewModel
 import org.koin.android.ext.koin.androidApplication
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -81,8 +81,8 @@ val appModule = module {
             iFavouriteMatchesRepository = get<IFavouriteMatchesRepository>()
         )
     }
-    viewModel<LeaguesViewModel> {
-        LeaguesViewModel(
+    viewModel<AllLeaguesWithMatchesViewModel> {
+        AllLeaguesWithMatchesViewModel(
             getMatchesUseCase = get<GetMatchesUseCase>(),
             getFavouriteMatchesUseCase = get<GetFavouriteMatchesUseCase>(),
             addMatchToFavouriteUseCase = get<AddMatchToFavouriteUseCase>(),
@@ -114,5 +114,6 @@ val appModule = module {
     }
 
 }
+
 fun paramsForDetailViewModel(matchEntity: MatchEntity, isTested: Boolean) =
     parametersOf(matchEntity, isTested)

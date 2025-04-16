@@ -9,7 +9,7 @@ import com.example.footballscoreapp.domain.entities.matches.LeagueEntity
 import com.example.footballscoreapp.domain.entities.matches.MatchEntity
 import com.example.footballscoreapp.domain.entities.matches.MatchStatusEntity
 import com.example.footballscoreapp.domain.entities.matches.TeamMatchInfoEntity
-import com.example.footballscoreapp.presentation.leagueScreen.LeaguesViewModel
+import com.example.footballscoreapp.presentation.AllMatchesScreen.AllLeaguesWithMatchesViewModel
 import kotlinx.coroutines.delay
 import org.junit.Test
 import org.koin.core.component.get
@@ -21,7 +21,7 @@ class AllLeaguesAndMatchesTests : BaseTestClass() {
     @Test
     fun testsMatchesAndLeagues() {
         test {
-            val viewModel = get<LeaguesViewModel>()
+            val viewModel = get<AllLeaguesWithMatchesViewModel>()
             delay(200)
             assertEquals(viewModel.state.value.today.matchCount, MATCHES_COUNT)
             assertEquals(viewModel.state.value.yesterday.matchCount, MATCHES_COUNT)
@@ -50,7 +50,7 @@ class AllLeaguesAndMatchesTests : BaseTestClass() {
                 viewModel.state.value.tomorrow.favouriteMatchesList.size,
                 FAVOURITE_MATCHES_COUNT
             )
-            viewModel.sendIntent(LeaguesViewModel.Intent.LoadLeagues)
+            viewModel.sendIntent(AllLeaguesWithMatchesViewModel.Intent.LoadLeagues)
             delay(200)
             assertEquals(viewModel.state.value.today.matchCount, MATCHES_COUNT)
             assertEquals(viewModel.state.value.yesterday.matchCount, MATCHES_COUNT)
@@ -62,7 +62,7 @@ class AllLeaguesAndMatchesTests : BaseTestClass() {
     @Test
     fun testAllMatchesAndLeaguesCorrectStatus() {
         test {
-            val viewModel = get<LeaguesViewModel>()
+            val viewModel = get<AllLeaguesWithMatchesViewModel>()
             delay(200)
 
             val favouriteMatches =
@@ -71,7 +71,7 @@ class AllLeaguesAndMatchesTests : BaseTestClass() {
                 }
             assertEquals(favouriteMatches, FAVOURITE_MATCHES_COUNT)
             viewModel.sendIntent(
-                LeaguesViewModel.Intent.OnAddOrDeleteMatchFromFavouriteClicked(
+                AllLeaguesWithMatchesViewModel.Intent.OnAddOrDeleteMatchFromFavouriteClicked(
                     myAddToDbMatchMock
                 )
             )
@@ -82,7 +82,7 @@ class AllLeaguesAndMatchesTests : BaseTestClass() {
                 }
             assertEquals(secondFavouriteMatches, FAVOURITE_MATCHES_COUNT_AFTER_ADDING)
             viewModel.sendIntent(
-                LeaguesViewModel.Intent.OnAddOrDeleteMatchFromFavouriteClicked(
+                AllLeaguesWithMatchesViewModel.Intent.OnAddOrDeleteMatchFromFavouriteClicked(
                     myDeleteMatchToDbMock
                 )
             )
@@ -98,14 +98,14 @@ class AllLeaguesAndMatchesTests : BaseTestClass() {
     @Test
     fun testAddMatchToFavouriteInAllLeaguesScreen() {
         test {
-            val viewModel = get<LeaguesViewModel>()
+            val viewModel = get<AllLeaguesWithMatchesViewModel>()
             delay(200)
             assertEquals(
                 viewModel.state.value.tomorrow.favouriteMatchesList.size,
                 FAVOURITE_MATCHES_COUNT
             )
             viewModel.sendIntent(
-                LeaguesViewModel.Intent.OnAddOrDeleteMatchFromFavouriteClicked(
+                AllLeaguesWithMatchesViewModel.Intent.OnAddOrDeleteMatchFromFavouriteClicked(
                     myAddToDbMatchMock
                 )
             )
@@ -120,14 +120,14 @@ class AllLeaguesAndMatchesTests : BaseTestClass() {
     @Test
     fun testDeleteMatchToFavouriteInAllLeaguesScreen() {
         test {
-            val viewModel = get<LeaguesViewModel>()
+            val viewModel = get<AllLeaguesWithMatchesViewModel>()
             delay(200)
             assertEquals(
                 viewModel.state.value.tomorrow.favouriteMatchesList.size,
                 FAVOURITE_MATCHES_COUNT
             )
             viewModel.sendIntent(
-                LeaguesViewModel.Intent.OnAddOrDeleteMatchFromFavouriteClicked(
+                AllLeaguesWithMatchesViewModel.Intent.OnAddOrDeleteMatchFromFavouriteClicked(
                     myDeleteMatchToDbMock
                 )
             )

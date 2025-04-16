@@ -1,4 +1,4 @@
-package com.example.footballscoreapp.presentation.leagueScreen
+package com.example.footballscoreapp.presentation.AllMatchesScreen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -29,9 +29,9 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.footballscoreapp.R
 import com.example.footballscoreapp.presentation.ListOfLeagueWithMatches
 import com.example.footballscoreapp.presentation.detailedMatchScreen.getDetailsMatchScreenDestination
-import com.example.footballscoreapp.presentation.leagueScreen.LeaguesViewModel.Event
-import com.example.footballscoreapp.presentation.leagueScreen.LeaguesViewModel.Intent
-import com.example.footballscoreapp.presentation.leagueScreen.LeaguesViewModel.State
+import com.example.footballscoreapp.presentation.AllMatchesScreen.AllLeaguesWithMatchesViewModel.Event
+import com.example.footballscoreapp.presentation.AllMatchesScreen.AllLeaguesWithMatchesViewModel.Intent
+import com.example.footballscoreapp.presentation.AllMatchesScreen.AllLeaguesWithMatchesViewModel.State
 import com.example.footballscoreapp.ui.theme.firstColorOfLeagueCardBackGround
 import com.example.footballscoreapp.ui.theme.myBackGround
 import com.example.footballscoreapp.ui.theme.onLeagueColorContent
@@ -54,7 +54,7 @@ fun LeaguesScreen(
     navigator: DestinationsNavigator
 ) {
 
-    val viewModel = koinViewModel<LeaguesViewModel>()
+    val viewModel = koinViewModel<AllLeaguesWithMatchesViewModel>()
     val state by viewModel.state.collectAsStateWithLifecycle()
     val intent: (Intent) -> Unit by remember {
         mutableStateOf(viewModel::sendIntent)
@@ -66,7 +66,9 @@ fun LeaguesScreen(
         event.filterIsInstance<Event>().collect {
             when (it) {
                 is Event.OnNavigateToDetailedMatchesScreen -> {
-                    navigator.navigate(getDetailsMatchScreenDestination(it.matchEntity))
+                    navigator.navigate(getDetailsMatchScreenDestination(it.matchEntity)){
+                        launchSingleTop = true
+                    }
                 }
             }
         }
@@ -156,7 +158,7 @@ private fun UI(
 
 @Composable
 private fun PagerCard(
-    leagueDayState: LeaguesViewModel.DayState = LeaguesViewModel.DayState(),
+    leagueDayState: AllLeaguesWithMatchesViewModel.DayState = AllLeaguesWithMatchesViewModel.DayState(),
     pagerState: PagerState,
     page: Int = 0,
     intent: (Intent) -> Unit = {}

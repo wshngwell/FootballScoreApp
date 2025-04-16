@@ -5,6 +5,7 @@ import com.example.footballscoreapp.presentation.destinations.DirectionDestinati
 import com.example.footballscoreapp.presentation.destinations.FavouriteMatchesScreenDestination
 import com.example.footballscoreapp.presentation.destinations.LeaguesScreenDestination
 import com.example.footballscoreapp.presentation.destinations.LiveMatchesScreenDestination
+import com.example.footballscoreapp.presentation.destinations.SettingsScreenDestination
 
 enum class BottomBarsElementEnum(
     val textResources: Int,
@@ -25,5 +26,11 @@ enum class BottomBarsElementEnum(
         textResources = R.string.favourite_matches,
         iconFromResources = R.drawable.white_favourite_matches_icon,
         destination = FavouriteMatchesScreenDestination
+    ),
+
+    SettingsScreen(
+        textResources = R.string.settings,
+        iconFromResources = R.drawable.black_settings_icon,
+        destination = SettingsScreenDestination
     )
 }

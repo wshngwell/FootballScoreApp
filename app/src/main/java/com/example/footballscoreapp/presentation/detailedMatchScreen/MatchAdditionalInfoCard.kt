@@ -23,7 +23,7 @@ import com.example.footballscoreapp.R
 import com.example.footballscoreapp.domain.entities.detailMatchInfo.MatchDetailInfoEntity
 import com.example.footballscoreapp.domain.entities.matches.MatchEntity
 import com.example.footballscoreapp.domain.entities.matches.MatchStatusEntity
-import com.example.footballscoreapp.presentation.leagueScreen.LeagueNameWithImageCard
+import com.example.footballscoreapp.presentation.AllMatchesScreen.LeagueNameWithImageCard
 import com.example.footballscoreapp.presentation.mockDetailInfoEntity
 import com.example.footballscoreapp.presentation.myMatchEntityMock
 import com.example.footballscoreapp.presentation.parseDateToStringFullDate

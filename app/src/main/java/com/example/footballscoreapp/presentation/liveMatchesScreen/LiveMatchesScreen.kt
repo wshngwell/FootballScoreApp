@@ -42,7 +42,9 @@ fun LiveMatchesScreen(
         event.filterIsInstance<Event>().collect {
             when (it) {
                 is Event.OnNavigateToDetailedMatchesScreen -> {
-                    navigator.navigate(getDetailsMatchScreenDestination(it.matchEntity))
+                    navigator.navigate(getDetailsMatchScreenDestination(it.matchEntity)){
+                        launchSingleTop = true
+                    }
                 }
             }
         }

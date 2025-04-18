@@ -33,10 +33,10 @@ import com.example.footballscoreapp.presentation.AllMatchesScreen.AllLeaguesWith
 import com.example.footballscoreapp.presentation.ListOfLeagueWithMatches
 import com.example.footballscoreapp.presentation.detailedMatchScreen.getDetailsMatchScreenDestination
 import com.example.footballscoreapp.ui.theme.myBackGround
-import com.example.footballscoreapp.ui.theme.onBackGroundColor
 import com.example.footballscoreapp.ui.theme.screenTopPadding
 import com.example.footballscoreapp.ui.theme.tabRowColorNotSelected
 import com.example.footballscoreapp.ui.theme.tabRowColorSelected
+import com.example.footballscoreapp.ui.theme.textColor
 import com.example.footballscoreapp.ui.theme.textPadding
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.RootNavGraph
@@ -133,7 +133,7 @@ private fun UI(
                                 tabRowColorSelected else tabRowColorNotSelected
                         )
                         .padding(textPadding),
-                    color = onBackGroundColor,
+                    color = textColor,
                     textAlign = TextAlign.Center
                 )
             }

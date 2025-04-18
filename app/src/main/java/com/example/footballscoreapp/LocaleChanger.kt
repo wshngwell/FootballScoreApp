@@ -48,11 +48,12 @@ fun Context.getLanguage() {
         LANGUAGE_TYPE_SHARED_PREFERENCES,
         Context.MODE_PRIVATE
     )
-    val langTypeName = sharedPref.getString(LANGUAGE_TYPE_KEY, LanguageType.RUSSIAN.locale)
-    val langType = LanguageType.entries.find { it.name == langTypeName } ?: LanguageType.RUSSIAN
+    val langTypeName = sharedPref.getString(LANGUAGE_TYPE_KEY, null)?.let { langTypeName ->
+        LanguageType.entries.find { it.locale == langTypeName }
+    } ?: LanguageType.RUSSIAN
 
-    applyLang(langType.locale)
-    _currentLang.update { langType }
+    applyLang(langTypeName.locale)
+    _currentLang.update { langTypeName }
 }
 
 private const val LANGUAGE_TYPE_SHARED_PREFERENCES = "LANGUAGE_TYPE_SHARED_PREFERENCES"

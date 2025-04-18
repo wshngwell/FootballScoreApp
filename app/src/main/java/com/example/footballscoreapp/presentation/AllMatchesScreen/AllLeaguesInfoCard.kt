@@ -12,9 +12,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.footballscoreapp.R
 import com.example.footballscoreapp.ui.theme.allGamesInfoBackGround
-import com.example.footballscoreapp.ui.theme.onBackGroundColor
 import com.example.footballscoreapp.ui.theme.paddingAllLeaguesInfoRow
 import com.example.footballscoreapp.ui.theme.paddingCard
+import com.example.footballscoreapp.ui.theme.textColor
 
 
 @Preview
@@ -34,11 +34,11 @@ fun AllLeaguesInfoCard(
         ) {
             Text(
                 modifier = Modifier.weight(1f),
-                color = onBackGroundColor,
+                color = textColor,
                 text = stringResource(R.string.all_games)
             )
             Text(
-                color = onBackGroundColor,
+                color = textColor,
                 text = "$gamesCount"
             )
 

@@ -17,8 +17,8 @@ import com.example.footballscoreapp.presentation.mockDetailInfoEntity
 import com.example.footballscoreapp.ui.theme.categoriesInDetailsColor
 import com.example.footballscoreapp.ui.theme.lineUpCategorySize
 import com.example.footballscoreapp.ui.theme.myLeagueInAdditionalMatchInfoBackgroundColor
-import com.example.footballscoreapp.ui.theme.onBackGroundColor
 import com.example.footballscoreapp.ui.theme.statisticItemSize
+import com.example.footballscoreapp.ui.theme.textColor
 
 
 @Preview
@@ -35,7 +35,7 @@ fun TeamsStatistics(
             modifier = Modifier
                 .fillMaxWidth()
                 .background(categoriesInDetailsColor),
-            color = onBackGroundColor,
+            color = textColor,
             textAlign = TextAlign.Center,
             fontSize = lineUpCategorySize,
             text = stringResource(R.string.statistic)
@@ -47,21 +47,21 @@ fun TeamsStatistics(
             ) {
                 Text(
                     modifier = Modifier.weight(1f),
-                    color = onBackGroundColor,
+                    color = textColor,
                     textAlign = TextAlign.Center,
                     fontSize = statisticItemSize,
                     text = it.homeTeamResult
                 )
                 Text(
                     modifier = Modifier.weight(1f),
-                    color = onBackGroundColor,
+                    color = textColor,
                     textAlign = TextAlign.Center,
                     fontSize = statisticItemSize,
                     text = it.type
                 )
                 Text(
                     modifier = Modifier.weight(1f),
-                    color = onBackGroundColor,
+                    color = textColor,
                     textAlign = TextAlign.Center,
                     fontSize = statisticItemSize,
                     text = it.awayTeamResult

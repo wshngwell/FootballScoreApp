@@ -1,6 +1,5 @@
 package com.example.footballscoreapp.presentation.settingsScreen
 
-import android.content.Context
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -15,10 +14,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.BasicAlertDialog
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -29,28 +24,21 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.ColorFilter
-import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.footballscoreapp.LanguageType
 import com.example.footballscoreapp.R
-import com.example.footballscoreapp.ThemeState
 import com.example.footballscoreapp.ThemeType
 import com.example.footballscoreapp.currentLang
 import com.example.footballscoreapp.currentTheme
 import com.example.footballscoreapp.saveCurrentTheme
 import com.example.footballscoreapp.saveLanguage
-import com.example.footballscoreapp.ui.theme.alertDialogOptionElevation
 import com.example.footballscoreapp.ui.theme.alertDialogSpacerSize
-import com.example.footballscoreapp.ui.theme.closeButtonAlertDialogPadding
 import com.example.footballscoreapp.ui.theme.myBackGround
-import com.example.footballscoreapp.ui.theme.onBackGroundColor
-import com.example.footballscoreapp.ui.theme.paddingInSettingsOptionsText
 import com.example.footballscoreapp.ui.theme.paddingStartTextSettingsFromImage
 import com.example.footballscoreapp.ui.theme.screenTopPadding
 import com.example.footballscoreapp.ui.theme.settingDialogsCornersPercent
@@ -58,12 +46,9 @@ import com.example.footballscoreapp.ui.theme.settingIconSize
 import com.example.footballscoreapp.ui.theme.settingOptionCardColorBackground
 import com.example.footballscoreapp.ui.theme.settingsCategoriesFontSize
 import com.example.footballscoreapp.ui.theme.settingsDialogPadding
-import com.example.footballscoreapp.ui.theme.settingsHeaderInDialogFontSize
 import com.example.footballscoreapp.ui.theme.settingsOptionPadding
-import com.example.footballscoreapp.ui.theme.themeCategoriesFontSize
+import com.example.footballscoreapp.ui.theme.textColor
 import com.example.footballscoreapp.ui.theme.themeChangerIconColor
-import com.example.footballscoreapp.ui.theme.themesModeOptionsBackGround
-import com.example.footballscoreapp.ui.theme.themesModeOptionsBackGroundSelected
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.RootNavGraph
 
@@ -99,11 +84,15 @@ fun SettingsScreen() {
                 makeDialogBeVisible = { shouldLangChangeDialogBeVisible = true }
             )
         }
+        val context = LocalContext.current
+
         if (shouldThemeChangeDialogBeVisible) {
             val themeState = currentTheme.collectAsStateWithLifecycle().value
             val isDarkTheme = isSystemInDarkTheme()
 
-            ThemeChangeAlertDialog(
+            val themesNamesResIds = ThemeType.entries.map { it.textResources }
+
+            SettingsAlertDialog(
                 modifier = Modifier
                     .clip(RoundedCornerShape(settingDialogsCornersPercent))
                     .background(settingOptionCardColorBackground)
@@ -111,8 +100,20 @@ fun SettingsScreen() {
                 onDismiss = {
                     shouldThemeChangeDialogBeVisible = false
                 },
-                themeState = themeState,
-                isDarkTheme = isDarkTheme,
+                optionsListIds = themesNamesResIds,
+                onOptionClicked = { optionName ->
+                    saveCurrentTheme(
+                        context = context,
+                        themeType = ThemeType.entries.find { it.textResources == optionName }
+                            ?: ThemeType.DARK,
+                        isDarkTheme = when (themeState.themeType) {
+                            ThemeType.LIGHT -> false
+                            ThemeType.DARK -> true
+                            ThemeType.SYSTEM -> isDarkTheme
+                        }
+                    )
+                },
+                selectedOption = stringResource(themeState.themeType.textResources),
                 mainText = stringResource(R.string.change_theme_scheme)
             )
         }
@@ -120,7 +121,9 @@ fun SettingsScreen() {
 
             val langState = currentLang.collectAsStateWithLifecycle().value
 
-            ThemeChangeAlertDialog(
+            val languageNamesResIds = LanguageType.entries.map { it.textResources }
+
+            SettingsAlertDialog(
                 modifier = Modifier
                     .clip(RoundedCornerShape(settingDialogsCornersPercent))
                     .background(settingOptionCardColorBackground)
@@ -128,7 +131,15 @@ fun SettingsScreen() {
                 onDismiss = {
                     shouldLangChangeDialogBeVisible = false
                 },
-                currentLangState = langState,
+                onOptionClicked = { optionClicked ->
+                    saveLanguage(
+                        context = context,
+                        languageType = LanguageType.entries.find { it.textResources == optionClicked }
+                            ?: LanguageType.RUSSIAN
+                    )
+                },
+                selectedOption = stringResource(langState.textResources),
+                optionsListIds = languageNamesResIds,
                 mainText = stringResource(id = R.string.change_lang)
             )
         }
@@ -161,7 +172,7 @@ private fun SettingCard(
                 modifier = Modifier
                     .padding(start = paddingStartTextSettingsFromImage),
                 text = text,
-                color = onBackGroundColor,
+                color = textColor,
                 fontSize = settingsCategoriesFontSize
             )
         }
@@ -169,108 +180,4 @@ private fun SettingCard(
     }
 }
 
-@Preview
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-private fun ThemeChangeAlertDialog(
-    themeState: ThemeState? = null,
-    currentLangState: LanguageType? = null,
-    isDarkTheme: Boolean? = null,
-    context: Context = LocalContext.current,
-    modifier: Modifier = Modifier,
-    mainText: String = "",
-    onDismiss: () -> Unit = {}
-) {
 
-    BasicAlertDialog(
-        modifier = modifier,
-        onDismissRequest = onDismiss,
-    ) {
-        Column(
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Text(
-                modifier = Modifier.align(Alignment.CenterHorizontally),
-                text = mainText,
-                fontSize = settingsHeaderInDialogFontSize,
-                color = onBackGroundColor
-            )
-            Spacer(modifier = Modifier.height(alertDialogSpacerSize))
-            Column(modifier = Modifier.clip(RoundedCornerShape(settingDialogsCornersPercent))) {
-                themeState?.let {
-                    ThemeType.entries.forEach {
-                        SettingsAlertDialogOption(optionName = stringResource(it.textResources),
-                            isSelected = themeState.themeType == it,
-                            onClick = {
-                                saveCurrentTheme(
-                                    context = context,
-                                    themeType = it,
-                                    isDarkTheme = when (it) {
-                                        ThemeType.LIGHT -> false
-                                        ThemeType.DARK -> true
-                                        ThemeType.SYSTEM -> isDarkTheme!!
-                                    }
-                                )
-                                onDismiss()
-                            }
-                        )
-                    }
-                }
-                currentLangState?.let {
-                    LanguageType.entries.forEach {
-                        SettingsAlertDialogOption(optionName = stringResource(it.textResources),
-                            isSelected = currentLangState == it,
-                            onClick = {
-                                saveLanguage(
-                                    context = context,
-                                    languageType = it
-                                )
-                                onDismiss()
-                            }
-                        )
-                    }
-                }
-
-            }
-            Spacer(modifier = Modifier.height(alertDialogSpacerSize))
-            Text(
-                modifier = Modifier
-                    .align(Alignment.End)
-                    .clickable { onDismiss() }
-                    .padding(closeButtonAlertDialogPadding),
-                text = stringResource(R.string.close),
-                fontSize = themeCategoriesFontSize,
-                color = onBackGroundColor
-            )
-        }
-
-    }
-}
-
-@Preview
-@Composable
-private fun SettingsAlertDialogOption(
-    optionName: String = "",
-    isSelected: Boolean = false,
-    onClick: () -> Unit = {}
-) {
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clickable { onClick() },
-        shape = RectangleShape,
-        elevation = CardDefaults.cardElevation(defaultElevation = alertDialogOptionElevation)
-    ) {
-        Text(
-            modifier = Modifier
-                .fillMaxWidth()
-                .background(if (isSelected) themesModeOptionsBackGroundSelected else themesModeOptionsBackGround)
-                .padding(paddingInSettingsOptionsText),
-            text = optionName,
-            textAlign = TextAlign.Center,
-            fontSize = themeCategoriesFontSize,
-            color = onBackGroundColor
-        )
-    }
-
-}

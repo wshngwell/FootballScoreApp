@@ -99,7 +99,7 @@ val allGamesInfoBackGround
         allGamesInfoBackGroundLight
     }
 
-val onBackGroundColor = Color.White
+val textColor = Color.White
 
 val noLineUpTextColor = Color(0xFF990F3F)
 val onLiveScoreContent = Color.Red
@@ -107,7 +107,7 @@ val onLiveScoreContent = Color.Red
 val categoriesInDetailsColor
     get() = leagueCardColorBackGround
 
-val onDefaultMatchColorContent = onBackGroundColor
+val onDefaultMatchColorContent = textColor
 val onMatchLiveCardColorContent = Color.Red
 val onMatchNotLiveCardColorContent = onDefaultMatchColorContent
 

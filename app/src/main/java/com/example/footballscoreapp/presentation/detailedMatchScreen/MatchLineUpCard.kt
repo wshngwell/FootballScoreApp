@@ -27,9 +27,9 @@ import com.example.footballscoreapp.ui.theme.categoriesInDetailsColor
 import com.example.footballscoreapp.ui.theme.imagePadding
 import com.example.footballscoreapp.ui.theme.lineUpCategorySize
 import com.example.footballscoreapp.ui.theme.myLeagueInAdditionalMatchInfoBackgroundColor
-import com.example.footballscoreapp.ui.theme.onBackGroundColor
 import com.example.footballscoreapp.ui.theme.paddingAllLeaguesInfoRow
 import com.example.footballscoreapp.ui.theme.playerOrCoachSize
+import com.example.footballscoreapp.ui.theme.textColor
 
 @Preview
 @Composable
@@ -46,7 +46,7 @@ fun TeamsLineUps(
             modifier = Modifier
                 .fillMaxWidth()
                 .background(categoriesInDetailsColor),
-            color = onBackGroundColor,
+            color = textColor,
             textAlign = TextAlign.Center,
             fontSize = lineUpCategorySize,
             text = stringResource(R.string.mainLineUp)
@@ -78,7 +78,7 @@ fun TeamsLineUps(
             modifier = Modifier
                 .fillMaxWidth()
                 .background(categoriesInDetailsColor),
-            color = onBackGroundColor,
+            color = textColor,
             textAlign = TextAlign.Center,
             fontSize = lineUpCategorySize,
             text = stringResource(R.string.substiture)
@@ -159,7 +159,7 @@ private fun NameWithImageOfCoachOrPlayer(
         )
         Text(
             modifier = Modifier.weight(1f),
-            color = onBackGroundColor,
+            color = textColor,
             text = name
         )
     }

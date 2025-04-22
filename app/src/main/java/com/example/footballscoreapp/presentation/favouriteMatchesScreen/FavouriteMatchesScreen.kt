@@ -20,8 +20,8 @@ import com.example.footballscoreapp.presentation.favouriteMatchesScreen.Favourit
 import com.example.footballscoreapp.presentation.favouriteMatchesScreen.FavouriteMatchesViewModel.Intent
 import com.example.footballscoreapp.presentation.favouriteMatchesScreen.FavouriteMatchesViewModel.State
 import com.example.footballscoreapp.presentation.mathcesUi.MatchCard
-import com.example.footballscoreapp.ui.theme.myBackGround
-import com.example.footballscoreapp.ui.theme.paddingCard
+import com.example.footballscoreapp.presentation.theme.myBackGround
+import com.example.footballscoreapp.presentation.theme.paddingCard
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.RootNavGraph
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator

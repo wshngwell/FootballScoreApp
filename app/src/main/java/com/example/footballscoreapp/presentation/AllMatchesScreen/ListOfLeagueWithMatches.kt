@@ -1,4 +1,4 @@
-package com.example.footballscoreapp.presentation
+package com.example.footballscoreapp.presentation.AllMatchesScreen
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -14,10 +14,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import com.example.footballscoreapp.domain.entities.LoadingException
 import com.example.footballscoreapp.domain.entities.matches.MatchEntity
-import com.example.footballscoreapp.presentation.AllMatchesScreen.AllLeaguesInfoCard
-import com.example.footballscoreapp.presentation.AllMatchesScreen.LeagueCard
-import com.example.footballscoreapp.presentation.AllMatchesScreen.LeaguesWithMatchesUIModel
-import com.example.footballscoreapp.ui.theme.textColor
+import com.example.footballscoreapp.presentation.MyProgressbar
+import com.example.footballscoreapp.presentation.myVerticalScrollBar
+import com.example.footballscoreapp.presentation.parseLoadingExceptionToStringResource
+import com.example.footballscoreapp.presentation.theme.textColor
 
 
 @OptIn(ExperimentalMaterial3Api::class)

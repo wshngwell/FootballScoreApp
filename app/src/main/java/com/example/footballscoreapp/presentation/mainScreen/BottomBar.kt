@@ -28,13 +28,13 @@ import com.example.footballscoreapp.presentation.NavGraphs
 import com.example.footballscoreapp.presentation.appCurrentDestinationAsState
 import com.example.footballscoreapp.presentation.destinations.Destination
 import com.example.footballscoreapp.presentation.startAppDestination
-import com.example.footballscoreapp.ui.theme.bottomBarBackGroundColor
-import com.example.footballscoreapp.ui.theme.bottomBarIconSize
-import com.example.footballscoreapp.ui.theme.bottomNavigationBarHeight
-import com.example.footballscoreapp.ui.theme.bottomNavigationFontSize
-import com.example.footballscoreapp.ui.theme.bottomNavigationPadding
-import com.example.footballscoreapp.ui.theme.selectedBottomBarColor
-import com.example.footballscoreapp.ui.theme.unselectedBottomBarColor
+import com.example.footballscoreapp.presentation.theme.bottomBarBackGroundColor
+import com.example.footballscoreapp.presentation.theme.bottomBarIconSize
+import com.example.footballscoreapp.presentation.theme.bottomNavigationBarHeight
+import com.example.footballscoreapp.presentation.theme.bottomNavigationFontSize
+import com.example.footballscoreapp.presentation.theme.bottomNavigationPadding
+import com.example.footballscoreapp.presentation.theme.selectedBottomBarColor
+import com.example.footballscoreapp.presentation.theme.unselectedBottomBarColor
 import com.ramcosta.composedestinations.navigation.navigate
 
 

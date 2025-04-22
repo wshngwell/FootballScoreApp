@@ -10,13 +10,13 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.example.footballscoreapp.presentation.ListOfLeagueWithMatches
+import com.example.footballscoreapp.presentation.AllMatchesScreen.ListOfLeagueWithMatches
 import com.example.footballscoreapp.presentation.detailedMatchScreen.getDetailsMatchScreenDestination
 import com.example.footballscoreapp.presentation.liveMatchesScreen.LiveMatchesViewModel.Event
 import com.example.footballscoreapp.presentation.liveMatchesScreen.LiveMatchesViewModel.Intent
 import com.example.footballscoreapp.presentation.liveMatchesScreen.LiveMatchesViewModel.State
-import com.example.footballscoreapp.ui.theme.myBackGround
-import com.example.footballscoreapp.ui.theme.screenTopPadding
+import com.example.footballscoreapp.presentation.theme.myBackGround
+import com.example.footballscoreapp.presentation.theme.screenTopPadding
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.RootNavGraph
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator

@@ -13,9 +13,9 @@ import coil3.compose.AsyncImage
 import com.example.footballscoreapp.R
 import com.example.footballscoreapp.domain.entities.matches.LeagueEntity
 import com.example.footballscoreapp.presentation.myLeagueEntityMock
-import com.example.footballscoreapp.ui.theme.imagePadding
-import com.example.footballscoreapp.ui.theme.imageSize
-import com.example.footballscoreapp.ui.theme.textColor
+import com.example.footballscoreapp.presentation.theme.imagePadding
+import com.example.footballscoreapp.presentation.theme.imageSize
+import com.example.footballscoreapp.presentation.theme.textColor
 
 @Preview
 @Composable

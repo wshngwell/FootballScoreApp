@@ -23,13 +23,13 @@ import com.example.footballscoreapp.domain.entities.detailMatchInfo.lineup.LineU
 import com.example.footballscoreapp.domain.entities.detailMatchInfo.lineup.TeamLineUpInfoEntity
 import com.example.footballscoreapp.presentation.mockDetailInfoEntity
 import com.example.footballscoreapp.presentation.mockMatchAdditionalInfo
-import com.example.footballscoreapp.ui.theme.categoriesInDetailsColor
-import com.example.footballscoreapp.ui.theme.imagePadding
-import com.example.footballscoreapp.ui.theme.lineUpCategorySize
-import com.example.footballscoreapp.ui.theme.myLeagueInAdditionalMatchInfoBackgroundColor
-import com.example.footballscoreapp.ui.theme.paddingAllLeaguesInfoRow
-import com.example.footballscoreapp.ui.theme.playerOrCoachSize
-import com.example.footballscoreapp.ui.theme.textColor
+import com.example.footballscoreapp.presentation.theme.categoriesInDetailsColor
+import com.example.footballscoreapp.presentation.theme.imagePadding
+import com.example.footballscoreapp.presentation.theme.lineUpCategorySize
+import com.example.footballscoreapp.presentation.theme.myLeagueInAdditionalMatchInfoBackgroundColor
+import com.example.footballscoreapp.presentation.theme.paddingAllLeaguesInfoRow
+import com.example.footballscoreapp.presentation.theme.playerOrCoachSize
+import com.example.footballscoreapp.presentation.theme.textColor
 
 @Preview
 @Composable

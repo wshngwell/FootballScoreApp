@@ -22,16 +22,16 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.footballscoreapp.R
-import com.example.footballscoreapp.ui.theme.alertDialogOptionElevation
-import com.example.footballscoreapp.ui.theme.alertDialogSpacerSize
-import com.example.footballscoreapp.ui.theme.closeButtonAlertDialogPadding
-import com.example.footballscoreapp.ui.theme.paddingInSettingsOptionsText
-import com.example.footballscoreapp.ui.theme.settingDialogsCornersPercent
-import com.example.footballscoreapp.ui.theme.settingsHeaderInDialogFontSize
-import com.example.footballscoreapp.ui.theme.textColor
-import com.example.footballscoreapp.ui.theme.themeCategoriesFontSize
-import com.example.footballscoreapp.ui.theme.themesModeOptionsBackGround
-import com.example.footballscoreapp.ui.theme.themesModeOptionsBackGroundSelected
+import com.example.footballscoreapp.presentation.theme.alertDialogOptionElevation
+import com.example.footballscoreapp.presentation.theme.alertDialogSpacerSize
+import com.example.footballscoreapp.presentation.theme.closeButtonAlertDialogPadding
+import com.example.footballscoreapp.presentation.theme.paddingInSettingsOptionsText
+import com.example.footballscoreapp.presentation.theme.settingDialogsCornersPercent
+import com.example.footballscoreapp.presentation.theme.settingsHeaderInDialogFontSize
+import com.example.footballscoreapp.presentation.theme.textColor
+import com.example.footballscoreapp.presentation.theme.themeCategoriesFontSize
+import com.example.footballscoreapp.presentation.theme.themesModeOptionsBackGround
+import com.example.footballscoreapp.presentation.theme.themesModeOptionsBackGroundSelected
 
 
 @OptIn(ExperimentalMaterial3Api::class)

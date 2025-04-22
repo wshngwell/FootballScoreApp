@@ -7,16 +7,19 @@ import com.example.footballscoreapp.data.remote.ApiFactory
 import com.example.footballscoreapp.data.remote.ApiService
 import com.example.footballscoreapp.data.remote.repositories.DetailsMatchRepositoryImpl
 import com.example.footballscoreapp.data.remote.repositories.LeaguesWithMatchesRepositoryImpl
+import com.example.footballscoreapp.data.remote.repositories.TeamsFullInfoRepositoryImpl
 import com.example.footballscoreapp.domain.entities.matches.MatchEntity
 import com.example.footballscoreapp.domain.repositories.IDetailsMatchRepository
 import com.example.footballscoreapp.domain.repositories.IFavouriteMatchesRepository
 import com.example.footballscoreapp.domain.repositories.ILeaguesWithMatchesRepository
+import com.example.footballscoreapp.domain.repositories.ITeamsFullInfoRepository
 import com.example.footballscoreapp.domain.usecases.allMatchesUseCases.GetMatchesUseCase
 import com.example.footballscoreapp.domain.usecases.detailMatchInfoUseCases.GetDetailedMatchInfoUseCase
 import com.example.footballscoreapp.domain.usecases.favouriteMatchesUseCases.AddMatchToFavouriteUseCase
 import com.example.footballscoreapp.domain.usecases.favouriteMatchesUseCases.DeleteMatchFromFavouriteUseCase
 import com.example.footballscoreapp.domain.usecases.favouriteMatchesUseCases.GetFavouriteMatchesUseCase
 import com.example.footballscoreapp.domain.usecases.liveMatchesUseCases.GetLiveMatchesUseCase
+import com.example.footballscoreapp.domain.usecases.teamsFullInfoUseCases.GetTeamFullInfoUseCase
 import com.example.footballscoreapp.presentation.AllMatchesScreen.AllLeaguesWithMatchesViewModel
 import com.example.footballscoreapp.presentation.detailedMatchScreen.DetailsMatchViewModel
 import com.example.footballscoreapp.presentation.favouriteMatchesScreen.FavouriteMatchesViewModel
@@ -47,6 +50,17 @@ val appModule = module {
     single<IDetailsMatchRepository> {
         DetailsMatchRepositoryImpl(
             apiService = get<ApiService>()
+        )
+    }
+    single<ITeamsFullInfoRepository> {
+        TeamsFullInfoRepositoryImpl(
+            apiService = get<ApiService>()
+        )
+    }
+
+    factory<GetTeamFullInfoUseCase> {
+        GetTeamFullInfoUseCase(
+            iTeamsFullInfoRepository = get<ITeamsFullInfoRepository>()
         )
     }
     factory<GetDetailedMatchInfoUseCase> {

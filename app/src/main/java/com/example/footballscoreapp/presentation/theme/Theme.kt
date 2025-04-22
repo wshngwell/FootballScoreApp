@@ -1,4 +1,4 @@
-package com.example.footballscoreapp.ui.theme
+package com.example.footballscoreapp.presentation.theme
 
 import android.annotation.SuppressLint
 import android.app.Activity
@@ -15,9 +15,9 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.example.footballscoreapp.currentLang
-import com.example.footballscoreapp.currentTheme
-import com.example.footballscoreapp.getCurrentTheme
+import com.example.footballscoreapp.presentation.currentLang
+import com.example.footballscoreapp.presentation.currentTheme
+import com.example.footballscoreapp.presentation.getCurrentTheme
 
 @SuppressLint("RememberReturnType")
 @Composable

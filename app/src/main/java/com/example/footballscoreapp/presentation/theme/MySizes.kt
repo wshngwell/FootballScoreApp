@@ -1,4 +1,4 @@
-package com.example.footballscoreapp.ui.theme
+package com.example.footballscoreapp.presentation.theme
 
 import androidx.compose.ui.unit.dp
 

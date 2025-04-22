@@ -1,4 +1,4 @@
-package com.example.footballscoreapp.ui.theme
+package com.example.footballscoreapp.presentation.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

@@ -1,4 +1,4 @@
-package com.example.footballscoreapp
+package com.example.footballscoreapp.presentation
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -14,9 +14,9 @@ import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
-import com.example.footballscoreapp.presentation.NavGraphs
+import com.example.footballscoreapp.R
 import com.example.footballscoreapp.presentation.mainScreen.BottomBar
-import com.example.footballscoreapp.ui.theme.FootballScoreAppTheme
+import com.example.footballscoreapp.presentation.theme.FootballScoreAppTheme
 import com.ramcosta.composedestinations.DestinationsNavHost
 import com.ramcosta.composedestinations.animations.defaults.RootNavGraphDefaultAnimations
 import com.ramcosta.composedestinations.rememberNavHostEngine

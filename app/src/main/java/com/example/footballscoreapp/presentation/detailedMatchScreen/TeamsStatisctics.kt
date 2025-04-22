@@ -14,11 +14,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.example.footballscoreapp.R
 import com.example.footballscoreapp.domain.entities.detailMatchInfo.matchStatistics.TeamStatisticsEntity
 import com.example.footballscoreapp.presentation.mockDetailInfoEntity
-import com.example.footballscoreapp.ui.theme.categoriesInDetailsColor
-import com.example.footballscoreapp.ui.theme.lineUpCategorySize
-import com.example.footballscoreapp.ui.theme.myLeagueInAdditionalMatchInfoBackgroundColor
-import com.example.footballscoreapp.ui.theme.statisticItemSize
-import com.example.footballscoreapp.ui.theme.textColor
+import com.example.footballscoreapp.presentation.theme.categoriesInDetailsColor
+import com.example.footballscoreapp.presentation.theme.lineUpCategorySize
+import com.example.footballscoreapp.presentation.theme.myLeagueInAdditionalMatchInfoBackgroundColor
+import com.example.footballscoreapp.presentation.theme.statisticItemSize
+import com.example.footballscoreapp.presentation.theme.textColor
 
 
 @Preview

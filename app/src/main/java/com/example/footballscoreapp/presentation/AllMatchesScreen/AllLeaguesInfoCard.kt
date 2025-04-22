@@ -11,10 +11,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.footballscoreapp.R
-import com.example.footballscoreapp.ui.theme.allGamesInfoBackGround
-import com.example.footballscoreapp.ui.theme.paddingAllLeaguesInfoRow
-import com.example.footballscoreapp.ui.theme.paddingCard
-import com.example.footballscoreapp.ui.theme.textColor
+import com.example.footballscoreapp.presentation.theme.allGamesInfoBackGround
+import com.example.footballscoreapp.presentation.theme.paddingAllLeaguesInfoRow
+import com.example.footballscoreapp.presentation.theme.paddingCard
+import com.example.footballscoreapp.presentation.theme.textColor
 
 
 @Preview

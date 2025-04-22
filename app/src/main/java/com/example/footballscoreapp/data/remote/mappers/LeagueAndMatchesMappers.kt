@@ -5,6 +5,7 @@ import com.example.footballscoreapp.domain.entities.matches.LeagueEntity
 import com.example.footballscoreapp.domain.entities.matches.MatchEntity
 import com.example.footballscoreapp.domain.entities.matches.MatchStatusEntity
 import com.example.footballscoreapp.domain.entities.matches.TeamMatchInfoEntity
+import com.example.footballscoreapp.domain.entities.teams.TeamMainInfoEntity
 import com.example.footballscoreapp.utils.myLog
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -20,15 +21,19 @@ fun MatchByDateItemDto.mapToMatchEntity() = runCatching {
         ),
         status = status!!.toMatchStatusEntity(),
         awayTeamMatchInfoEntity = TeamMatchInfoEntity(
-            name = awayTeamName!!,
-            id = awayTeamId!!,
-            imageUrl = awayTeamHashImage!!.convertHashToUrl(),
+            teamMainInfoEntity = TeamMainInfoEntity(
+                name = awayTeamName!!,
+                id = awayTeamId!!,
+                imageUrl = awayTeamHashImage!!.convertHashToUrl(),
+            ),
             goals = awayTeamGoals.convertToGoal(status.toMatchStatusEntity())
         ),
         homeTeamMatchInfoEntity = TeamMatchInfoEntity(
-            name = homeTeamName!!,
-            id = homeTeamId!!,
-            imageUrl = homeTeamHashImage!!.convertHashToUrl(),
+            teamMainInfoEntity = TeamMainInfoEntity(
+                name = homeTeamName!!,
+                id = homeTeamId!!,
+                imageUrl = homeTeamHashImage!!.convertHashToUrl(),
+            ),
             goals = homeTeamGoals.convertToGoal(status.toMatchStatusEntity())
         ),
         startTime = startTime!!.toDate(),

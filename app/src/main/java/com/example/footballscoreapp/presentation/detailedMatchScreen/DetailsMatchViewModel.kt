@@ -13,6 +13,7 @@ import com.example.footballscoreapp.domain.entities.TResult
 import com.example.footballscoreapp.domain.entities.detailMatchInfo.MatchDetailInfoEntity
 import com.example.footballscoreapp.domain.entities.detailMatchInfo.lineup.FootballPlayerEntity
 import com.example.footballscoreapp.domain.entities.matches.MatchEntity
+import com.example.footballscoreapp.domain.entities.teams.TeamMainInfoEntity
 import com.example.footballscoreapp.domain.usecases.detailMatchInfoUseCases.GetDetailedMatchInfoUseCase
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -64,10 +65,11 @@ class DetailsMatchViewModel(
         data object UpdateShouldControlsButtonsBeVisible : Intent
         data class UpdateCurrentPositionOfSlider(val value: Long) : Intent
         data class OnSoccerPlayerClicked(val footballPlayerEntity: FootballPlayerEntity) : Intent
+        data class OnTeamIconClicked(val teamMainInfoEntity: TeamMainInfoEntity) : Intent
     }
 
     sealed interface Event {
-        data class NavigateToPlayerDetailsScreen(val footballPlayerEntity: FootballPlayerEntity) :
+        data class NavigateToTeamDetailsScreen(val teamMainInfoEntity: TeamMainInfoEntity) :
             Event
     }
 
@@ -164,6 +166,8 @@ class DetailsMatchViewModel(
                     shouldControlsButtonsBeVisible = !state.value.shouldControlsButtonsBeVisible
                 )
             }
+
+            is Intent.OnTeamIconClicked -> _event.emit(Event.NavigateToTeamDetailsScreen(intent.teamMainInfoEntity))
         }
     }
 

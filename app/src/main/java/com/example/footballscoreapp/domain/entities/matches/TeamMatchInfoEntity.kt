@@ -1,8 +1,8 @@
 package com.example.footballscoreapp.domain.entities.matches
 
+import com.example.footballscoreapp.domain.entities.teams.TeamMainInfoEntity
+
 data class TeamMatchInfoEntity(
-    val imageUrl: String,
-    val name: String,
-    val id: String,
+    val teamMainInfoEntity: TeamMainInfoEntity,
     val goals: Int?,
 )

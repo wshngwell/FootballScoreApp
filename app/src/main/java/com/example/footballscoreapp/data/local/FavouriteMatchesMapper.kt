@@ -8,6 +8,7 @@ import com.example.footballscoreapp.domain.entities.matches.LeagueEntity
 import com.example.footballscoreapp.domain.entities.matches.MatchEntity
 import com.example.footballscoreapp.domain.entities.matches.MatchStatusEntity
 import com.example.footballscoreapp.domain.entities.matches.TeamMatchInfoEntity
+import com.example.footballscoreapp.domain.entities.teams.TeamMainInfoEntity
 import java.util.Date
 
 
@@ -20,15 +21,19 @@ fun MatchDbModel.toMatchEntity() = MatchEntity(
     ),
     status = status.toMatchStatusEntity(),
     awayTeamMatchInfoEntity = TeamMatchInfoEntity(
-        name = awayTeamMatchInfo.name,
-        id = awayTeamMatchInfo.id,
-        imageUrl = awayTeamMatchInfo.imageUrl,
+        teamMainInfoEntity = TeamMainInfoEntity(
+            name = awayTeamMatchInfo.name,
+            id = awayTeamMatchInfo.id,
+            imageUrl = awayTeamMatchInfo.imageUrl,
+        ),
         goals = awayTeamMatchInfo.goals
     ),
     homeTeamMatchInfoEntity = TeamMatchInfoEntity(
-        name = homeTeamMatchInfo.name,
-        id = homeTeamMatchInfo.id,
-        imageUrl = homeTeamMatchInfo.imageUrl,
+        teamMainInfoEntity = TeamMainInfoEntity(
+            name = homeTeamMatchInfo.name,
+            id = homeTeamMatchInfo.id,
+            imageUrl = homeTeamMatchInfo.imageUrl,
+        ),
         goals = homeTeamMatchInfo.goals
     ),
     startTime = Date(startTime),
@@ -44,15 +49,16 @@ fun MatchEntity.toMatchDbModel() = MatchDbModel(
     ),
     status = status.toMatchStatusDbModel(),
     awayTeamMatchInfo = TeamMatchInfoDbModel(
-        name = awayTeamMatchInfoEntity.name,
-        id = awayTeamMatchInfoEntity.id,
-        imageUrl = awayTeamMatchInfoEntity.imageUrl,
+
+        name = awayTeamMatchInfoEntity.teamMainInfoEntity.name,
+        id = awayTeamMatchInfoEntity.teamMainInfoEntity.id,
+        imageUrl = awayTeamMatchInfoEntity.teamMainInfoEntity.imageUrl,
         goals = awayTeamMatchInfoEntity.goals
     ),
     homeTeamMatchInfo = TeamMatchInfoDbModel(
-        name = homeTeamMatchInfoEntity.name,
-        id = homeTeamMatchInfoEntity.id,
-        imageUrl = homeTeamMatchInfoEntity.imageUrl,
+        name = homeTeamMatchInfoEntity.teamMainInfoEntity.name,
+        id = homeTeamMatchInfoEntity.teamMainInfoEntity.id,
+        imageUrl = homeTeamMatchInfoEntity.teamMainInfoEntity.imageUrl,
         goals = homeTeamMatchInfoEntity.goals
     ),
     startTime = startTime.time

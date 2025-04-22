@@ -28,16 +28,16 @@ import com.example.footballscoreapp.domain.entities.matches.MatchEntity
 import com.example.footballscoreapp.domain.entities.matches.MatchStatusEntity
 import com.example.footballscoreapp.presentation.myMatchEntityMock
 import com.example.footballscoreapp.presentation.parseDateToStringHoursAndMinutes
-import com.example.footballscoreapp.ui.theme.goalsFontSize
-import com.example.footballscoreapp.ui.theme.goalsStartAndEndPadding
-import com.example.footballscoreapp.ui.theme.imagePadding
-import com.example.footballscoreapp.ui.theme.imageSize
-import com.example.footballscoreapp.ui.theme.matchColorCardBackGround
-import com.example.footballscoreapp.ui.theme.matchTimeInfoPadding
-import com.example.footballscoreapp.ui.theme.onDefaultMatchColorContent
-import com.example.footballscoreapp.ui.theme.onMatchLiveCardColorContent
-import com.example.footballscoreapp.ui.theme.onMatchNotLiveCardColorContent
-import com.example.footballscoreapp.ui.theme.screenStartOrEndPadding
+import com.example.footballscoreapp.presentation.theme.goalsFontSize
+import com.example.footballscoreapp.presentation.theme.goalsStartAndEndPadding
+import com.example.footballscoreapp.presentation.theme.imagePadding
+import com.example.footballscoreapp.presentation.theme.imageSize
+import com.example.footballscoreapp.presentation.theme.matchColorCardBackGround
+import com.example.footballscoreapp.presentation.theme.matchTimeInfoPadding
+import com.example.footballscoreapp.presentation.theme.onDefaultMatchColorContent
+import com.example.footballscoreapp.presentation.theme.onMatchLiveCardColorContent
+import com.example.footballscoreapp.presentation.theme.onMatchNotLiveCardColorContent
+import com.example.footballscoreapp.presentation.theme.screenStartOrEndPadding
 
 @Preview
 @Composable
@@ -76,16 +76,16 @@ fun MatchCard(
 
                     TeamMainInfo(
                         modifier = Modifier.padding(5.dp),
-                        imageUrl = matchEntity.homeTeamMatchInfoEntity.imageUrl,
-                        teamName = matchEntity.homeTeamMatchInfoEntity.name,
+                        imageUrl = matchEntity.homeTeamMatchInfoEntity.teamMainInfoEntity.imageUrl,
+                        teamName = matchEntity.homeTeamMatchInfoEntity.teamMainInfoEntity.name,
                         teamGoals = matchEntity.homeTeamMatchInfoEntity.goals,
                         color = color
                     )
 
                     TeamMainInfo(
                         modifier = Modifier.padding(5.dp),
-                        imageUrl = matchEntity.awayTeamMatchInfoEntity.imageUrl,
-                        teamName = matchEntity.awayTeamMatchInfoEntity.name,
+                        imageUrl = matchEntity.awayTeamMatchInfoEntity.teamMainInfoEntity.imageUrl,
+                        teamName = matchEntity.awayTeamMatchInfoEntity.teamMainInfoEntity.name,
                         teamGoals = matchEntity.awayTeamMatchInfoEntity.goals,
                         color = color
                     )

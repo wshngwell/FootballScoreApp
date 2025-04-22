@@ -1,6 +1,7 @@
 package com.example.footballscoreapp.presentation.detailedMatchScreen
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -23,25 +24,29 @@ import com.example.footballscoreapp.R
 import com.example.footballscoreapp.domain.entities.detailMatchInfo.MatchDetailInfoEntity
 import com.example.footballscoreapp.domain.entities.matches.MatchEntity
 import com.example.footballscoreapp.domain.entities.matches.MatchStatusEntity
+import com.example.footballscoreapp.domain.entities.teams.TeamMainInfoEntity
 import com.example.footballscoreapp.presentation.AllMatchesScreen.LeagueNameWithImageCard
 import com.example.footballscoreapp.presentation.mockDetailInfoEntity
+import com.example.footballscoreapp.presentation.mockTeamMainInfoEntity
 import com.example.footballscoreapp.presentation.myMatchEntityMock
 import com.example.footballscoreapp.presentation.parseDateToStringFullDate
-import com.example.footballscoreapp.ui.theme.categoriesInDetailsColor
-import com.example.footballscoreapp.ui.theme.detailTeamImage
-import com.example.footballscoreapp.ui.theme.goalsFontSizeInDetails
-import com.example.footballscoreapp.ui.theme.imagePadding
-import com.example.footballscoreapp.ui.theme.myMatchInAdditionalMatchInfoBackgroundColor
-import com.example.footballscoreapp.ui.theme.onLiveScoreContent
-import com.example.footballscoreapp.ui.theme.paddingLeagueCardInfoRow
-import com.example.footballscoreapp.ui.theme.textColor
-import com.example.footballscoreapp.ui.theme.textPadding
+import com.example.footballscoreapp.presentation.theme.categoriesInDetailsColor
+import com.example.footballscoreapp.presentation.theme.detailTeamImage
+import com.example.footballscoreapp.presentation.theme.goalsFontSizeInDetails
+import com.example.footballscoreapp.presentation.theme.imagePadding
+import com.example.footballscoreapp.presentation.theme.myMatchInAdditionalMatchInfoBackgroundColor
+import com.example.footballscoreapp.presentation.theme.onLiveScoreContent
+import com.example.footballscoreapp.presentation.theme.paddingLeagueCardInfoRow
+import com.example.footballscoreapp.presentation.theme.textColor
+import com.example.footballscoreapp.presentation.theme.textPadding
 
 @Preview
 @Composable
 fun MatchAdditionalInfoCard(
     matchEntity: MatchEntity = myMatchEntityMock,
-    matchDetailInfoEntity: MatchDetailInfoEntity? = mockDetailInfoEntity
+    matchDetailInfoEntity: MatchDetailInfoEntity? = mockDetailInfoEntity,
+    onTeamIconClicked: (TeamMainInfoEntity) -> Unit = {}
+
 ) {
     Box(
         modifier = Modifier
@@ -59,7 +64,10 @@ fun MatchAdditionalInfoCard(
             )
             MatchFullInfoCard(
                 matchEntity = matchEntity,
-                matchDetailInfoEntity = matchDetailInfoEntity
+                matchDetailInfoEntity = matchDetailInfoEntity,
+                onTeamIconClicked = {
+                    onTeamIconClicked(it)
+                }
             )
 
         }
@@ -71,7 +79,8 @@ fun MatchAdditionalInfoCard(
 @Composable
 private fun MatchFullInfoCard(
     matchEntity: MatchEntity = myMatchEntityMock,
-    matchDetailInfoEntity: MatchDetailInfoEntity? = mockDetailInfoEntity
+    matchDetailInfoEntity: MatchDetailInfoEntity? = mockDetailInfoEntity,
+    onTeamIconClicked: (TeamMainInfoEntity) -> Unit = {}
 ) {
 
     Box(
@@ -98,8 +107,10 @@ private fun MatchFullInfoCard(
             ) {
                 TeamImageWithName(
                     modifier = Modifier.weight(1f),
-                    imageUrl = matchEntity.homeTeamMatchInfoEntity.imageUrl,
-                    teamName = matchEntity.homeTeamMatchInfoEntity.name,
+                    teamMainInfoEntity = matchEntity.homeTeamMatchInfoEntity.teamMainInfoEntity,
+                    onClick = {
+                        onTeamIconClicked(it)
+                    }
                 )
                 val homeGoals by remember {
                     derivedStateOf {
@@ -141,8 +152,10 @@ private fun MatchFullInfoCard(
                 )
                 TeamImageWithName(
                     modifier = Modifier.weight(1f),
-                    imageUrl = matchEntity.awayTeamMatchInfoEntity.imageUrl,
-                    teamName = matchEntity.awayTeamMatchInfoEntity.name,
+                    teamMainInfoEntity = matchEntity.awayTeamMatchInfoEntity.teamMainInfoEntity,
+                    onClick = {
+                        onTeamIconClicked(it)
+                    }
                 )
             }
             matchDetailInfoEntity?.matchAdditionalInfoEntity?.arenaName?.let {
@@ -164,25 +177,26 @@ private fun MatchFullInfoCard(
 @Composable
 private fun TeamImageWithName(
     modifier: Modifier = Modifier,
-    imageUrl: String = "",
-    teamName: String = "FC REALFFSDGDGG"
+    teamMainInfoEntity: TeamMainInfoEntity = mockTeamMainInfoEntity,
+    onClick: (TeamMainInfoEntity) -> Unit = {}
 ) {
     Column(
-        modifier = modifier,
+        modifier = modifier.clickable { onClick(teamMainInfoEntity) },
         horizontalAlignment = Alignment.CenterHorizontally,
-    ) {
+
+        ) {
         AsyncImage(
             modifier = Modifier
                 .size(detailTeamImage)
                 .padding(start = imagePadding, end = imagePadding),
-            model = imageUrl,
+            model = teamMainInfoEntity.imageUrl,
             contentDescription = stringResource(R.string.league)
         )
         Text(
             modifier = Modifier.padding(10.dp),
             color = textColor,
             textAlign = TextAlign.Center,
-            text = teamName
+            text = teamMainInfoEntity.name
         )
     }
 }

@@ -8,6 +8,7 @@ import com.example.footballscoreapp.domain.entities.matches.LeagueEntity
 import com.example.footballscoreapp.domain.entities.matches.MatchEntity
 import com.example.footballscoreapp.domain.entities.matches.MatchStatusEntity
 import com.example.footballscoreapp.domain.entities.matches.TeamMatchInfoEntity
+import com.example.footballscoreapp.domain.entities.teams.TeamMainInfoEntity
 import com.example.footballscoreapp.presentation.AllMatchesScreen.LeaguesWithMatchesUIModel
 import java.util.Calendar
 
@@ -21,15 +22,20 @@ val myMatchEntityMock = MatchEntity(
     leagueInfo = myLeagueEntityMock,
     startTime = Calendar.getInstance().time,
     awayTeamMatchInfoEntity = TeamMatchInfoEntity(
-        imageUrl = "https://images.sportdevs.com/$3afda7f23cc22a5c0a34309debe0e826fec99499a02306983e9793c91e74c4da.png",
-        name = "Fc Barcelonssdgsfdhgfffffffffffffffffffffffffffffffffffffffffffffff",
-        id = "1",
+        teamMainInfoEntity = TeamMainInfoEntity(
+            imageUrl = "https://images.sportdevs.com/$3afda7f23cc22a5c0a34309debe0e826fec99499a02306983e9793c91e74c4da.png",
+            name = "Fc Barcelonssdgsfdhgfffffffffffffffffffffffffffffffffffffffffffffff",
+            id = "1",
+        ),
         goals = 3
     ),
     homeTeamMatchInfoEntity = TeamMatchInfoEntity(
-        imageUrl = "https://images.sportdevs.com/fefb927e249eb8807484d80f84a8b6a5df16bcf000855eab3bdbf2492ec3f4c6.png",
-        name = "Fc Real Madffffffffffffffffffffffffffffffffffffffffffffffffrid",
-        id = "2",
+        teamMainInfoEntity = TeamMainInfoEntity(
+            imageUrl = "https://images.sportdevs.com/fefb927e249eb8807484d80f84a8b6a5df16bcf000855eab3bdbf2492ec3f4c6.png",
+            name = "Fc Real Madffffffffffffffffffffffffffffffffffffffffffffffffrid",
+            id = "2",
+        ),
+
         goals = 2
     ),
     status = MatchStatusEntity.STARTED,
@@ -67,4 +73,10 @@ val mockDetailInfoEntity = MatchDetailInfoEntity(
             type = "Владение мячом"
         )
     )
+)
+
+val mockTeamMainInfoEntity = TeamMainInfoEntity(
+    imageUrl = "",
+    name = "",
+    id = ""
 )

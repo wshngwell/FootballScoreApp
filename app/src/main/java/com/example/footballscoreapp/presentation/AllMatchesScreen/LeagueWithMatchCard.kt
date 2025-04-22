@@ -13,9 +13,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.example.footballscoreapp.domain.entities.matches.MatchEntity
 import com.example.footballscoreapp.presentation.mathcesUi.MatchCard
 import com.example.footballscoreapp.presentation.myLeaguesWithMatchesUIModelMock
-import com.example.footballscoreapp.ui.theme.leagueCardColorBackGround
-import com.example.footballscoreapp.ui.theme.paddingCard
-import com.example.footballscoreapp.ui.theme.paddingLeagueCardInfoRow
+import com.example.footballscoreapp.presentation.theme.leagueCardColorBackGround
+import com.example.footballscoreapp.presentation.theme.paddingCard
+import com.example.footballscoreapp.presentation.theme.paddingLeagueCardInfoRow
 
 @Preview
 @Composable

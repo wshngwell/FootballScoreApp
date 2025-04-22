@@ -35,10 +35,11 @@ import com.example.footballscoreapp.presentation.detailedMatchScreen.DetailsMatc
 import com.example.footballscoreapp.presentation.detailedMatchScreen.DetailsMatchViewModel.State
 import com.example.footballscoreapp.presentation.myMatchEntityMock
 import com.example.footballscoreapp.presentation.parseLoadingExceptionToStringResource
-import com.example.footballscoreapp.ui.theme.categoriesInDetailsColor
-import com.example.footballscoreapp.ui.theme.lineUpCategorySize
-import com.example.footballscoreapp.ui.theme.noLineUpTextColor
-import com.example.footballscoreapp.ui.theme.textColor
+import com.example.footballscoreapp.presentation.teamDetailsScreen.getTeamDetailsDestination
+import com.example.footballscoreapp.presentation.theme.categoriesInDetailsColor
+import com.example.footballscoreapp.presentation.theme.lineUpCategorySize
+import com.example.footballscoreapp.presentation.theme.noLineUpTextColor
+import com.example.footballscoreapp.presentation.theme.textColor
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.RootNavGraph
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
@@ -76,7 +77,13 @@ fun DetailsMatchScreen(
     LaunchedEffect(Unit) {
         event.filterIsInstance<Event>().collect {
             when (it) {
-                is Event.NavigateToPlayerDetailsScreen -> TODO()
+                is Event.NavigateToTeamDetailsScreen -> navigator.navigate(
+                    getTeamDetailsDestination(
+                        it.teamMainInfoEntity
+                    )
+                ) {
+                    launchSingleTop = true
+                }
             }
         }
     }
@@ -144,7 +151,10 @@ private fun DetailsScreenContent(
         if (!isVideoFullScreen) {
             MatchAdditionalInfoCard(
                 matchEntity = state.matchEntity,
-                matchDetailInfoEntity = state.detailInfoEntity
+                matchDetailInfoEntity = state.detailInfoEntity,
+                onTeamIconClicked = {
+                    intent(Intent.OnTeamIconClicked(it))
+                }
             )
         }
         val scrollColumnModifier by remember(isVideoFullScreen) {

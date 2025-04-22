@@ -1,8 +1,8 @@
-package com.example.footballscoreapp.ui.theme
+package com.example.footballscoreapp.presentation.theme
 
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import com.example.footballscoreapp.currentTheme
+import com.example.footballscoreapp.presentation.currentTheme
 
 val myBackGround
     get() = if (currentTheme.value.isSystemDark) {

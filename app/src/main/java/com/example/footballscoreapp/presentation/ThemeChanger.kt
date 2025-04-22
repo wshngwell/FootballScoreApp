@@ -1,7 +1,8 @@
-package com.example.footballscoreapp
+package com.example.footballscoreapp.presentation
 
 
 import android.content.Context
+import com.example.footballscoreapp.R
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update

@@ -36,15 +36,15 @@ import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.ui.PlayerView
 import com.example.footballscoreapp.R
 import com.example.footballscoreapp.presentation.MyProgressbar
-import com.example.footballscoreapp.ui.theme.activeTrackPlayerColor
-import com.example.footballscoreapp.ui.theme.inactiveTrackPlayerColor
-import com.example.footballscoreapp.ui.theme.thumbPlayerColor
-import com.example.footballscoreapp.ui.theme.timeOfPlayerColor
-import com.example.footballscoreapp.ui.theme.videoBufferedProgressBarBrush
-import com.example.footballscoreapp.ui.theme.videoControlButtonsTopPadding
-import com.example.footballscoreapp.ui.theme.videoControlsButtonsColor
-import com.example.footballscoreapp.ui.theme.videoCurrentTimeAndFullTimeStartPadding
-import com.example.footballscoreapp.ui.theme.videoProgressBarBorderWith
+import com.example.footballscoreapp.presentation.theme.activeTrackPlayerColor
+import com.example.footballscoreapp.presentation.theme.inactiveTrackPlayerColor
+import com.example.footballscoreapp.presentation.theme.thumbPlayerColor
+import com.example.footballscoreapp.presentation.theme.timeOfPlayerColor
+import com.example.footballscoreapp.presentation.theme.videoBufferedProgressBarBrush
+import com.example.footballscoreapp.presentation.theme.videoControlButtonsTopPadding
+import com.example.footballscoreapp.presentation.theme.videoControlsButtonsColor
+import com.example.footballscoreapp.presentation.theme.videoCurrentTimeAndFullTimeStartPadding
+import com.example.footballscoreapp.presentation.theme.videoProgressBarBorderWith
 import java.util.concurrent.TimeUnit
 
 @Preview

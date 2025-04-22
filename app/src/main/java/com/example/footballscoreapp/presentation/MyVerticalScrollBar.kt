@@ -7,7 +7,7 @@ import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.unit.dp
-import com.example.footballscoreapp.ui.theme.scrollBarColor
+import com.example.footballscoreapp.presentation.theme.scrollBarColor
 
 
 fun Modifier.myVerticalScrollBar(

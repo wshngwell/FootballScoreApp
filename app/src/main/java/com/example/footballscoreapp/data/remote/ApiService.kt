@@ -7,6 +7,7 @@ import com.example.footballscoreapp.data.remote.dto.lineUps.LineUpDto
 import com.example.footballscoreapp.data.remote.dto.matchAdditionalInfo.MatchAdditionalInfoDto
 import com.example.footballscoreapp.data.remote.dto.matchMainInfo.MatchesByDateAnswerItemDto
 import com.example.footballscoreapp.data.remote.dto.matchStatisctics.MatchStatisticDtoAnswer
+import com.example.footballscoreapp.data.remote.dto.teamInfo.TeamInfoDto
 import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.Query
@@ -41,6 +42,13 @@ interface ApiService {
     suspend fun getLineUp(
         @Query(ID) lineUpId: String,
     ): List<LineUpDto>
+
+    @GET("teams")
+    @ResponseCache(1, TimeUnit.MINUTES)
+    @Headers("$HEADER_KEY:$API_KEY_VALUE")
+    suspend fun getTeamInfo(
+        @Query(ID) teamsId: String,
+    ): List<TeamInfoDto>
 
 
     companion object {

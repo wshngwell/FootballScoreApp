@@ -10,7 +10,7 @@ import com.example.footballscoreapp.domain.usecases.favouriteMatchesUseCases.Add
 import com.example.footballscoreapp.domain.usecases.favouriteMatchesUseCases.DeleteMatchFromFavouriteUseCase
 import com.example.footballscoreapp.domain.usecases.favouriteMatchesUseCases.GetFavouriteMatchesUseCase
 import com.example.footballscoreapp.domain.usecases.liveMatchesUseCases.GetLiveMatchesUseCase
-import com.example.footballscoreapp.presentation.AllMatchesScreen.LeaguesWithMatchesUIModel
+import com.example.footballscoreapp.presentation.allMatchesScreen.LeaguesWithMatchesUIModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update

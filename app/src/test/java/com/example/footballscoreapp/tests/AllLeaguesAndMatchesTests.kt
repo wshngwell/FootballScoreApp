@@ -9,7 +9,7 @@ import com.example.footballscoreapp.domain.entities.matches.LeagueEntity
 import com.example.footballscoreapp.domain.entities.matches.MatchEntity
 import com.example.footballscoreapp.domain.entities.matches.MatchStatusEntity
 import com.example.footballscoreapp.domain.entities.matches.TeamMatchInfoEntity
-import com.example.footballscoreapp.presentation.AllMatchesScreen.AllLeaguesWithMatchesViewModel
+import com.example.footballscoreapp.presentation.allMatchesScreen.AllLeaguesWithMatchesViewModel
 import kotlinx.coroutines.delay
 import org.junit.Test
 import org.koin.core.component.get

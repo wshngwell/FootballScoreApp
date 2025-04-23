@@ -1,4 +1,4 @@
-package com.example.footballscoreapp.presentation.mathcesUi
+package com.example.footballscoreapp.presentation.allMatchesScreen.mathcesUi
 
 import com.example.footballscoreapp.R
 import com.example.footballscoreapp.domain.entities.matches.MatchStatusEntity

@@ -1,4 +1,4 @@
-package com.example.footballscoreapp.presentation.AllMatchesScreen
+package com.example.footballscoreapp.presentation.allMatchesScreen
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
@@ -11,7 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.footballscoreapp.domain.entities.matches.MatchEntity
-import com.example.footballscoreapp.presentation.mathcesUi.MatchCard
+import com.example.footballscoreapp.presentation.allMatchesScreen.mathcesUi.MatchCard
 import com.example.footballscoreapp.presentation.myLeaguesWithMatchesUIModelMock
 import com.example.footballscoreapp.presentation.theme.leagueCardColorBackGround
 import com.example.footballscoreapp.presentation.theme.paddingCard

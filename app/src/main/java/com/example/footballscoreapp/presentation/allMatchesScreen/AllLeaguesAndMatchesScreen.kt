@@ -1,4 +1,4 @@
-package com.example.footballscoreapp.presentation.AllMatchesScreen
+package com.example.footballscoreapp.presentation.allMatchesScreen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -27,9 +27,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.footballscoreapp.R
-import com.example.footballscoreapp.presentation.AllMatchesScreen.AllLeaguesWithMatchesViewModel.Event
-import com.example.footballscoreapp.presentation.AllMatchesScreen.AllLeaguesWithMatchesViewModel.Intent
-import com.example.footballscoreapp.presentation.AllMatchesScreen.AllLeaguesWithMatchesViewModel.State
+import com.example.footballscoreapp.presentation.allMatchesScreen.AllLeaguesWithMatchesViewModel.Event
+import com.example.footballscoreapp.presentation.allMatchesScreen.AllLeaguesWithMatchesViewModel.Intent
+import com.example.footballscoreapp.presentation.allMatchesScreen.AllLeaguesWithMatchesViewModel.State
 import com.example.footballscoreapp.presentation.detailedMatchScreen.getDetailsMatchScreenDestination
 import com.example.footballscoreapp.presentation.theme.myBackGround
 import com.example.footballscoreapp.presentation.theme.screenTopPadding

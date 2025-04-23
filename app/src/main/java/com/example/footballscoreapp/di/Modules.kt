@@ -9,6 +9,7 @@ import com.example.footballscoreapp.data.remote.repositories.DetailsMatchReposit
 import com.example.footballscoreapp.data.remote.repositories.LeaguesWithMatchesRepositoryImpl
 import com.example.footballscoreapp.data.remote.repositories.TeamsFullInfoRepositoryImpl
 import com.example.footballscoreapp.domain.entities.matches.MatchEntity
+import com.example.footballscoreapp.domain.entities.teams.TeamMainInfoEntity
 import com.example.footballscoreapp.domain.repositories.IDetailsMatchRepository
 import com.example.footballscoreapp.domain.repositories.IFavouriteMatchesRepository
 import com.example.footballscoreapp.domain.repositories.ILeaguesWithMatchesRepository
@@ -20,10 +21,11 @@ import com.example.footballscoreapp.domain.usecases.favouriteMatchesUseCases.Del
 import com.example.footballscoreapp.domain.usecases.favouriteMatchesUseCases.GetFavouriteMatchesUseCase
 import com.example.footballscoreapp.domain.usecases.liveMatchesUseCases.GetLiveMatchesUseCase
 import com.example.footballscoreapp.domain.usecases.teamsFullInfoUseCases.GetTeamFullInfoUseCase
-import com.example.footballscoreapp.presentation.AllMatchesScreen.AllLeaguesWithMatchesViewModel
+import com.example.footballscoreapp.presentation.allMatchesScreen.AllLeaguesWithMatchesViewModel
 import com.example.footballscoreapp.presentation.detailedMatchScreen.DetailsMatchViewModel
 import com.example.footballscoreapp.presentation.favouriteMatchesScreen.FavouriteMatchesViewModel
 import com.example.footballscoreapp.presentation.liveMatchesScreen.LiveMatchesViewModel
+import com.example.footballscoreapp.presentation.teamDetailsScreen.TeamDetailsViewModel
 import org.koin.android.ext.koin.androidApplication
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.parameter.parametersOf
@@ -126,8 +128,17 @@ val appModule = module {
             isTested = isTested
         )
     }
+    viewModel<TeamDetailsViewModel> { (teamMainInfoEntity: TeamMainInfoEntity) ->
+        TeamDetailsViewModel(
+            teamMainInfoEntity = teamMainInfoEntity,
+            getTeamFullInfoUseCase = get<GetTeamFullInfoUseCase>()
+        )
+    }
 
 }
 
 fun paramsForDetailViewModel(matchEntity: MatchEntity, isTested: Boolean) =
     parametersOf(matchEntity, isTested)
+
+fun paramsForTeamDetailViewModel(teamMainInfoEntity: TeamMainInfoEntity) =
+    parametersOf(teamMainInfoEntity)

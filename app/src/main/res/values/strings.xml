@@ -19,7 +19,7 @@
     <string name="settings">Настройки</string>
     <string name="match_cancelled">Матч отменен</string>
     <string name="match_interrupted">матч прерван</string>
-    <string name="stadium">Стадион: %1$s</string>
+    <string name="stadium_with_name">Стадион: %1$s</string>
     <string name="coach">Тренер %1$s</string>
     <string name="substiture">Запасной состав</string>
     <string name="mainLineUp">Основной состав</string>
@@ -40,4 +40,10 @@
     <string name="english">Английский</string>
     <string name="russina">Русский</string>
     <string name="system_lang">Язык как в системе</string>
+    <string name="stadium">Стадион</string>
+    <string name="team_info">Информация о команде</string>
+    <string name="country_name">Страна</string>
+    <string name="foundation_date">Дата основания</string>
+    <string name="tournament_name">Название основного турнира</string>
+    <string name="categoryteaminfo">CategoryTeamInfo</string>
 </resources>

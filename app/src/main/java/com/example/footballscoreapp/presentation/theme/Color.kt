@@ -63,7 +63,12 @@ val matchColorCardBackGround
     } else {
         matchColorCardBackGroundLight
     }
-
+val teamMainInfoColor
+    get() = if (currentTheme.value.isSystemDark) {
+        firstColorOfMatchCardBackgroundDark
+    } else {
+        firstColorOfMatchCardBackgroundLight
+    }
 val scrollBarColor
     get() = if (currentTheme.value.isSystemDark) {
         Color(0xFF990F3F).copy(alpha = 0.5f)
@@ -99,6 +104,12 @@ val allGamesInfoBackGround
         allGamesInfoBackGroundLight
     }
 
+val fullTeamCategoryInfoBackGroundColor
+    get() = bottomBarBackGroundColor
+
+val pink = Color(0xFFEB588B)
+val blue = Color(0xFF2196F3)
+
 val textColor = Color.White
 
 val noLineUpTextColor = Color(0xFF990F3F)
@@ -106,7 +117,6 @@ val onLiveScoreContent = Color.Red
 
 val categoriesInDetailsColor
     get() = leagueCardColorBackGround
-
 val onDefaultMatchColorContent = textColor
 val onMatchLiveCardColorContent = Color.Red
 val onMatchNotLiveCardColorContent = onDefaultMatchColorContent

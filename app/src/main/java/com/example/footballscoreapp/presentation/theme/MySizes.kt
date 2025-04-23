@@ -4,7 +4,8 @@ import androidx.compose.ui.unit.dp
 
 val imageSize = 50.dp
 val playerOrCoachSize = 60.dp
-val detailTeamImage = 70.dp
+val detailMatchScreenTeamImage = 70.dp
+val detailTeamScreenImage = 150.dp
 val bottomBarIconSize = 30.dp
 val bottomNavigationBarHeight = 60.dp
 val videoProgressBarBorderWith = 12.dp

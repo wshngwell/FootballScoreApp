@@ -18,7 +18,7 @@
     <string name="settings">Settings</string>
     <string name="match_cancelled">Match cancelled</string>
     <string name="match_interrupted">Match interrupted</string>
-    <string name="stadium">Stadium: %1$</string>
+    <string name="stadium_with_name">Stadium: %1$s</string>
     <string name="coach">Coach %1$s</string>
     <string name="substiture">Reserve</string>
     <string name="mainLineUp">Starting line up</string>
@@ -38,4 +38,10 @@
     <string name="change_lang">Change Language</string>
     <string name="russina">Russian</string>
     <string name="system_lang">System language</string>
+    <string name="stadium">stadium</string>
+    <string name="team_info">Team Info</string>
+    <string name="country_name">Country</string>
+    <string name="categoryteaminfo">CategoryTeamInfo</string>
+    <string name="foundation_date">Foundation date</string>
+    <string name="tournament_name">Main tournament name</string>
 </resources>

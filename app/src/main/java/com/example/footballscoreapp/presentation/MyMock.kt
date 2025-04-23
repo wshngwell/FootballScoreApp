@@ -8,8 +8,10 @@ import com.example.footballscoreapp.domain.entities.matches.LeagueEntity
 import com.example.footballscoreapp.domain.entities.matches.MatchEntity
 import com.example.footballscoreapp.domain.entities.matches.MatchStatusEntity
 import com.example.footballscoreapp.domain.entities.matches.TeamMatchInfoEntity
+import com.example.footballscoreapp.domain.entities.teams.GenderEntity
+import com.example.footballscoreapp.domain.entities.teams.TeamFullInfoEntity
 import com.example.footballscoreapp.domain.entities.teams.TeamMainInfoEntity
-import com.example.footballscoreapp.presentation.AllMatchesScreen.LeaguesWithMatchesUIModel
+import com.example.footballscoreapp.presentation.allMatchesScreen.LeaguesWithMatchesUIModel
 import java.util.Calendar
 
 val myLeagueEntityMock = LeagueEntity(
@@ -76,7 +78,16 @@ val mockDetailInfoEntity = MatchDetailInfoEntity(
 )
 
 val mockTeamMainInfoEntity = TeamMainInfoEntity(
-    imageUrl = "",
-    name = "",
-    id = ""
+    imageUrl = "jhewjgjiwegwihegjwbjegjwejig[",
+    name = "FC GOMEL",
+    id = "12345"
+)
+val mockTeamFullInfoEntity = TeamFullInfoEntity(
+    arenaName = "Tsentralny",
+    arenaImageUrl = "kadgjnsdgnjsdgsdg",
+    countryImageUrl = "admgknsdgnjsdgl",
+    countryName = "Belarus",
+    foundationDate = Calendar.getInstance().time,
+    genderEntity = GenderEntity.MALE,
+    tournamentName = "Vyshaya liga"
 )

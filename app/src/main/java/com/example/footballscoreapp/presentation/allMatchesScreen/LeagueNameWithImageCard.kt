@@ -1,4 +1,4 @@
-package com.example.footballscoreapp.presentation.AllMatchesScreen
+package com.example.footballscoreapp.presentation.allMatchesScreen
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding

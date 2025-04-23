@@ -15,11 +15,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.example.footballscoreapp.presentation.allMatchesScreen.mathcesUi.MatchCard
 import com.example.footballscoreapp.presentation.detailedMatchScreen.getDetailsMatchScreenDestination
 import com.example.footballscoreapp.presentation.favouriteMatchesScreen.FavouriteMatchesViewModel.Event
 import com.example.footballscoreapp.presentation.favouriteMatchesScreen.FavouriteMatchesViewModel.Intent
 import com.example.footballscoreapp.presentation.favouriteMatchesScreen.FavouriteMatchesViewModel.State
-import com.example.footballscoreapp.presentation.mathcesUi.MatchCard
 import com.example.footballscoreapp.presentation.theme.myBackGround
 import com.example.footballscoreapp.presentation.theme.paddingCard
 import com.ramcosta.composedestinations.annotation.Destination
@@ -55,8 +55,7 @@ fun FavouriteMatchesScreen(
         }
     }
     UI(
-        state = state,
-        intent = intent
+        state = state, intent = intent
     )
 }
 
@@ -74,19 +73,17 @@ private fun UI(
     ) {
         LazyColumn {
             items(state.favouriteMatchesList, key = { it.toString() }) {
-                MatchCard(
-                    modifier = Modifier
-                        .animateItem()
-                        .fillMaxWidth()
-                        .padding(top = paddingCard, bottom = paddingCard),
+                MatchCard(modifier = Modifier
+                    .animateItem()
+                    .fillMaxWidth()
+                    .padding(top = paddingCard, bottom = paddingCard),
                     matchEntity = it,
                     onMatchCardClicked = { intent(Intent.OnMatchClicked(it)) },
                     onAddOrDeleteMatchFromFavouriteClicked = {
                         intent(
                             Intent.OnAddOrDeleteMatchFromFavouriteClicked(it)
                         )
-                    }
-                )
+                    })
             }
         }
     }

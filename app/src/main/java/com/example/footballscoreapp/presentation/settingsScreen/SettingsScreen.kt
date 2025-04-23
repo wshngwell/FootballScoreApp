@@ -30,8 +30,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.example.footballscoreapp.presentation.LanguageType
 import com.example.footballscoreapp.R
+import com.example.footballscoreapp.presentation.LanguageType
 import com.example.footballscoreapp.presentation.ThemeType
 import com.example.footballscoreapp.presentation.currentLang
 import com.example.footballscoreapp.presentation.currentTheme

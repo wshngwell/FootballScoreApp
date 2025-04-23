@@ -13,3 +13,8 @@ fun Date.parseDateToStringFullDate(): String {
     val outputFormat = SimpleDateFormat("dd.MM.yyyy HH:mm", Locale.getDefault())
     return outputFormat.format(this)
 }
+
+fun Date.parseDateToStringFullDateWithoutHours(): String {
+    val outputFormat = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
+    return outputFormat.format(this)
+}

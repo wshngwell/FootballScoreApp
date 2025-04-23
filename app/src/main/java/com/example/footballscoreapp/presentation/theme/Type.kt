@@ -23,3 +23,5 @@ val settingsCategoriesFontSize = 18.sp
 val themeCategoriesFontSize = 18.sp
 val settingsHeaderInDialogFontSize = 25.sp
 val goalsFontSizeInDetails = 24.sp
+val teamNameInTeamDetailsScreen = 30.sp
+val categoryNameInTeamDetailsScreen = lineUpCategorySize

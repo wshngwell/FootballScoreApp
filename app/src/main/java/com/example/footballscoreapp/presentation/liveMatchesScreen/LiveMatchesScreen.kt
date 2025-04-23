@@ -10,7 +10,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.example.footballscoreapp.presentation.AllMatchesScreen.ListOfLeagueWithMatches
+import com.example.footballscoreapp.presentation.allMatchesScreen.ListOfLeagueWithMatches
 import com.example.footballscoreapp.presentation.detailedMatchScreen.getDetailsMatchScreenDestination
 import com.example.footballscoreapp.presentation.liveMatchesScreen.LiveMatchesViewModel.Event
 import com.example.footballscoreapp.presentation.liveMatchesScreen.LiveMatchesViewModel.Intent
@@ -42,7 +42,7 @@ fun LiveMatchesScreen(
         event.filterIsInstance<Event>().collect {
             when (it) {
                 is Event.OnNavigateToDetailedMatchesScreen -> {
-                    navigator.navigate(getDetailsMatchScreenDestination(it.matchEntity)){
+                    navigator.navigate(getDetailsMatchScreenDestination(it.matchEntity)) {
                         launchSingleTop = true
                     }
                 }

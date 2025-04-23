@@ -1,4 +1,4 @@
-package com.example.footballscoreapp.presentation.AllMatchesScreen
+package com.example.footballscoreapp.presentation.allMatchesScreen
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

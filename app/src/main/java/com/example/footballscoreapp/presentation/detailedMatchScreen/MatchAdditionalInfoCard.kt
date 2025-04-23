@@ -25,13 +25,13 @@ import com.example.footballscoreapp.domain.entities.detailMatchInfo.MatchDetailI
 import com.example.footballscoreapp.domain.entities.matches.MatchEntity
 import com.example.footballscoreapp.domain.entities.matches.MatchStatusEntity
 import com.example.footballscoreapp.domain.entities.teams.TeamMainInfoEntity
-import com.example.footballscoreapp.presentation.AllMatchesScreen.LeagueNameWithImageCard
+import com.example.footballscoreapp.presentation.allMatchesScreen.LeagueNameWithImageCard
 import com.example.footballscoreapp.presentation.mockDetailInfoEntity
 import com.example.footballscoreapp.presentation.mockTeamMainInfoEntity
 import com.example.footballscoreapp.presentation.myMatchEntityMock
 import com.example.footballscoreapp.presentation.parseDateToStringFullDate
 import com.example.footballscoreapp.presentation.theme.categoriesInDetailsColor
-import com.example.footballscoreapp.presentation.theme.detailTeamImage
+import com.example.footballscoreapp.presentation.theme.detailMatchScreenTeamImage
 import com.example.footballscoreapp.presentation.theme.goalsFontSizeInDetails
 import com.example.footballscoreapp.presentation.theme.imagePadding
 import com.example.footballscoreapp.presentation.theme.myMatchInAdditionalMatchInfoBackgroundColor
@@ -69,7 +69,6 @@ fun MatchAdditionalInfoCard(
                     onTeamIconClicked(it)
                 }
             )
-
         }
 
     }
@@ -163,7 +162,7 @@ private fun MatchFullInfoCard(
                     modifier = Modifier.fillMaxWidth(),
                     textAlign = TextAlign.Center,
                     color = textColor,
-                    text = stringResource(R.string.stadium, it)
+                    text = stringResource(R.string.stadium_with_name, it)
                 )
             }
 
@@ -187,7 +186,7 @@ private fun TeamImageWithName(
         ) {
         AsyncImage(
             modifier = Modifier
-                .size(detailTeamImage)
+                .size(detailMatchScreenTeamImage)
                 .padding(start = imagePadding, end = imagePadding),
             model = teamMainInfoEntity.imageUrl,
             contentDescription = stringResource(R.string.league)

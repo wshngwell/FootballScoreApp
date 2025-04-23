@@ -1,4 +1,4 @@
-package com.example.footballscoreapp.presentation.mathcesUi
+package com.example.footballscoreapp.presentation.allMatchesScreen.mathcesUi
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable

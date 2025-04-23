@@ -16,6 +16,4 @@ object ApiFactory {
         .build()
         .setOkhttpCache(application)
         .create(ApiService::class.java)
-
-
 }

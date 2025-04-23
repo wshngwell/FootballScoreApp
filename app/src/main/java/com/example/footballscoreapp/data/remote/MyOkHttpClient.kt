@@ -21,12 +21,10 @@ class MyOkHttpClient(
     private val readTimeout: Long = 120,
 ) {
 
-
     fun get(): OkHttpClient {
         return if (isSafe) getSafe()
         else getUnsafe()
     }
-
 
     private fun getSafe(): OkHttpClient {
         return OkHttpClient.Builder()

@@ -19,3 +19,4 @@ val settingsOptionPadding = 20.dp
 val settingsDialogPadding = 25.dp
 val closeButtonAlertDialogPadding = 5.dp
 val paddingInSettingsOptionsText = 10.dp
+val screenTopPaddingInTeamDetailsScreen = 10.dp

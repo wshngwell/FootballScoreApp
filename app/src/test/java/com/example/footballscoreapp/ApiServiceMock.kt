@@ -10,6 +10,7 @@ import com.example.footballscoreapp.data.remote.dto.matchMainInfo.MatchByDateIte
 import com.example.footballscoreapp.data.remote.dto.matchMainInfo.MatchesByDateAnswerItemDto
 import com.example.footballscoreapp.data.remote.dto.matchStatisctics.MatchStatisticDtoAnswer
 import com.example.footballscoreapp.data.remote.dto.matchStatisctics.MatchStatisticsDto
+import com.example.footballscoreapp.data.remote.dto.teamInfo.TeamInfoDto
 import org.koin.dsl.module
 import java.text.SimpleDateFormat
 import java.util.Locale
@@ -123,6 +124,22 @@ class ApiServiceMock {
                         )
                     )
                 }
+
+                override suspend fun getTeamInfo(teamsId: String): List<TeamInfoDto> {
+                    return listOf(
+                        TeamInfoDto(
+                            arenaName = "",
+                            arenaHashImage = "",
+                            tournamentName = "",
+                            foundationDate = "",
+                            countryName = "",
+                            countryHashImage = "",
+                            id = "",
+                            name = "",
+                            gender = ""
+                        )
+                    )
+                }
             }
             apiService
         }
@@ -137,7 +154,7 @@ class ApiServiceMock {
             LIVE_MATCHES_FAVOURITE_COUNT
         const val FAVOURITE_MATCHES_COUNT = 5
         const val FAVOURITE_MATCHES_COUNT_AFTER_ADDING = FAVOURITE_MATCHES_COUNT + 1
-        const val FAVOURITE_MATCHES_COUNT_AFTER_DELETING = FAVOURITE_MATCHES_COUNT-1
+        const val FAVOURITE_MATCHES_COUNT_AFTER_DELETING = FAVOURITE_MATCHES_COUNT - 1
         const val LINE_UP_LOADED_ID = "444"
         const val LINE_UP_PLAYERS_SIZE = 21
         const val STATISTICS_SIZE = 14

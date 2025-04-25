@@ -9,6 +9,7 @@ import com.example.footballscoreapp.domain.entities.matches.LeagueEntity
 import com.example.footballscoreapp.domain.entities.matches.MatchEntity
 import com.example.footballscoreapp.domain.entities.matches.MatchStatusEntity
 import com.example.footballscoreapp.domain.entities.matches.TeamMatchInfoEntity
+import com.example.footballscoreapp.domain.entities.teams.TeamMainInfoEntity
 import com.example.footballscoreapp.presentation.allMatchesScreen.AllLeaguesWithMatchesViewModel
 import kotlinx.coroutines.delay
 import org.junit.Test
@@ -143,15 +144,21 @@ class AllLeaguesAndMatchesTests : BaseTestClass() {
     companion object {
         val myAddToDbMatchMock = MatchEntity(
             awayTeamMatchInfoEntity = TeamMatchInfoEntity(
-                imageUrl = "awayTeamUrl 6",
-                name = "AwayTeamName 6",
-                id = "6",
+                teamMainInfoEntity = TeamMainInfoEntity(
+                    imageUrl = "awayTeamUrl 6",
+                    name = "AwayTeamName 6",
+                    id = "6"
+                ),
+
                 goals = 6,
             ),
             homeTeamMatchInfoEntity = TeamMatchInfoEntity(
-                imageUrl = "homeTeamUrl 6",
-                name = "HomeTeamName 6",
-                id = "6",
+                teamMainInfoEntity = TeamMainInfoEntity(
+                    imageUrl = "homeTeamUrl 6",
+                    name = "HomeTeamName 6",
+                    id = "6",
+                ),
+
                 goals = 6,
             ),
             matchId = "6",
@@ -167,15 +174,19 @@ class AllLeaguesAndMatchesTests : BaseTestClass() {
 
         val myDeleteMatchToDbMock = MatchEntity(
             awayTeamMatchInfoEntity = TeamMatchInfoEntity(
-                imageUrl = "awayTeamUrl 0",
-                name = "AwayTeamName 0",
-                id = "0",
+                teamMainInfoEntity = TeamMainInfoEntity(
+                    imageUrl = "awayTeamUrl 0",
+                    name = "AwayTeamName 0",
+                    id = "0",
+                ),
                 goals = 0,
             ),
             homeTeamMatchInfoEntity = TeamMatchInfoEntity(
-                imageUrl = "homeTeamUrl 0",
-                name = "HomeTeamName 0",
-                id = "0",
+                teamMainInfoEntity = TeamMainInfoEntity(
+                    imageUrl = "homeTeamUrl 0",
+                    name = "HomeTeamName 0",
+                    id = "0",
+                ),
                 goals = 0,
             ),
             matchId = "0",

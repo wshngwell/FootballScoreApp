@@ -1,0 +1,47 @@
+package com.example.footballscoreapp.presentation.allMatchesScreen
+
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Card
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
+import com.example.footballscoreapp.R
+import com.example.footballscoreapp.presentation.theme.allGamesInfoBackGround
+import com.example.footballscoreapp.presentation.theme.paddingAllLeaguesInfoRow
+import com.example.footballscoreapp.presentation.theme.paddingCard
+import com.example.footballscoreapp.presentation.theme.textColor
+
+
+@Preview
+@Composable
+fun AllLeaguesInfoCard(
+    gamesCount: Int = 0
+) {
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(top = paddingCard, bottom = paddingCard)
+    ) {
+        Row(
+            modifier = Modifier
+                .background(allGamesInfoBackGround)
+                .padding(paddingAllLeaguesInfoRow),
+        ) {
+            Text(
+                modifier = Modifier.weight(1f),
+                color = textColor,
+                text = stringResource(R.string.all_games)
+            )
+            Text(
+                color = textColor,
+                text = "$gamesCount"
+            )
+
+        }
+    }
+}

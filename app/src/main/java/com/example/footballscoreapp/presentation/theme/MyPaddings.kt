@@ -1,0 +1,22 @@
+package com.example.footballscoreapp.presentation.theme
+
+import androidx.compose.ui.unit.dp
+
+val paddingCard = 3.dp
+val paddingAllLeaguesInfoRow = 10.dp
+val paddingLeagueCardInfoRow = 5.dp
+val imagePadding = 7.dp
+val screenTopPadding = 25.dp
+val screenStartOrEndPadding = 8.dp
+val textPadding = 10.dp
+val matchTimeInfoPadding = 10.dp
+val bottomNavigationPadding = 5.dp
+val goalsStartAndEndPadding = 20.dp
+val paddingStartTextSettingsFromImage = 10.dp
+val videoCurrentTimeAndFullTimeStartPadding = paddingLeagueCardInfoRow
+val videoControlButtonsTopPadding = matchTimeInfoPadding
+val settingsOptionPadding = 20.dp
+val settingsDialogPadding = 25.dp
+val closeButtonAlertDialogPadding = 5.dp
+val paddingInSettingsOptionsText = 10.dp
+val screenTopPaddingInTeamDetailsScreen = 10.dp

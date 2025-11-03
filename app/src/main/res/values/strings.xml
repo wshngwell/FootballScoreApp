@@ -1,3 +1,49 @@
 <resources>
-    <string name="app_name">FootballScoreApp</string>
+    <string name="app_name" translatable="false">FootballScoreApp</string>
+    <string name="http_error" translatable="false">Http Error</string>
+    <string name="network_error">На устройстве нет интернета</string>
+    <string name="other_error">Возникла другая ошибка</string>
+    <string name="all_games">Все игры</string>
+    <string name="league">лига</string>
+    <string name="today">Сегодня</string>
+    <string name="tomorrow">Завтра</string>
+    <string name="yesterday">Вчера</string>
+    <string name="favourite_match">Избранный матч</string>
+    <string name="match_not_started">матч не начался</string>
+    <string name="match_is_going">матч идет</string>
+    <string name="match_finished">матч окончен</string>
+    <string name="match_postponed">матч перенесен</string>
+    <string name="all_matches">Все матчи</string>
+    <string name="live_matches">Прямой эфир</string>
+    <string name="favourite_matches">Избранные</string>
+    <string name="settings">Настройки</string>
+    <string name="match_cancelled">Матч отменен</string>
+    <string name="match_interrupted">матч прерван</string>
+    <string name="stadium_with_name">Стадион: %1$s</string>
+    <string name="coach">Тренер %1$s</string>
+    <string name="substiture">Запасной состав</string>
+    <string name="mainLineUp">Основной состав</string>
+    <string name="noLineUp">Состава на матч нет</string>
+    <string name="noStatistic">Статистики нет</string>
+    <string name="statistic">Статистика</string>
+    <string name="slash" translatable="false">/</string>
+    <string name="play_pause">Включить/Пауза</string>
+    <string name="full_screen_button">полноэкранный режим</string>
+    <string name="match_highlights">Обзор матча</string>
+    <string name="theme_change_image">картинка изменения темы</string>
+    <string name="change_theme_scheme">Изменить тему</string>
+    <string name="change_lang">Изменить язык</string>
+    <string name="white_option">Светлая тема</string>
+    <string name="black_option">Темная тема</string>
+    <string name="system_option">Системная тема</string>
+    <string name="close">Закрыть</string>
+    <string name="english">Английский</string>
+    <string name="russina">Русский</string>
+    <string name="system_lang">Язык как в системе</string>
+    <string name="stadium">Стадион</string>
+    <string name="team_info">Информация о команде</string>
+    <string name="country_name">Страна</string>
+    <string name="foundation_date">Дата основания</string>
+    <string name="tournament_name">Название основного турнира</string>
+    <string name="categoryteaminfo">CategoryTeamInfo</string>
 </resources>
